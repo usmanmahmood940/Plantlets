@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Plantlets</string>
+
+    <string name="welcome_msg">Welcome to Plantlets</string>
+    <string name="enter_credentials">Enter your email and password to continue</string>
+
+</resources>

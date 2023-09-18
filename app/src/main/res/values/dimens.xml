@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero">0dp</dimen>
+
+    <dimen name="font_small_75">12sp</dimen>
+    <dimen name="font_small_85">13sp</dimen>
+    <dimen name="font_small_100">14sp</dimen>
+    <dimen name="font_small_115">16sp</dimen>
+    <dimen name="font_small_125">18sp</dimen>
+    <dimen name="font_small_150">20sp</dimen>
+    <dimen name="font_normal_100">25sp</dimen>
+    <dimen name="font_normal_125">30dp</dimen>
+    <dimen name="font_normal_150">40dp</dimen>
+    <dimen name="font_large_75">45dp</dimen>
+    <dimen name="font_large_95">50dp</dimen>
+    <dimen name="font_large_100">55dp</dimen>
+
+    <dimen name="margin_small_50">4dp</dimen>
+    <dimen name="margin_small_100">8dp</dimen>
+    <dimen name="margin_small_150">12dp</dimen>
+    <dimen name="margin_normal_100">16dp</dimen>
+    <dimen name="margin_normal_150">25dp</dimen>
+    <dimen name="margin_normal_200">32dp</dimen>
+    <dimen name="margin_large_100">50dp</dimen>
+    <dimen name="margin_large_200">75dp</dimen>
+
+    <dimen name="search_box_height">55dp</dimen>
+
+    <dimen name="padding_small_50">2dp</dimen>
+    <dimen name="padding_small_100">5dp</dimen>
+    <dimen name="padding_normal_100">10dp</dimen>
+    <dimen name="padding_normal_120">12dp</dimen>
+    <dimen name="padding_normal_200">20dp</dimen>
+    <dimen name="padding_normal_500">50dp</dimen>
+    <dimen name="padding_normal_900">90dp</dimen>
+
+    <dimen name="vertical_guideline">15dp</dimen>
+    <dimen name="horizontal_guideline">20dp</dimen>
+
+    <dimen name="rounded_corner_radius">50dp</dimen>
+    <dimen name="vertical_offset">6dp</dimen>
+    <dimen name="floating_btn_elevation">3dp</dimen>
+
+    <dimen name="profile_image_size">60dp</dimen>
+    <dimen name="category_image_size">35dp</dimen>
+    <dimen name="cart_image_maxsize">30dp</dimen>
+    <dimen name="food_image_size">100dp</dimen>
+    <dimen name="food_image_bottom_sheet_size">250dp</dimen>
+
+    <dimen name="mtrl_badge_with_text_radius">22dp</dimen>
+
+    <dimen name="track_circle_size">35dp</dimen>
+
+
+
+
+
+
+
+
+
+</resources>
