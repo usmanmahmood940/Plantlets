@@ -256,6 +256,7 @@
                         app:buttonTint="@color/light_green"
                         android:checked="true"
                         android:text="User"
+                        android:background="@null"
                         android:textColor="@color/black" />
 
                     <RadioButton
@@ -265,16 +266,57 @@
                         android:layout_marginStart="@dimen/margin_normal_200"
                         app:buttonTint="@color/light_green"
                         android:text="Vendor"
+                        android:background="@null"
                         android:textColor="@color/black" />
 
 
                 </RadioGroup>
 
+                <RelativeLayout
+                    android:id="@+id/rlStore"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_100"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rg_type">
+
+                    <ImageView
+                        android:id="@+id/ivStore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_store" />
+
+                    <EditText
+                        android:id="@+id/etStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/ivStore"
+                        android:background="@null"
+                        android:fontFamily="@font/futura_medium"
+                        android:hint="Enter Store Name"
+                        android:inputType="textEmailAddress"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+
+                        />
+
+
+                </RelativeLayout>
+
                 <Button
                     android:id="@+id/btnSignup"
                     android:layout_width="@dimen/zero"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large_200"
+                    android:layout_marginTop="@dimen/margin_large_100"
                     android:background="@drawable/shape_circle_green"
                     android:elevation="2dp"
                     android:fontFamily="@font/futur"
@@ -285,7 +327,7 @@
                     app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rg_type" />
+                    app:layout_constraintTop_toBottomOf="@+id/rlStore" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
