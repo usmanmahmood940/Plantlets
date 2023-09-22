@@ -1,15 +1,12 @@
-package com.example.plantlets
+package com.example.plantlets.activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.plantlets.R
 
 
 open class BaseActivity : AppCompatActivity() {

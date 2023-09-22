@@ -1,11 +1,7 @@
-package com.example.plantlets
+package com.example.plantlets.activities
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import com.example.plantlets.databinding.ActivityOnBoardingBinding
 
 private lateinit var binding:ActivityOnBoardingBinding
@@ -25,7 +21,7 @@ class OnBoardingActivity : BaseActivity() {
 
     private fun setupListener() {
         binding.btnContinue.setOnClickListener {
-            startActivity(Intent(this@OnBoardingActivity,LoginActivity::class.java))
+            startActivity(Intent(this@OnBoardingActivity, LoginActivity::class.java))
         }
     }
 

@@ -1,11 +1,10 @@
-package com.example.plantlets
+package com.example.plantlets.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.plantlets.databinding.ActivityLoginBinding
 
-private lateinit var binding:ActivityLoginBinding
+private lateinit var binding: ActivityLoginBinding
 
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +13,7 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.tvSignup.setOnClickListener {
-            startActivity(Intent(this,SignupActivity::class.java))
+            startActivity(Intent(this, SignupActivity::class.java))
         }
 
     }

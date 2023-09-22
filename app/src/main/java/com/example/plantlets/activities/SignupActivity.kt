@@ -1,16 +1,18 @@
-package com.example.plantlets
+package com.example.plantlets.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.plantlets.activities.BaseActivity
+import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivitySignupBinding
+
 
 private lateinit var binding: ActivitySignupBinding
 
 class SignupActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+       binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
