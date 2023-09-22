@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.plantlets.databinding.ActivityOnBoardingBinding
 
-private lateinit var binding:ActivityOnBoardingBinding
+
 
 class OnBoardingActivity : BaseActivity() {
+    private lateinit var binding:ActivityOnBoardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)

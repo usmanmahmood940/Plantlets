@@ -1,0 +1,25 @@
+Firebase rule guide
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read access to the "products" collection for anyone
+    match /products/{productId} {
+      allow read: if true;
+
+      // Allow write access to the "products" collection only if the user is authenticated
+      allow write: if request.auth != null;
+
+      // Restrict updating and deleting products to the user who created them
+      allow update, delete: if request.auth != null
+          && request.resource.data.owner == request.auth.uid;
+
+      // Define ownership rules for new product creations
+      allow create: if request.auth != null
+          && request.resource.data.owner == request.auth.uid
+          && request.resource.data.name != null
+          && request.resource.data.price != null;
+    }
+  }
+}

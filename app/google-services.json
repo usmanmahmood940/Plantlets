@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314993636038",
+    "project_id": "plantlets-8361a",
+    "storage_bucket": "plantlets-8361a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314993636038:android:f207a039a5432639ed9dc7",
+        "android_client_info": {
+          "package_name": "com.example.plantlets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHwuDF6tVFIZjQafPSpT0dPas2RbllVKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
