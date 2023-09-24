@@ -100,7 +100,6 @@ class SignupActivity : BaseActivity() {
 
     private fun navigateToMap() {
         val intent = Intent(this, PinLocationMapActivity::class.java)
-//        startActivity(intent)
         resultLauncher.launch(intent)
     }
 
