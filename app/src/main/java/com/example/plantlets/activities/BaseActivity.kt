@@ -32,7 +32,7 @@ open class BaseActivity : AppCompatActivity() {
     fun showAlert(
         title: String,
         message: String,
-        positiveButtonText: String = "OK",
+        positiveButtonText: String? = null,
         positiveButtonClickListener: DialogInterface.OnClickListener? = onAlertBoxClickListener,
         negativeButtonText: String? = null,
         negativeButtonClickListener: DialogInterface.OnClickListener? = null,
@@ -47,7 +47,7 @@ open class BaseActivity : AppCompatActivity() {
             if (negativeButtonText != null && negativeButtonClickListener != null) {
                 setNegativeButton(negativeButtonText, negativeButtonClickListener)
             }
-            if (positiveButtonClickListener != null) {
+            if (positiveButtonText != null) {
                 setPositiveButton(positiveButtonText, positiveButtonClickListener)
             }
         }.create()

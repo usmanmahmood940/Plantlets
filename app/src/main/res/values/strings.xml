@@ -22,6 +22,8 @@
     <string name="error">Error</string>
     <string name="title_activity_pin_location_map">PinLocationMapActivity</string>
     <string name="permission_denied">Permission Denied</string>
+    <string name="information">Information</string>
+    <string name="account_created">Your account is successfully created </string>
 
 
 

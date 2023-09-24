@@ -21,8 +21,14 @@ object Constants {
     const val ORDER_DELIVERY_INFO_REFRENCE = "deliveryInfo"
     const val STATUS_REFRENCE = "status"
     const val USER_REFRENCE = "User"
+    const val STORE_REFRENCE = "Stores"
+    const val ITEM_REFRENCE = "Items"
     const val MOBILE_NUMBER_REF = "mobileNumber"
-    const val ROLE_REFRENCE = "role"
+    const val TYPE_REFRENCE = "type"
+    const val USER_TYPE="user"
+    const val VENDOR_TYPE="vendor"
+
+
 
     const val ZERO_DOUBLE = 0.0
     const val ZERO = 0
