@@ -23,3 +23,19 @@ service cloud.firestore {
     }
   }
 }
+
+// Date comparison
+
+if (store.freeTrialDate.toDate() >= store.freeTrialExpireDate.toDate()) {
+    // The free trial has expired or is equal to the expiration date.
+    // You can handle this case here.
+} else {
+    // The free trial is still active.
+    // You can handle this case here.
+}
+
+
+
+
+
+
