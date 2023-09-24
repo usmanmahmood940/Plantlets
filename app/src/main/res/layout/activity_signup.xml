@@ -279,7 +279,7 @@
                     android:layout_marginTop="@dimen/margin_normal_100"
                     android:background="@drawable/shape_email_pass"
                     android:padding="@dimen/padding_normal_100"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rg_type">
@@ -289,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_store" />
+                        app:srcCompat="@drawable/ic_address" />
 
                     <EditText
                         android:id="@+id/etStore"
@@ -301,6 +301,86 @@
                         android:background="@null"
                         android:fontFamily="@font/futura_medium"
                         android:hint="Enter Store Name"
+                        android:inputType="textEmailAddress"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+
+                        />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlAddress"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_100"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rlStore">
+
+                    <ImageView
+                        android:id="@+id/ivAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_store" />
+
+                    <EditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/ivAddress"
+                        android:background="@null"
+                        android:fontFamily="@font/futura_medium"
+                        android:hint="Enter Store Address"
+                        android:inputType="textEmailAddress"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+
+                        />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlPinLocation"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_100"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rlAddress">
+
+                    <ImageView
+                        android:id="@+id/ivPinLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_store" />
+
+                    <EditText
+                        android:id="@+id/etPinLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/ivPinLocation"
+                        android:background="@null"
+                        android:fontFamily="@font/futura_medium"
+                        android:hint="Enter Store Address"
                         android:inputType="textEmailAddress"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
@@ -327,7 +407,7 @@
                     app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rlStore" />
+                    app:layout_constraintTop_toBottomOf="@+id/rlPinLocation" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

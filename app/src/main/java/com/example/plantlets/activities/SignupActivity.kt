@@ -81,8 +81,25 @@ class SignupActivity : BaseActivity() {
 
     private fun signup() {
          if(checkFormValidation()){
+           if(checkVendorValidation()){
 
+           }
          }
+
+    }
+
+    private fun checkVendorValidation(): Boolean {
+        with(binding){
+            if(rgType.checkedRadioButtonId == R.id.rb_vendor){
+                val storeName = etStore.text.toString().trim()
+                when {
+                    storeName.isBlank() ->{
+                        etStore.showError(getString(R.string.field_required_error))
+                    }
+                }
+            }
+            return true
+        }
 
     }
 
@@ -92,7 +109,6 @@ class SignupActivity : BaseActivity() {
             val password = etPassword.text.toString().trim()
             val name = etName.text.toString().trim()
             val mobileNumber = etMobileNum.text.toString().trim()
-            val storeName = etStore.text.toString().trim()
 
             when {
                 email.isBlank() -> {
@@ -109,9 +125,6 @@ class SignupActivity : BaseActivity() {
                 }
                 mobileNumber.isBlank() -> {
                     etMobileNum.showError(getString(R.string.field_required_error))
-                }
-                storeName.isBlank() ->{
-                    etStore.showError(getString(R.string.field_required_error))
                 }
                 (imageUri == null) -> {
                     showAlert(
