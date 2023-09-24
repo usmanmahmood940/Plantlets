@@ -17,31 +17,34 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.tvSignup.setOnClickListener {
-//            startActivity(Intent(this, SignupActivity::class.java))
-            val db = Firebase.firestore
-           val email = " usman@gmail.com"
-            val store = Store(email)
-
+            startActivity(Intent(this, SignupActivity::class.java))
             
+        }
+
+    }
+
+    private fun makeAccount() {
+        val db = Firebase.firestore
+        val email = " usman@gmail.com"
+        val store = Store(email)
+
+
 //            db.collection("Stores").document(email).collection("Items").document(email).set(store)
+        db.collection("Stores").addSnapshotListener { snapshotArray, e ->
+            if (e != null) {
+                Log.w("ERROR", "Listen failed.", e)
+                return@addSnapshotListener
+            }
 
-            db.collection("Stores").addSnapshotListener { snapshotArray, e ->
-                if (e != null) {
-                    Log.w("ERROR", "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshotArray != null) {
-                    for (snapshot in snapshotArray) {
-                        if (snapshot != null && snapshot.exists()) {
-                            Log.d("DATA-TAG", "Current data: ${snapshot.data}")
-                        } else {
-                            Log.d("TAG", "Current data: null")
-                        }
+            if (snapshotArray != null) {
+                for (snapshot in snapshotArray) {
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d("DATA-TAG", "Current data: ${snapshot.data}")
+                    } else {
+                        Log.d("TAG", "Current data: null")
                     }
                 }
             }
         }
-
     }
 }

@@ -279,7 +279,7 @@
                     android:layout_marginTop="@dimen/margin_normal_100"
                     android:background="@drawable/shape_email_pass"
                     android:padding="@dimen/padding_normal_100"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rg_type">
@@ -319,7 +319,7 @@
                     android:layout_marginTop="@dimen/margin_normal_100"
                     android:background="@drawable/shape_email_pass"
                     android:padding="@dimen/padding_normal_100"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rlStore">
@@ -359,7 +359,7 @@
                     android:layout_marginTop="@dimen/margin_normal_100"
                     android:background="@drawable/shape_email_pass"
                     android:padding="@dimen/padding_normal_100"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rlAddress">
@@ -369,7 +369,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_store" />
+                        app:srcCompat="@drawable/ic_location" />
 
                     <EditText
                         android:id="@+id/etPinLocation"
@@ -380,7 +380,7 @@
                         android:layout_toRightOf="@+id/ivPinLocation"
                         android:background="@null"
                         android:fontFamily="@font/futura_medium"
-                        android:hint="Enter Store Address"
+                        android:hint="Choose Pin Location"
                         android:inputType="textEmailAddress"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
