@@ -16,21 +16,33 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
+    private val dismissListener = object : DialogInterface.OnDismissListener {
+        override fun onDismiss(dialog: DialogInterface?) {
+            finish()
+        }
+    }
+    private val onAlertBoxClickListener = object : DialogInterface.OnClickListener {
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            finish()
+        }
+    }
+
+
     // Function to show an alert dialog
     fun showAlert(
         title: String,
         message: String,
         positiveButtonText: String = "OK",
-        positiveButtonClickListener: DialogInterface.OnClickListener? = null,
+        positiveButtonClickListener: DialogInterface.OnClickListener? = onAlertBoxClickListener,
         negativeButtonText: String? = null,
         negativeButtonClickListener: DialogInterface.OnClickListener? = null,
-        onDismissListener: DialogInterface.OnDismissListener? = null,
+        onDismissListener: DialogInterface.OnDismissListener? = dismissListener,
     ) {
         val dialog = AlertDialog.Builder(this).apply {
             setTitle(title)
             setMessage(message)
             setOnDismissListener(onDismissListener)
-            setPositiveButton(positiveButtonText, positiveButtonClickListener)
+
 
             if (negativeButtonText != null && negativeButtonClickListener != null) {
                 setNegativeButton(negativeButtonText, negativeButtonClickListener)
