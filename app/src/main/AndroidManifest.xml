@@ -15,9 +15,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Plantlets"
+        android:name=".AppObject"
         tools:targetApi="31">
         <activity
-            android:name=".SellerHomeActivity"
+            android:name=".activities.SellerHomeActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.

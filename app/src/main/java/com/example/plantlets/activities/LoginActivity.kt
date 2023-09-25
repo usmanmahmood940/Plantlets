@@ -16,12 +16,22 @@ class LoginActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvSignup.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            
-        }
+
+        setupListeners()
+
 
     }
+
+    private fun setupListeners() {
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(this,SellerHomeActivity::class.java))
+        }
+
+        binding.tvSignup.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+        }
+    }
+
 
     private fun makeAccount() {
         val db = Firebase.firestore

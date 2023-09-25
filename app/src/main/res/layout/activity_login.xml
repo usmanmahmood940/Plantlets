@@ -183,11 +183,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnLogin" >
+
                     <ImageButton
                         android:id="@+id/btn_google_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_circle_light_grey"
+
                         android:padding="@dimen/padding_small_50"
                         android:scaleType="center"
                         android:src="@drawable/ic_google" />
@@ -210,11 +212,11 @@
                     android:id="@+id/tvForgetPass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal_100"
+                    android:layout_marginTop="@dimen/margin_normal_150"
                     android:fontFamily="@font/futur"
                     android:text="Forgot Password"
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/font_small_100"
+                    android:textSize="@dimen/font_small_115"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_google_facebook" />
@@ -227,7 +229,7 @@
                     android:fontFamily="@font/futur"
                     android:text="Sign up"
                     android:textColor="@color/light_green"
-                    android:textSize="@dimen/font_small_100"
+                    android:textSize="@dimen/font_small_115"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

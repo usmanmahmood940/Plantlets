@@ -33,10 +33,12 @@ import com.example.plantlets.utils.Extensions.toUri
 import com.example.plantlets.utils.Extensions.togglePasswordVisibility
 import com.example.plantlets.utils.Helper.getAddressFromLocation
 import com.example.plantlets.viewmodels.SignupViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.ref.WeakReference
 import java.util.*
 
 
+@AndroidEntryPoint
 class SignupActivity : BaseActivity() {
     private lateinit var binding: ActivitySignupBinding
     private lateinit var signupViewModel: SignupViewModel
