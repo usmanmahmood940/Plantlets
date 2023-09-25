@@ -36,15 +36,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/padding_small_100"
-        app:backgroundTint="@color/light_grey"
-        app:elevation="0dp"
+        android:background="@color/light_grey"
         app:itemIconTint="@drawable/bottom_nav_item_color"
-        app:itemRippleColor="@color/grey2"
+        app:itemBackground="@null"
+        app:itemRippleColor="@null"
         app:itemTextColor="@drawable/bottom_nav_item_color"
-        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/Widget.Design.BottomNavigationView"
         app:menu="@menu/seller_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,28 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_home_seller"
-        android:icon="@drawable/ic_home_outline"
+        android:icon="@drawable/item_home_icons"
         android:title="@string/home"
         app:tint="@color/light_green"
         />
 
     <item
         android:id="@+id/nav_orders_seller"
-        android:icon="@drawable/ic_booking_outline"
+        android:icon="@drawable/item_orders_icons"
         android:title="@string/orders"
         app:tint="@color/grey"
+        
         />
 
     <item
         android:id="@+id/nav_profile_seller"
-        android:icon="@drawable/ic_profile_outline"
+        android:icon="@drawable/item_profile_icons"
         android:title="@string/profile"
         app:tint="@color/grey"
         />
 
     <item
         android:id="@+id/nav_setting_seller"
-        android:icon="@drawable/ic_setting_outline"
+        android:icon="@drawable/item_setting_icons"
         android:title="@string/settings"
         app:tint="@color/grey"
         />
