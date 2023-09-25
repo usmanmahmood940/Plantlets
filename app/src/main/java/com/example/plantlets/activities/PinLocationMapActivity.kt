@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.maps.android.ui.IconGenerator
 
-class PinLocationMapActivity : AppCompatActivity(), OnMapReadyCallback {
+class PinLocationMapActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mapViewModel: MapViewModel
