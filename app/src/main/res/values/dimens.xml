@@ -16,6 +16,7 @@
     <dimen name="font_large_100">55dp</dimen>
 
     <dimen name="margin_small_50">4dp</dimen>
+    <dimen name="margin_small_75">6dp</dimen>
     <dimen name="margin_small_100">8dp</dimen>
     <dimen name="margin_small_150">12dp</dimen>
     <dimen name="margin_normal_100">16dp</dimen>

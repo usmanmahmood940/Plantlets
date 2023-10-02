@@ -19,6 +19,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="curvedCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15%</item>
+    </style>
+
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
     <style name="BaseBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
