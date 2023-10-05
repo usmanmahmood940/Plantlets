@@ -53,4 +53,84 @@ slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
 
 
 
+// firestore data :
+
+
+ private fun makeAccount() {
+        val db = Firebase.firestore
+        val email = " usman@gmail.com"
+        val store = Store(email)
+
+
+//            db.collection("Stores").document(email).collection("Items").document(email).set(store)
+        db.collection("Stores").addSnapshotListener { snapshotArray, e ->
+            if (e != null) {
+                Log.w("ERROR", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            if (snapshotArray != null) {
+                for (snapshot in snapshotArray) {
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d("DATA-TAG", "Current data: ${snapshot.data}")
+                    } else {
+                        Log.d("TAG", "Current data: null")
+                    }
+                }
+            }
+        }
+    }
+
+
+     firestoreRef.collection(USER_REFRENCE).document(user.id).set(user)
+                .addOnSuccessListener {
+                    // The data has been successfully written to Firestore
+                    // You can perform any actions you want on success here
+                    Log.d("Usman-Tag", "Document successfully written!")
+                    // Add your success handling logic here
+                }
+                .addOnFailureListener { e ->
+                    // Handle any errors that occurred during the write operation
+                    Log.e("Usman-Tag", "Error writing document: ${e.message}")
+                    // Add your error handling logic here
+                }
+
+
+
+     suspend fun createDocumentIfNotExists() {
+         val db = Firebase.firestore
+         val docRef = db.collection("your_collection_name").document("your_document_id")
+
+         val dataToSet = mapOf(
+             "field1" to "value1",
+             "field2" to "value2"
+         )
+
+         val documentSnapshot = try {
+             docRef.get().await()
+         } catch (e: Exception) {
+             // Handle any errors that occur when checking for document existence
+             Log.e("TAG", "Error checking document existence: ${e.message}")
+             return
+         }
+
+         if (documentSnapshot.exists()) {
+             // Document already exists; do not set it again
+             Log.d("TAG", "Document already exists.")
+         } else {
+             // Document does not exist; perform the set operation
+             try {
+                 docRef.set(dataToSet).await()
+                 // Document was created successfully
+                 Log.d("TAG", "Document was created.")
+             } catch (e: Exception) {
+                 // Handle any errors that occur during the set operation
+                 Log.e("TAG", "Error setting document: ${e.message}")
+             }
+         }
+     }
+
+
+
+
 

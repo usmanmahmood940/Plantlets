@@ -1,8 +1,12 @@
 package com.example.plantlets.activities
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -10,13 +14,16 @@ import com.example.plantlets.R
 
 
 open class BaseActivity : AppCompatActivity() {
+
+    private var progressBar: ProgressBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideStatusbar()
 
     }
 
-    private val dismissListener = object : DialogInterface.OnDismissListener {
+    public val dismissListener = object : DialogInterface.OnDismissListener {
         override fun onDismiss(dialog: DialogInterface?) {
             finish()
         }
@@ -36,14 +43,16 @@ open class BaseActivity : AppCompatActivity() {
         positiveButtonClickListener: DialogInterface.OnClickListener? = onAlertBoxClickListener,
         negativeButtonText: String? = null,
         negativeButtonClickListener: DialogInterface.OnClickListener? = null,
-        onDismissListener: DialogInterface.OnDismissListener? = dismissListener,
+        onDismissListener: DialogInterface.OnDismissListener? = null,
     ) {
         val dialog = AlertDialog.Builder(this).apply {
             setTitle(title)
             setMessage(message)
-            setOnDismissListener(onDismissListener)
 
+            onDismissListener?.let{
+                setOnDismissListener(onDismissListener)
 
+            }
             if (negativeButtonText != null && negativeButtonClickListener != null) {
                 setNegativeButton(negativeButtonText, negativeButtonClickListener)
             }
@@ -64,6 +73,32 @@ open class BaseActivity : AppCompatActivity() {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+    }
+    fun showProgressBar(context:Context) {
+        if (progressBar == null) {
+            progressBar = ProgressBar(context)
+            progressBar!!.indeterminateTintList = getColorStateList(R.color.light_green)
+            progressBar!!.layoutParams = FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = android.view.Gravity.CENTER
+            }
+            progressBar!!.isIndeterminate = true
+        }
+
+        val contentView = findViewById<ViewGroup>(android.R.id.content)
+        progressBar!!.layoutParams.width = contentView.width
+        progressBar!!.layoutParams.height = contentView.height
+
+        contentView.addView(progressBar)
+    }
+
+    fun hideProgressBar() {
+        if (progressBar != null) {
+            val contentView = findViewById<ViewGroup>(android.R.id.content)
+            contentView.removeView(progressBar)
+        }
     }
 
 }

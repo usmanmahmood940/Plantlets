@@ -82,6 +82,10 @@ class PinLocationMapActivity : BaseActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        val pakistan = LatLng( 31.5204, 74.3587)
+        mMap?.apply{
+            moveCamera(CameraUpdateFactory.newLatLng(pakistan))
+        }
         updateMap()
     }
 

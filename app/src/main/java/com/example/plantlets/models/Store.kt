@@ -11,5 +11,6 @@ data class Store(
     var storeAddress:String? = null,
     var storePinLocation:String?=null,
     val freeTrialDate: Timestamp = Timestamp.now(),
-    var freeTrialExpireDate:Timestamp = Timestamp(Date().addDays(30))
+    var freeTrialExpireDate:Timestamp = Timestamp(Date().addDays(30)) ,
+    var activeStatus:Boolean = false
 )

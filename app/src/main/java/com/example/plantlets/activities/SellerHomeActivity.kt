@@ -12,6 +12,7 @@ class SellerHomeActivity : BaseActivity() {
     lateinit var binding:ActivitySellerHomeBinding
     private lateinit var navController: NavController
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySellerHomeBinding.inflate(layoutInflater)
@@ -26,4 +27,6 @@ class SellerHomeActivity : BaseActivity() {
             .findNavController()
         binding.bottomNavSeller.setupWithNavController(navController)
     }
+
+ 
 }

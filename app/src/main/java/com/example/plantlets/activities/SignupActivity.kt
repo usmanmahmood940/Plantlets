@@ -51,6 +51,14 @@ class SignupActivity : BaseActivity() {
         signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
         initializeSignupListener()
         setListeners()
+        showProgressBar(this@SignupActivity).also {
+            binding.apply {
+                svSignup.alpha = 0.5f
+                btnSignup.isEnabled = false
+            }
+        }
+
+
 
     }
 
@@ -148,6 +156,7 @@ class SignupActivity : BaseActivity() {
 
                 }
                 else {
+
                     signUp(listener = signupListener)
                 }
             }
@@ -252,8 +261,10 @@ class SignupActivity : BaseActivity() {
             override fun onSuccess() {
                 showAlert(
                     title = getString(R.string.information),
-                    message = getString(R.string.account_created)
+                    message = getString(R.string.account_created),
+                    onDismissListener = dismissListener
                 )
+//                finish()
             }
 
             override fun onFailure(errorMessage: String?) {
@@ -287,6 +298,7 @@ class SignupActivity : BaseActivity() {
             if (uri != null) {
                 binding.tvUploadImage.visibility = View.GONE
                 binding.ivProfileImage.setImageURI(uri)
+                signupViewModel.imageUri = uri
 
             }
         }
