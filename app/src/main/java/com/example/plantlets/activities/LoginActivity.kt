@@ -59,7 +59,8 @@ class LoginActivity : BaseActivity() {
 
     private fun setupListeners() {
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(this, SellerHomeActivity::class.java))
+            login()
+//            startActivity(Intent(this, SellerHomeActivity::class.java))
         }
 
         binding.tvSignup.setOnClickListener {
@@ -69,7 +70,33 @@ class LoginActivity : BaseActivity() {
     }
 
     fun login() {
+        if (checkFormValidation()) {
+            loginViewModel.login(loginViewModel.email, loginViewModel.password,loginListener)
+        }
+    }
 
+    private fun checkFormValidation(): Boolean {
+        with(binding) {
+            with(loginViewModel) {
+                email = etEmail.text.toString().trim()
+                password = etPassword.text.toString().toString()
+                when {
+                    email.isBlank() -> {
+                        etEmail.showError(getString(com.example.plantlets.R.string.email_required_error))
+                    }
+                    !email.isValidEmail() -> {
+                        etEmail.showError(getString(com.example.plantlets.R.string.email_valid_error))
+                    }
+                    password.isBlank() -> {
+                        etPassword.showError(getString(com.example.plantlets.R.string.password_required_error))
+                    }
+                    else -> {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 
 //    private fun checkFormValidation(): Boolean {

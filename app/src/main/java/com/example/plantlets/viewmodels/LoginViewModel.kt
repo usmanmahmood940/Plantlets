@@ -23,6 +23,8 @@ class LoginViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) : ViewModel() {
 
+    lateinit var email:String
+    lateinit var password: String
 
     fun login(
         email: String,
@@ -36,9 +38,8 @@ class LoginViewModel @Inject constructor(
 
     fun getNavigation(): Class<out BaseActivity> {
 
-        val userString: String? = sharedPreferences.getString(USER_REFRENCE, null)
-        val objUser: User = Gson().fromJson(userString, User::class.java)
-        val destinationClass = when (objUser.type) {
+       val user:User = userRepository.getCurrentUserData()
+        val destinationClass = when (user.type) {
             VENDOR_TYPE -> {
                 SellerHomeActivity::class.java
             }

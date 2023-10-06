@@ -156,4 +156,12 @@ class UserRepository @Inject constructor(
         editor.apply()
     }
 
+    fun getCurrentUserData():User{
+        val userString: String? = sharedPreferences.getString(USER_REFRENCE, null)
+        val objUser: User = Gson().fromJson(userString, User::class.java)
+        return objUser
+    }
+
+
+
 }
