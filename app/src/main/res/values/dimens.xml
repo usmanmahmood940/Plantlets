@@ -9,11 +9,11 @@
     <dimen name="font_small_125">18sp</dimen>
     <dimen name="font_small_150">20sp</dimen>
     <dimen name="font_normal_100">25sp</dimen>
-    <dimen name="font_normal_125">30dp</dimen>
-    <dimen name="font_normal_150">40dp</dimen>
-    <dimen name="font_large_75">45dp</dimen>
-    <dimen name="font_large_95">50dp</dimen>
-    <dimen name="font_large_100">55dp</dimen>
+    <dimen name="font_normal_125">30sp</dimen>
+    <dimen name="font_normal_150">40sp</dimen>
+    <dimen name="font_large_75">45sp</dimen>
+    <dimen name="font_large_95">50sp</dimen>
+    <dimen name="font_large_100">55sp</dimen>
 
     <dimen name="margin_small_50">4dp</dimen>
     <dimen name="margin_small_75">6dp</dimen>
@@ -29,6 +29,7 @@
 
     <dimen name="padding_small_50">2dp</dimen>
     <dimen name="padding_small_100">5dp</dimen>
+    <dimen name="padding_small_150">7dp</dimen>
     <dimen name="padding_normal_100">10dp</dimen>
     <dimen name="padding_normal_120">12dp</dimen>
     <dimen name="padding_normal_200">20dp</dimen>

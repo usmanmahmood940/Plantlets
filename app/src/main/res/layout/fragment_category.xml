@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_grey"
+    tools:context=".fragments.CategoryFragment">
+
+    <TextView
+        android:id="@+id/tvLabelCategory"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_medium"
+        android:paddingTop="15dp"
+        android:text="@string/categories"
+        android:textAlignment="center"
+        android:textColor="@color/light_green"
+        android:textSize="@dimen/font_normal_150"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvSearchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_normal_100"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        android:background="@drawable/shape_search_border"
+        android:paddingVertical="@dimen/padding_small_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelCategory">
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_small_100"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/etSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/etSearch" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small_150"
+            android:background="@null"
+            android:fontFamily="@font/futura_medium"
+            android:hint="@string/search"
+            android:paddingVertical="@dimen/padding_small_100"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_125"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivSearch"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategoryList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_normal_200"
+        android:background="@color/white"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvSearchBar"
+        tools:listitem="@layout/item_category" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal_150"
+        android:layout_marginBottom="@dimen/margin_normal_200"
+        android:contentDescription="@string/add_category"
+        app:elevation="6dp"
+        app:backgroundTint="@color/light_green"
+        app:tint="@color/white"
+        app:pressedTranslationZ="12dp"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@ class SellerHomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySellerHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setChildView(binding.root)
         setupNavController()
 
 

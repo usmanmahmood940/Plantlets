@@ -7,6 +7,12 @@
         android:title="@string/home"
         app:tint="@color/light_green"
         />
+    <item
+        android:id="@+id/nav_category_seller"
+        android:icon="@drawable/item_category_icons"
+        android:title="@string/category"
+        app:tint="@color/grey"
+        />
 
     <item
         android:id="@+id/nav_orders_seller"

@@ -20,7 +20,7 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestoreRef: FirebaseFirestore,
-    private val sharedPreferences: SharedPreferences,
+    private val localRepository: localRepository
 ) {
 
     suspend fun signUp(
@@ -99,7 +99,7 @@ class UserRepository @Inject constructor(
 
                 val user = getLoginUser(uid)
                 user?.let {
-                    saveUserDataToSharedPreferences(sharedPreferences, it)
+                    localRepository.saveUserDataToSharedPreferences(it)
                 }
                 runOnMain({ listener.onSuccess() })
                 withContext(Dispatchers.IO) {
@@ -107,7 +107,7 @@ class UserRepository @Inject constructor(
                         if (type == VENDOR_TYPE) {
                             val store = getStoreData(email)
                             store?.let {
-                                saveStoreDataToSharedPreferences(sharedPreferences, it)
+                                localRepository.saveStoreDataToSharedPreferences(it)
                             }
                         }
                     }
@@ -134,33 +134,7 @@ class UserRepository @Inject constructor(
     }
 
 
-    private fun saveUserDataToSharedPreferences(sharedPreferences: SharedPreferences, user: User) {
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val userJson: String = gson.toJson(user)
-        editor.putString(USER_REFRENCE, userJson)
-       
-        // Add other user-related data to SharedPreferences
-        editor.apply()
 
-//        val json: String? = sharedPreferences.getString(USER_REFRENCE, null)
-//        val obj: User = gson.fromJson(json, User::class.java)
-    }
-
-    private fun saveStoreDataToSharedPreferences(sharedPreferences: SharedPreferences, store: Store) {
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val storeJson: String = gson.toJson(store)
-        editor.putString(STORE_REFRENCE, storeJson)
-        // Add other store-related data to SharedPreferences
-        editor.apply()
-    }
-
-    fun getCurrentUserData():User{
-        val userString: String? = sharedPreferences.getString(USER_REFRENCE, null)
-        val objUser: User = Gson().fromJson(userString, User::class.java)
-        return objUser
-    }
 
 
 

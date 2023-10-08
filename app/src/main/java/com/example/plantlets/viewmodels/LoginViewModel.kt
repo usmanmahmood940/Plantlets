@@ -8,6 +8,7 @@ import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.User
 import com.example.plantlets.repositories.UserRepository
+import com.example.plantlets.repositories.localRepository
 import com.example.plantlets.utils.Constants.USER_REFRENCE
 import com.example.plantlets.utils.Constants.USER_TYPE
 import com.example.plantlets.utils.Constants.VENDOR_TYPE
@@ -20,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val sharedPreferences: SharedPreferences,
+    private val localRepository: localRepository
 ) : ViewModel() {
 
     lateinit var email:String
@@ -38,7 +39,7 @@ class LoginViewModel @Inject constructor(
 
     fun getNavigation(): Class<out BaseActivity> {
 
-       val user:User = userRepository.getCurrentUserData()
+       val user:User = localRepository.getCurrentUserData()
         val destinationClass = when (user.type) {
             VENDOR_TYPE -> {
                 SellerHomeActivity::class.java

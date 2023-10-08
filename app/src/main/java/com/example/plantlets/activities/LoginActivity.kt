@@ -10,6 +10,7 @@ import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Store
 import com.example.plantlets.utils.Extensions.isValidEmail
 import com.example.plantlets.utils.Extensions.showError
+import com.example.plantlets.utils.Extensions.togglePasswordVisibility
 import com.example.plantlets.viewmodels.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -29,7 +30,7 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setChildView(binding.root)
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         initializeLoginListener()
         setupListeners()
@@ -59,12 +60,16 @@ class LoginActivity : BaseActivity() {
 
     private fun setupListeners() {
         binding.btnLogin.setOnClickListener {
-            login()
-//            startActivity(Intent(this, SellerHomeActivity::class.java))
+//            login()
+            startActivity(Intent(this, SellerHomeActivity::class.java))
         }
 
         binding.tvSignup.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
+        }
+
+        binding.ivEye.setOnClickListener{
+            binding.etPassword.togglePasswordVisibility()
         }
 
     }

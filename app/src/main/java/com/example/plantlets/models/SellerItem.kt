@@ -4,5 +4,6 @@ data class SellerItem(
     var name:String?=null,
     var stockQuantity:Int? =null,
     var price:Double? = null,
-    var details:String? = null
+    var details:String? = null,
+    var categoryId:String?=null
 )

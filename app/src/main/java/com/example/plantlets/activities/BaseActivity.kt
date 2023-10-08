@@ -3,6 +3,7 @@ package com.example.plantlets.activities
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
@@ -11,20 +12,28 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.plantlets.R
+import com.example.plantlets.databinding.ActivityBaseBinding
 
 
 open class BaseActivity : AppCompatActivity() {
 
     private var progressBar: ProgressBar? = null
+    lateinit var baseBinding: ActivityBaseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
+        baseBinding = ActivityBaseBinding.inflate(layoutInflater)
+        setContentView(baseBinding.root)
         hideStatusbar()
+
 
     }
 
-    public val dismissListener = object : DialogInterface.OnDismissListener {
+    fun setChildView(childView: View){
+       baseBinding.layoutContainer.addView(childView)
+    }
+
+     val dismissListener = object : DialogInterface.OnDismissListener {
         override fun onDismiss(dialog: DialogInterface?) {
             finish()
         }
@@ -39,7 +48,7 @@ open class BaseActivity : AppCompatActivity() {
     // Function to show an alert dialog
     fun showAlert(
         title: String,
-        message: String,
+        message: String?,
         positiveButtonText: String? = null,
         positiveButtonClickListener: DialogInterface.OnClickListener? = onAlertBoxClickListener,
         negativeButtonText: String? = null,
@@ -75,31 +84,13 @@ open class BaseActivity : AppCompatActivity() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
-    fun showProgressBar(context:Context) {
-        if (progressBar == null) {
-            progressBar = ProgressBar(context)
-            progressBar!!.indeterminateTintList = getColorStateList(R.color.light_green)
-            progressBar!!.layoutParams = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = android.view.Gravity.CENTER
-            }
-            progressBar!!.isIndeterminate = true
-        }
+    fun showProgressBar() {
+        baseBinding.baseProgressBar.visibility = View.VISIBLE
 
-        val contentView = findViewById<ViewGroup>(android.R.id.content)
-        progressBar!!.layoutParams.width = contentView.width
-        progressBar!!.layoutParams.height = contentView.height
-
-        contentView.addView(progressBar)
     }
 
     fun hideProgressBar() {
-        if (progressBar != null) {
-            val contentView = findViewById<ViewGroup>(android.R.id.content)
-            contentView.removeView(progressBar)
-        }
+        baseBinding.baseProgressBar.visibility = View.GONE
     }
 
 }

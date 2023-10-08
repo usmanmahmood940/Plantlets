@@ -51,12 +51,12 @@ class SignupActivity : BaseActivity() {
         signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
         initializeSignupListener()
         setListeners()
-        showProgressBar(this@SignupActivity).also {
-            binding.apply {
-                svSignup.alpha = 0.5f
-                btnSignup.isEnabled = false
-            }
-        }
+//        showProgressBar(this@SignupActivity).also {
+//            binding.apply {
+//                svSignup.alpha = 0.5f
+//                btnSignup.isEnabled = false
+//            }
+//        }
 
 
 
@@ -151,12 +151,23 @@ class SignupActivity : BaseActivity() {
 
                     if (checkVendorValidation()) {
                         val storeDetails = Store(email, storeName, storeAddress, storePinLocation)
+                        showProgressBar().also {
+                            binding.apply {
+                                svSignup.alpha = 0.5f
+                                btnSignup.isEnabled = false
+                            }
+                        }
                         signUp(listener =  signupListener, storeDetails =  storeDetails)
                     }
 
                 }
                 else {
-
+                    showProgressBar().also {
+                        binding.apply {
+                            svSignup.alpha = 0.5f
+                            btnSignup.isEnabled = false
+                        }
+                    }
                     signUp(listener = signupListener)
                 }
             }
@@ -259,6 +270,9 @@ class SignupActivity : BaseActivity() {
     private fun initializeSignupListener() {
         signupListener = object : CustomSuccessFailureListener {
             override fun onSuccess() {
+                hideProgressBar().also{
+                    binding.svSignup.alpha = 1f
+                }
                 showAlert(
                     title = getString(R.string.information),
                     message = getString(R.string.account_created),
@@ -269,9 +283,10 @@ class SignupActivity : BaseActivity() {
 
             override fun onFailure(errorMessage: String?) {
                 binding.apply {
-                    svSignup.alpha = 1f
-                    btnSignup.isEnabled = true
-                    progressBarSignup.visibility = View.GONE
+                    hideProgressBar().also{
+                        binding.svSignup.alpha = 1f
+                        btnSignup.isEnabled = true
+                    }
                 }
                 showAlert(
                     title = getString(R.string.error),

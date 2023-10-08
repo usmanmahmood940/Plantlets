@@ -5,6 +5,7 @@
     app:startDestination="@+id/nav_home_seller">
 
     <include app:graph="@navigation/nav_home_seller"/>
+    <include app:graph="@navigation/nav_category_seller"/>
     <include app:graph="@navigation/nav_orders_seller"/>
     <include app:graph="@navigation/nav_profile_seller"/>
     <include app:graph="@navigation/nav_setting_seller"/>

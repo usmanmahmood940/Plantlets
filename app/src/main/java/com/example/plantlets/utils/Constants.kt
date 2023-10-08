@@ -23,6 +23,7 @@ object Constants {
     const val USER_REFRENCE = "User"
     const val STORE_REFRENCE = "Stores"
     const val ITEM_REFRENCE = "Items"
+    const val CATEGORIES_REFRENCE = "Categories"
     const val MOBILE_NUMBER_REF = "mobileNumber"
     const val TYPE_REFRENCE = "type"
     const val USER_TYPE="user"
