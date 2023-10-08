@@ -16,6 +16,8 @@ class SellerCategoryViewModel @Inject constructor(
     val categoryList: StateFlow<CustomResponse<List<Category>>>
         get() = categoryRepository.categoriesStateFlow
 
+
+    var query: String? = null
     init{
         categoryRepository.getCategories()
     }
@@ -30,5 +32,26 @@ class SellerCategoryViewModel @Inject constructor(
 
     fun categoryNameExist(categories:List<Category>,newCategory: Category):Boolean{
       return categories.any { category -> category.categoryName == newCategory.categoryName }
+    }
+
+
+    //    fun getFoodItemsByQuery(query: String): List<FoodItem> {
+//        val filteredCategory = mutableListOf<Category>()
+//        filteredCategory.addAll(categoryList.value?.data?.filter { it.name.contains(query) }
+//            ?: emptyList())
+//        val filteredItems = foodItemList.value?.data?.filter { foodItem ->
+//            filteredCategory.any { category ->
+//                category.id == foodItem.categoryId
+//            } || foodItem.title.contains(query)
+//        } ?: emptyList()
+//        return filteredItems
+//
+//    }
+    fun getCategoryByQuery(query: String): List<Category> {
+        val filteredItems = categoryList.value.data?.filter { category ->
+            category.categoryName.lowercase().contains(query)
+        } ?: emptyList()
+        return filteredItems
+
     }
 }

@@ -1,6 +1,8 @@
 package com.example.plantlets.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +38,7 @@ class CategoryFragment : Fragment(), ItemClickListener {
     lateinit var categoryAdapter: CategoryAdapter
     private lateinit var sellerCategoryViewModel: SellerCategoryViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,8 +50,22 @@ class CategoryFragment : Fragment(), ItemClickListener {
         setupCategoryList()
         setupListeners()
         observeCategoryList()
+        setupSearch()
         return binding.root
 
+    }
+
+    private fun setupSearch() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                val query = editable.toString().lowercase()
+                sellerCategoryViewModel.query = query
+                val list = sellerCategoryViewModel.getCategoryByQuery(query)
+                categoryAdapter.setList(list)
+            }
+        })
     }
 
 
@@ -76,7 +93,10 @@ class CategoryFragment : Fragment(), ItemClickListener {
                     is CustomResponse.Success -> {
                         (requireActivity() as SellerHomeActivity).hideProgressBar()
                         response.data?.let { categoryList ->
-                            categoryAdapter.setList(categoryList)
+                            val list = sellerCategoryViewModel.getCategoryByQuery(
+                                sellerCategoryViewModel.query ?: ""
+                            )
+                            categoryAdapter.setList(list)
                         }
 
                     }
@@ -130,11 +150,14 @@ class CategoryFragment : Fragment(), ItemClickListener {
                 return@setOnClickListener
             }
             newCategory.categoryName = etCategoryName.text.toString()
-            if (!sellerCategoryViewModel.categoryNameExist(categoryAdapter.getList(), newCategory)) {
+            if (!sellerCategoryViewModel.categoryNameExist(
+                    categoryAdapter.getList(),
+                    newCategory
+                )
+            ) {
                 sellerCategoryViewModel.upsertCategory(newCategory)
                 dialog.dismiss()
-            }
-            else{
+            } else {
                 dialog.dismiss()
                 (requireActivity() as SellerHomeActivity).showAlert(
                     title = getString(R.string.error),
