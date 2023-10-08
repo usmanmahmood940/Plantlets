@@ -24,8 +24,10 @@ import com.example.plantlets.models.Category
 import com.example.plantlets.utils.Extensions.showError
 import com.example.plantlets.viewmodels.LoginViewModel
 import com.example.plantlets.viewmodels.SellerCategoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CategoryFragment : Fragment(),ItemClickListener {
 
 
@@ -38,7 +40,7 @@ class CategoryFragment : Fragment(),ItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCategoryBinding.inflate(inflater,container,false)
-        sellerCategoryViewModel = ViewModelProvider(this).get(SellerCategoryViewModel::class.java)
+        sellerCategoryViewModel = ViewModelProvider(requireActivity()).get(SellerCategoryViewModel::class.java)
         // Inflate the layout for this fragment
         setupCategoryList()
         setupListeners()
