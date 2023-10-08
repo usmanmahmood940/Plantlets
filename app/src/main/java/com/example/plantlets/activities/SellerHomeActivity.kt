@@ -7,7 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivitySellerHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SellerHomeActivity : BaseActivity() {
     lateinit var binding:ActivitySellerHomeBinding
     private lateinit var navController: NavController

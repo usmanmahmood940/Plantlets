@@ -1,6 +1,5 @@
 package com.example.plantlets.repositories
 
-import android.content.SharedPreferences
 import android.net.Uri
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Store
@@ -11,7 +10,6 @@ import com.example.plantlets.utils.Constants.VENDOR_TYPE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -20,7 +18,7 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestoreRef: FirebaseFirestore,
-    private val localRepository: localRepository
+    private val localRepository: LocalRepository
 ) {
 
     suspend fun signUp(
@@ -101,18 +99,17 @@ class UserRepository @Inject constructor(
                 user?.let {
                     localRepository.saveUserDataToSharedPreferences(it)
                 }
-                runOnMain({ listener.onSuccess() })
-                withContext(Dispatchers.IO) {
-                    user?.apply {
-                        if (type == VENDOR_TYPE) {
-                            val store = getStoreData(email)
-                            store?.let {
-                                localRepository.saveStoreDataToSharedPreferences(it)
-                            }
+
+
+                user?.apply {
+                    if (type == VENDOR_TYPE) {
+                        val store = getStoreData(email)
+                        store?.let {
+                            localRepository.saveStoreDataToSharedPreferences(it)
                         }
                     }
-
                 }
+                runOnMain({ listener.onSuccess() })
 
 
             }
@@ -132,10 +129,6 @@ class UserRepository @Inject constructor(
         val storeDoc = firestoreRef.collection(STORE_REFRENCE).document(storeId).get().await()
         return storeDoc.toObject(Store::class.java)
     }
-
-
-
-
 
 
 }

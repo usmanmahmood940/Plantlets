@@ -41,16 +41,22 @@ class LoginActivity : BaseActivity() {
     private fun initializeLoginListener() {
         loginListener = object : CustomSuccessFailureListener {
             override fun onSuccess() {
+                hideProgressBar()
                 auth.currentUser?.let {
-                    startActivity(Intent(this@LoginActivity, loginViewModel.getNavigation()))
+                    startActivity(Intent(this@LoginActivity, getNavigation()))
                 }
+
             }
 
             override fun onFailure(errorMessage: String?) {
+                hideProgressBar().also {
+                    binding.btnLogin.isEnabled = true
+                }
                 showAlert(
                     title = getString(R.string.error),
                     message = errorMessage.toString()
                 )
+
 
 
             }
@@ -60,8 +66,8 @@ class LoginActivity : BaseActivity() {
 
     private fun setupListeners() {
         binding.btnLogin.setOnClickListener {
-//            login()
-            startActivity(Intent(this, SellerHomeActivity::class.java))
+            login()
+//            startActivity(Intent(this, SellerHomeActivity::class.java))
         }
 
         binding.tvSignup.setOnClickListener {
@@ -76,6 +82,9 @@ class LoginActivity : BaseActivity() {
 
     fun login() {
         if (checkFormValidation()) {
+            showProgressBar().also {
+                binding.btnLogin.isEnabled = false
+            }
             loginViewModel.login(loginViewModel.email, loginViewModel.password,loginListener)
         }
     }

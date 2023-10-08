@@ -1,14 +1,11 @@
 package com.example.plantlets.repositories
 
+import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
-import com.example.plantlets.models.Store
 import com.example.plantlets.utils.Constants.CATEGORIES_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,13 +13,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestoreRef: FirebaseFirestore,
-    private val localRepository: localRepository
+    private val localRepository: LocalRepository
 ) {
 
     private var databaseReference: CollectionReference? = null
@@ -53,7 +49,7 @@ class CategoryRepository @Inject constructor(
                 }
                 if (snapshotlist != null) {
                     val categoryList: MutableList<Category> = mutableListOf()
-
+                    _categoriesStateFlow.value = CustomResponse.Success(categoryList)
                     for (snapshot in snapshotlist) {
                         val category = snapshot.toObject(Category::class.java)
                         if (category != null) {
@@ -71,9 +67,18 @@ class CategoryRepository @Inject constructor(
     fun upsertCategory(category: Category){
 
         databaseReference?.apply {
-           val key = document().id
-            category.categoryId = key
-            document(key).set(category)
+
+            val key = document().id
+            if(category.categoryId == null)
+                category.categoryId = key
+            document(category.categoryId!!).set(category).addOnCompleteListener {
+                if (it.isSuccessful){
+                    Log.d("USMAN-TAG","category added")
+                }
+                if(it.exception!=null){
+                    Log.d("USMAN-TAG",it.exception!!.message.toString())
+                }
+            }
         }
 
     }

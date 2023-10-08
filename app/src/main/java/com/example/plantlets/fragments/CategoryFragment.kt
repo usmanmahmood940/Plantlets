@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment(),ItemClickListener {
+class CategoryFragment : Fragment(), ItemClickListener {
 
 
-    lateinit var binding:FragmentCategoryBinding
+    lateinit var binding: FragmentCategoryBinding
     lateinit var categoryAdapter: CategoryAdapter
     private lateinit var sellerCategoryViewModel: SellerCategoryViewModel
 
@@ -39,8 +40,9 @@ class CategoryFragment : Fragment(),ItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCategoryBinding.inflate(inflater,container,false)
-        sellerCategoryViewModel = ViewModelProvider(requireActivity()).get(SellerCategoryViewModel::class.java)
+        binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        sellerCategoryViewModel =
+            ViewModelProvider(requireActivity()).get(SellerCategoryViewModel::class.java)
         // Inflate the layout for this fragment
         setupCategoryList()
         setupListeners()
@@ -51,7 +53,7 @@ class CategoryFragment : Fragment(),ItemClickListener {
 
 
     private fun setupCategoryList() {
-        categoryAdapter  = CategoryAdapter(categoryItemList = emptyList(),listener = this)
+        categoryAdapter = CategoryAdapter(categoryItemList = emptyList(), listener = this)
         binding.rvCategoryList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
@@ -60,7 +62,7 @@ class CategoryFragment : Fragment(),ItemClickListener {
 
 
     private fun setupListeners() {
-        with(binding){
+        with(binding) {
             fabCategory.setOnClickListener {
                 showDialog()
             }
@@ -69,11 +71,11 @@ class CategoryFragment : Fragment(),ItemClickListener {
 
     private fun observeCategoryList() {
         lifecycleScope.launch {
-            sellerCategoryViewModel.categoryList.collect{response ->
-                when(response){
+            sellerCategoryViewModel.categoryList.collect { response ->
+                when (response) {
                     is CustomResponse.Success -> {
                         (requireActivity() as SellerHomeActivity).hideProgressBar()
-                        response.data?.let {categoryList ->
+                        response.data?.let { categoryList ->
                             categoryAdapter.setList(categoryList)
                         }
 
@@ -84,9 +86,12 @@ class CategoryFragment : Fragment(),ItemClickListener {
                     }
 
                     is CustomResponse.Error -> {
-                        (requireActivity() as SellerHomeActivity).apply{
+                        (requireActivity() as SellerHomeActivity).apply {
                             hideProgressBar()
-                            showAlert(title = getString(R.string.error), message = response.errorMessage)
+                            showAlert(
+                                title = getString(R.string.error),
+                                message = response.errorMessage
+                            )
                         }
 
                     }
@@ -95,12 +100,14 @@ class CategoryFragment : Fragment(),ItemClickListener {
         }
     }
 
-    private fun showDialog(category: Category?=null) {
+    private fun showDialog(category: Category? = null) {
         binding.fabCategory.isEnabled = false
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_category, null)
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_category, null)
+        val tvDialogLabel = dialogView.findViewById<TextView>(R.id.tv_dialog_label)
         val btnAction = dialogView.findViewById<TextView>(R.id.btnAction)
         val etCategoryName = dialogView.findViewById<EditText>(R.id.etCategoryName)
-        val newCategory = Category()
+        var newCategory = Category()
 
         val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialog)
             .setView(dialogView)
@@ -111,19 +118,30 @@ class CategoryFragment : Fragment(),ItemClickListener {
         val dialog = dialogBuilder.create()
 
         category?.apply {
+            tvDialogLabel.text = "Update Category"
             etCategoryName.setText(categoryName)
-            newCategory.categoryId = categoryId
+            newCategory.categoryId = category.categoryId
             btnAction.text = "Update"
         }
 
         btnAction.setOnClickListener {
-            if(etCategoryName.text.trim().isBlank()) {
+            if (etCategoryName.text.trim().isBlank()) {
                 etCategoryName.showError(getString(com.example.plantlets.R.string.field_required_error))
                 return@setOnClickListener
             }
             newCategory.categoryName = etCategoryName.text.toString()
-            sellerCategoryViewModel.upsertCategory(newCategory)
-            dialog.dismiss()
+            if (!sellerCategoryViewModel.categoryNameExist(categoryAdapter.getList(), newCategory)) {
+                sellerCategoryViewModel.upsertCategory(newCategory)
+                dialog.dismiss()
+            }
+            else{
+                dialog.dismiss()
+                (requireActivity() as SellerHomeActivity).showAlert(
+                    title = getString(R.string.error),
+                    message = "Category of this name already exist"
+                )
+            }
+
         }
 
 

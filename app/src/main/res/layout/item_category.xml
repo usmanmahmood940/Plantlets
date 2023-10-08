@@ -20,15 +20,18 @@
 
         <TextView
             android:id="@+id/tvCategoryName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal_100"
+            android:layout_marginHorizontal="@dimen/margin_normal_100"
             android:fontFamily="@font/futura_medium"
             android:maxLength="25"
             android:text="Plants"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/font_small_150"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivEdit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,9 +42,9 @@
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivDelete"
-            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintHeight_percent="0.95"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/margin_normal_100"
+            android:layout_marginEnd="@dimen/margin_normal_125"
             app:srcCompat="@drawable/ic_edit_black" />
 
         <ImageView
@@ -51,7 +54,7 @@
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintHeight_percent="0.95"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete_black" />
     </androidx.constraintlayout.widget.ConstraintLayout>

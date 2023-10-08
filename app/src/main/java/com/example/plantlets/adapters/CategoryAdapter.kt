@@ -28,6 +28,9 @@ class CategoryAdapter(
         notifyDataSetChanged()
     }
 
+    fun getList():List<Category>{
+        return categoryItemList
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_category, parent, false)
@@ -60,7 +63,7 @@ class CategoryAdapter(
 
     // Holds the views for adding it to image and text
     class ViewHolder(CategoryItemView: View) : RecyclerView.ViewHolder(CategoryItemView) {
-        val tvCategoryName: TextView = CategoryItemView.findViewById(R.id.tvItemName)
+        val tvCategoryName: TextView = CategoryItemView.findViewById(R.id.tvCategoryName)
         val ivEdit:ImageView = CategoryItemView.findViewById(R.id.ivEdit)
         val ivDelete:ImageView = CategoryItemView.findViewById(R.id.ivDelete)
     }
