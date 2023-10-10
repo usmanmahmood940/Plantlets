@@ -3,6 +3,7 @@ package com.example.plantlets.repositories
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
+import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants.CATEGORIES_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
 import com.google.firebase.auth.FirebaseAuth
@@ -72,16 +73,12 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-    fun upsertCategory(category: Category){
+    fun updateCategory(category: Category){
 
         databaseReference?.apply {
-
-            val key = document().id
-            if(category.categoryId == null)
-                category.categoryId = key
             document(category.categoryId!!).set(category).addOnCompleteListener {
                 if (it.isSuccessful){
-                    Log.d("USMAN-TAG","category added")
+                    Log.d("USMAN-TAG","category updated")
                 }
                 if(it.exception!=null){
                     Log.d("USMAN-TAG",it.exception!!.message.toString())
@@ -91,11 +88,28 @@ class CategoryRepository @Inject constructor(
 
     }
 
+    fun addCategory(category: Category){
+        databaseReference?.apply {
+            add(category).addOnCompleteListener {
+                if (it.isSuccessful){
+                    Log.d("USMAN-TAG","category added")
+                }
+                if(it.exception!=null){
+                    Log.d("USMAN-TAG",it.exception!!.message.toString())
+                }
+            }
+        }
+    }
+
     fun deleteCategory(category: Category){
         databaseReference?.apply {
             document(category.categoryId!!).delete()
         }
     }
+
+
+
+
 
 
 

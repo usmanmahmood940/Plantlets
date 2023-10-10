@@ -27,6 +27,7 @@ class OnBoardingActivity : BaseActivity() {
         auth.currentUser?.let {
             localRepository.getCurrentUserData()?.let {
                 startActivity(Intent(this@OnBoardingActivity,getNavigation()))
+                finish()
             }
         }
         setupListener()

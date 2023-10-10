@@ -55,8 +55,13 @@ class CategoryFragment : Fragment(), ItemClickListener {
 
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onResume() {
+        super.onResume()
+        sellerCategoryViewModel.startObserving()
+    }
+
+    override fun onPause() {
+        super.onPause()
         sellerCategoryViewModel.stopObserving()
     }
 

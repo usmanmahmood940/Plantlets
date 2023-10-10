@@ -7,6 +7,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestoreSettings
+import com.google.firebase.firestore.ktx.memoryCacheSettings
+import com.google.firebase.firestore.ktx.persistentCacheSettings
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
@@ -28,6 +31,14 @@ class AppModule {
     @Provides
     @Singleton
     fun provideFirebaseFirestore(): FirebaseFirestore {
+//        val settings = firestoreSettings {
+//            // Use memory cache
+//            setLocalCacheSettings(memoryCacheSettings {})
+//            // Use persistent disk cache (default)
+//            setLocalCacheSettings(persistentCacheSettings {})
+//        }
+//        val firestore = Firebase.firestore
+//        firestore.firestoreSettings
         return Firebase.firestore
     }
 

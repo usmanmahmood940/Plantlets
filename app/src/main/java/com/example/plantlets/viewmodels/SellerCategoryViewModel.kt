@@ -11,35 +11,37 @@ import javax.inject.Inject
 @HiltViewModel
 class SellerCategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
-): ViewModel() {
+) : ViewModel() {
 
     val categoryList: StateFlow<CustomResponse<List<Category>>>
         get() = categoryRepository.categoriesStateFlow
 
 
     var query: String? = null
-    init{
-        startObserving()
-    }
 
-    fun startObserving(){
+    fun startObserving() {
         categoryRepository.getCategories()
     }
 
-    fun stopObserving(){
+    fun stopObserving() {
         categoryRepository.removeListener()
     }
 
-    fun upsertCategory(category: Category){
-        categoryRepository.upsertCategory(category)
+    fun upsertCategory(category: Category) {
+        if (category.categoryId != null) {
+            categoryRepository.updateCategory(category)
+        }
+        else{
+            categoryRepository.addCategory(category)
+        }
     }
 
-    fun deleteCategory(category: Category){
+    fun deleteCategory(category: Category) {
         categoryRepository.deleteCategory(category)
     }
 
-    fun categoryNameExist(categories:List<Category>,newCategory: Category):Boolean{
-      return categories.any { category -> category.categoryName == newCategory.categoryName }
+    fun categoryNameExist(categories: List<Category>, newCategory: Category): Boolean {
+        return categories.any { category -> category.categoryName == newCategory.categoryName }
     }
 
 
