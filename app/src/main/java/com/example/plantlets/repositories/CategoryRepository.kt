@@ -10,6 +10,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +24,7 @@ class CategoryRepository @Inject constructor(
 
     private var databaseReference: CollectionReference? = null
     private var valueEventListener: EventListener<QuerySnapshot>? = null
+    private var categoryListener: ListenerRegistration? = null
 
     private val _categoriesStateFlow =
         MutableStateFlow<CustomResponse<List<Category>>>(CustomResponse.Loading())
@@ -60,8 +62,14 @@ class CategoryRepository @Inject constructor(
                 }
             }
         }
-        databaseReference?.addSnapshotListener(valueEventListener!!)
+        categoryListener = databaseReference?.addSnapshotListener(valueEventListener!!)
 
+    }
+
+    fun removeListener(){
+        categoryListener?.apply {
+            remove()
+        }
     }
 
     fun upsertCategory(category: Category){

@@ -19,7 +19,15 @@ class SellerCategoryViewModel @Inject constructor(
 
     var query: String? = null
     init{
+        startObserving()
+    }
+
+    fun startObserving(){
         categoryRepository.getCategories()
+    }
+
+    fun stopObserving(){
+        categoryRepository.removeListener()
     }
 
     fun upsertCategory(category: Category){
