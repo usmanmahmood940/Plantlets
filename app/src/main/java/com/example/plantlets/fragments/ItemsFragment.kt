@@ -5,16 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
+import com.example.plantlets.adapters.CategoryAdapter
 import com.example.plantlets.adapters.SellerItemAdapter
 import com.example.plantlets.databinding.FragmentItemsBinding
 import com.example.plantlets.models.SellerItem
+import com.example.plantlets.viewmodels.SellerCategoryViewModel
+import com.example.plantlets.viewmodels.SellerItemViewModel
 
 
 class ItemsFragment : Fragment() {
 
     private lateinit var binding:FragmentItemsBinding
+    lateinit var itemAdapter: SellerItemAdapter
+    private lateinit var itemViewModel: SellerItemViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,12 +34,28 @@ class ItemsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentItemsBinding.inflate(inflater, container, false)
 
+        initListeners()
+        initItemList()
+
+        return binding.root
+    }
+
+    private fun initItemList() {
         val sellerItemAdapter = SellerItemAdapter(createDummySellerItemList())
         binding.rvSellerItemList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = sellerItemAdapter
         }
-        return binding.root
+    }
+
+    private fun initListeners() {
+        binding.fabItem.setOnClickListener{
+            if (findNavController().currentDestination?.id == R.id.itemsFragment) {
+                findNavController().navigate(R.id.action_itemsFragment_to_addItemFragment)
+            }
+        }
+
+
     }
 
     fun createDummySellerItemList(): List<SellerItem> {

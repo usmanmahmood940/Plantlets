@@ -7,6 +7,7 @@ import android.net.Uri
 import android.text.InputType
 import android.widget.EditText
 import androidx.core.content.FileProvider
+import com.example.plantlets.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -21,6 +22,17 @@ object Extensions {
 
     fun EditText.showError(errorMsg: String) {
         error = errorMsg
+        requestFocus()
+    }
+    fun EditText.checkIsBlank(): Boolean {
+        return text.toString().trim().isBlank()
+    }
+
+    fun EditText.getValue():String{
+        return  text.toString().trim()
+    }
+    fun EditText.showRequiredError() {
+        error = this.context.getString(R.string.field_required_error)
         requestFocus()
     }
 

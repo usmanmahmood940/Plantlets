@@ -41,7 +41,9 @@ class LoginActivity : BaseActivity() {
     private fun initializeLoginListener() {
         loginListener = object : CustomSuccessFailureListener {
             override fun onSuccess() {
-                hideProgressBar()
+                hideProgressBar().also {
+                    binding.svLogin.alpha = 1f
+                }
                 auth.currentUser?.let {
                     startActivity(Intent(this@LoginActivity, getNavigation()))
                 }
@@ -83,6 +85,7 @@ class LoginActivity : BaseActivity() {
     fun login() {
         if (checkFormValidation()) {
             showProgressBar().also {
+                binding.svLogin.alpha = 0.5f
                 binding.btnLogin.isEnabled = false
             }
             loginViewModel.login(loginViewModel.email, loginViewModel.password,loginListener)

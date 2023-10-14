@@ -3,7 +3,6 @@ package com.example.plantlets.repositories
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
-import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants.CATEGORIES_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
 import com.google.firebase.auth.FirebaseAuth
@@ -13,8 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(
@@ -73,24 +74,15 @@ class CategoryRepository @Inject constructor(
         }
     }
 
-    fun updateCategory(category: Category){
+
+
+    fun upsertCategory(category: Category){
 
         databaseReference?.apply {
+            val key = document().id
+            if(category.categoryId == null)
+                category.categoryId = key
             document(category.categoryId!!).set(category).addOnCompleteListener {
-                if (it.isSuccessful){
-                    Log.d("USMAN-TAG","category updated")
-                }
-                if(it.exception!=null){
-                    Log.d("USMAN-TAG",it.exception!!.message.toString())
-                }
-            }
-        }
-
-    }
-
-    fun addCategory(category: Category){
-        databaseReference?.apply {
-            add(category).addOnCompleteListener {
                 if (it.isSuccessful){
                     Log.d("USMAN-TAG","category added")
                 }
@@ -99,7 +91,9 @@ class CategoryRepository @Inject constructor(
                 }
             }
         }
+
     }
+
 
     fun deleteCategory(category: Category){
         databaseReference?.apply {
@@ -107,6 +101,24 @@ class CategoryRepository @Inject constructor(
         }
     }
 
+    suspend fun getCategoriesOnce(): CustomResponse<List<Category>> {
+        try {
+            val snapshotList: QuerySnapshot? = databaseReference?.get()?.await()
+
+            if (snapshotList != null && !snapshotList.isEmpty) {
+                val categories = snapshotList.toObjects<Category>()
+
+                return CustomResponse.Success(categories)
+            } else {
+                // Handle the case where no data is available
+                return CustomResponse.Error("Category List is empty")
+            }
+        } catch (e: Exception) {
+            // Handle any exceptions (e.g., Firebase Firestore exceptions)
+            e.printStackTrace()
+            return CustomResponse.Error(e.message.toString())
+        }
+    }
 
 
 

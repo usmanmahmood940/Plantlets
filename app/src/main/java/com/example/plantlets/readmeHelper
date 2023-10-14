@@ -131,6 +131,26 @@ slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
      }
 
 
+   fun getCategoryByQuery(categoryName:String,categoryType:String) {
+             val collectionRef = firestoreRef.collection(CATEGORIES_REFRENCE)
+
+             collectionRef
+                 .whereEqualTo("Name",categoryName)
+                 .whereEqualTo("Type",categoryType)
+                 .orderBy("Id")
+                 .limit(1)
+                 .get()
+                 .addOnSuccessListener { documents ->
+                     for (document in documents) {
+                         val data = document.data
+                     }
+                 }
+                 .addOnFailureListener { exception ->
+                 }
+         }
+
+
+         val category = tempCategories.firstOrNull { it.categoryName == "Plants" }
 
 
 

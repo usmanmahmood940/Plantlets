@@ -19,6 +19,7 @@
     <string name="email_valid_error">"Provide a valid email address</string>
     <string name="address_required_error">Pin Location field cannot be empty.</string>
     <string name="upload_image">"Please Upload Image"</string>
+    <string name="category_error">"Please Choose Category"</string>
     <string name="error">Error</string>
     <string name="title_activity_pin_location_map">PinLocationMapActivity</string>
     <string name="permission_denied">Permission Denied</string>
@@ -38,6 +39,8 @@
     <string name="categories">Categories</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
+    <string name="choose_category">Choose Category</string>
+
 
 
 </resources>

@@ -94,5 +94,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvSearchBar" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal_150"
+        android:layout_marginBottom="@dimen/margin_normal_200"
+        android:contentDescription="@string/add_category"
+        app:elevation="6dp"
+        app:backgroundTint="@color/light_green"
+        app:tint="@color/white"
+        app:pressedTranslationZ="12dp"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

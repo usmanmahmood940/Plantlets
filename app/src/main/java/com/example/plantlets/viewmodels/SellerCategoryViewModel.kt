@@ -28,12 +28,7 @@ class SellerCategoryViewModel @Inject constructor(
     }
 
     fun upsertCategory(category: Category) {
-        if (category.categoryId != null) {
-            categoryRepository.updateCategory(category)
-        }
-        else{
-            categoryRepository.addCategory(category)
-        }
+        categoryRepository.upsertCategory(category)
     }
 
     fun deleteCategory(category: Category) {
