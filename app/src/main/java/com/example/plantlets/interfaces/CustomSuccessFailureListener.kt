@@ -5,4 +5,5 @@ interface CustomSuccessFailureListener {
     fun onSuccess()
 
     fun onFailure(errorMessage:String?)
+
 }

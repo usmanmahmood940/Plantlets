@@ -35,7 +35,10 @@
 
         <activity
             android:name=".activities.SellerHomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+
+            />
         <activity
             android:name=".activities.PinLocationMapActivity"
             android:exported="false"
@@ -59,7 +62,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.BaseActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+
+            />
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />

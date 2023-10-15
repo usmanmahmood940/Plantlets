@@ -29,7 +29,7 @@ object Helper {
     fun generateRandomStringWithTime(): String {
         val timestamp = System.currentTimeMillis()
         val randomString = UUID.randomUUID().toString()
-        return "$randomString-$timestamp"
+        return "$timestamp-$randomString"
     }
 
 

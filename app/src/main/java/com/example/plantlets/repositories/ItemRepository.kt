@@ -3,9 +3,11 @@ package com.example.plantlets.repositories
 import android.net.Uri
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.interfaces.CategoryExistListener
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.utils.Constants.ITEM_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
+import com.example.plantlets.utils.Helper.generateRandomStringWithTime
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.EventListener
@@ -31,7 +33,7 @@ class ItemRepository @Inject constructor(
 
     private val _itemsStateFlow =
         MutableStateFlow<CustomResponse<List<SellerItem>>>(CustomResponse.Loading())
-    val itemssStateFlow: StateFlow<CustomResponse<List<SellerItem>>>
+    val itemsStateFlow: StateFlow<CustomResponse<List<SellerItem>>>
         get() = _itemsStateFlow
 
     init {
@@ -46,6 +48,7 @@ class ItemRepository @Inject constructor(
     }
 
     fun getItems() {
+        _itemsStateFlow.value = CustomResponse.Loading()
         valueEventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
@@ -76,22 +79,15 @@ class ItemRepository @Inject constructor(
     }
 
 
-    suspend fun upsertItem(item: SellerItem,imageUri: Uri?) {
+    suspend fun upsertItem(item: SellerItem, imageUri: Uri?) {
         imageUri?.apply {
             item.image = uploadImage(this)
         }
         databaseReference?.apply {
-            val key = document().id
+            val key = generateRandomStringWithTime()
             if (item.id == null)
                 item.id = key
-            document(item.id!!).set(item).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d("USMAN-TAG", "item updated")
-                }
-                if (it.exception != null) {
-                    Log.d("USMAN-TAG", it.exception!!.message.toString())
-                }
-            }
+            document(item.id!!).set(item).await()
         }
 
     }
@@ -100,7 +96,7 @@ class ItemRepository @Inject constructor(
     private suspend fun uploadImage(uri: Uri): String {
         val email = localRepository.getStoreFromPref()?.email
         val storageRef = FirebaseStorage.getInstance().reference
-        val fileName = "${email?:"plants"}/${System.currentTimeMillis()}.jpg"
+        val fileName = "${email ?: "plants"}/${System.currentTimeMillis()}.jpg"
         val fileRef = storageRef.child(fileName)
 
         return try {
@@ -116,12 +112,37 @@ class ItemRepository @Inject constructor(
         }
     }
 
-    fun deleteItem(item: SellerItem) {
-        databaseReference?.apply {
-            document(item.id!!).delete()
+   suspend fun deleteItem(item: SellerItem) {
+        try {
+            databaseReference?.apply {
+                document(item.id!!).delete().await()
+            }
+            item.image?.let {
+                val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(it)
+                storageRef.delete().await()
+            }
+        } catch (e: Exception) {
+            Log.e("USMAN-TAG", "Error deleting item: ${e.message}")
         }
     }
 
+    fun getCategoryExistInItem(categoryId: String, listener: CategoryExistListener) {
+        databaseReference?.apply {
+            whereEqualTo("categoryId", categoryId)
+                .limit(1)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.size() > 0) {
+                        listener.onExist()
+                    } else {
+                        listener.onNotExist()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    listener.onFailure(exception.message.toString())
+                }
+        }
+    }
 
 }
 

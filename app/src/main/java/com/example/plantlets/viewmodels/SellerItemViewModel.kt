@@ -9,6 +9,7 @@ import com.example.plantlets.models.SellerItem
 import com.example.plantlets.repositories.CategoryRepository
 import com.example.plantlets.repositories.ItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class SellerItemViewModel @Inject constructor(
 ) : ViewModel() {
 
     val itemList: StateFlow<CustomResponse<List<SellerItem>>>
-        get() = itemRepository.itemssStateFlow
+        get() = itemRepository.itemsStateFlow
 
     val categoryList: StateFlow<CustomResponse<List<Category>>>
         get() = categoryRepository.categoriesStateFlow
@@ -37,20 +38,18 @@ class SellerItemViewModel @Inject constructor(
         itemRepository.removeListener()
     }
 
-    fun upsertItem(item: SellerItem, imageUri: Uri? = null) {
-
-        viewModelScope.launch {
-            itemRepository.upsertItem(item, imageUri)
-        }
-
+    suspend fun upsertItem(item: SellerItem, imageUri: Uri? = null) {
+        itemRepository.upsertItem(item, imageUri)
     }
 
     fun deleteItem(item: SellerItem) {
-        itemRepository.deleteItem(item)
+        viewModelScope.launch(Dispatchers.IO) {
+            itemRepository.deleteItem(item)
+        }
     }
 
     fun getItemByQuery(query: String): List<SellerItem> {
-        val filteredItems = itemList.value.data?.filter { item ->
+        val filteredItems = itemList.value?.data?.filter { item ->
             item.name.lowercase().contains(query)
         } ?: emptyList()
         return filteredItems

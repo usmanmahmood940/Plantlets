@@ -5,6 +5,8 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
 import com.example.plantlets.utils.Constants.CATEGORIES_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
+import com.example.plantlets.utils.Helper
+import com.example.plantlets.utils.Helper.generateRandomStringWithTime
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.EventListener
@@ -45,6 +47,7 @@ class CategoryRepository @Inject constructor(
     }
 
     fun getCategories() {
+        _categoriesStateFlow.value = CustomResponse.Loading()
         valueEventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
@@ -79,7 +82,7 @@ class CategoryRepository @Inject constructor(
     fun upsertCategory(category: Category){
 
         databaseReference?.apply {
-            val key = document().id
+            val key = generateRandomStringWithTime()
             if(category.categoryId == null)
                 category.categoryId = key
             document(category.categoryId!!).set(category).addOnCompleteListener {

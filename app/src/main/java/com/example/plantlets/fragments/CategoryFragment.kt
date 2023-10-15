@@ -7,12 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,16 +19,16 @@ import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.adapters.CategoryAdapter
 import com.example.plantlets.databinding.FragmentCategoryBinding
-import com.example.plantlets.interfaces.ItemClickListener
+import com.example.plantlets.interfaces.CategoryClickListener
+import com.example.plantlets.interfaces.CategoryExistListener
 import com.example.plantlets.models.Category
 import com.example.plantlets.utils.Extensions.showError
-import com.example.plantlets.viewmodels.LoginViewModel
 import com.example.plantlets.viewmodels.SellerCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryFragment : Fragment(), ItemClickListener {
+class CategoryFragment : Fragment(), CategoryClickListener {
 
 
     lateinit var binding: FragmentCategoryBinding
@@ -186,7 +183,27 @@ class CategoryFragment : Fragment(), ItemClickListener {
     }
 
     override fun onDelete(category: Category) {
-        sellerCategoryViewModel.deleteCategory(category)
+        sellerCategoryViewModel.getCategoryExistInItem(category.categoryId!!,object :CategoryExistListener{
+            override fun onExist() {
+                (requireActivity() as BaseActivity).showAlert(
+                    title = "Category Is in Use",
+                    message = "This category is currently in use by items and cannot be deleted"
+                )
+            }
+
+            override fun onNotExist() {
+                sellerCategoryViewModel.deleteCategory(category)
+            }
+
+            override fun onFailure(errorMessage: String?) {
+                (requireActivity() as BaseActivity).showAlert(
+                    title = getString(R.string.error),
+                    message = errorMessage
+                )
+            }
+
+        })
+
     }
 
 }

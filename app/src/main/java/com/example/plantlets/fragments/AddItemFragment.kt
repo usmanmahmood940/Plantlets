@@ -11,13 +11,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
@@ -32,7 +34,10 @@ import com.example.plantlets.utils.Extensions.showRequiredError
 import com.example.plantlets.utils.Extensions.toUri
 import com.example.plantlets.viewmodels.SellerItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -42,6 +47,9 @@ class AddItemFragment : Fragment() {
     private lateinit var itemViewModel: SellerItemViewModel
     var imageUri: Uri? = null
     private lateinit var categoriesList: List<Category>
+
+    private var item:SellerItem?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,9 +65,28 @@ class AddItemFragment : Fragment() {
         itemViewModel = ViewModelProvider(requireActivity()).get(SellerItemViewModel::class.java)
 
         getCategories()
+        checkEdit()
         init()
 
         return binding.root
+    }
+
+    private fun checkEdit() {
+        val args: AddItemFragmentArgs by navArgs()
+        item =  args.item
+        item?.let {
+            with(binding) {
+                tvLabelItem.text = getString(R.string.eidt_item)
+                btnAction.text = getString(R.string.update)
+                tvUploadImage.visibility = View.GONE
+                Glide.with(ivItemImage.context).load(it.image).into(ivItemImage)
+                etItemName.setText(it.name)
+                etItemDetail.setText(it.details)
+                etItemPrice.setText(it.price.toString())
+                etQuantity.setText(it.stockQuantity.toString())
+            }
+
+        }
     }
 
     override fun onResume() {
@@ -123,14 +150,30 @@ class AddItemFragment : Fragment() {
 
             btnAction.setOnClickListener {
                 if (checkValidations()) {
-                    val item = SellerItem(
+                    val newItem = SellerItem(
                         name = etItemName.getValue(),
                         details = etItemDetail.getValue(),
                         categoryId = getCatId(spinnerCategory.selectedItem.toString()),
                         price = etItemPrice.getValue().toDouble(),
                         stockQuantity = etQuantity.getValue().toInt()
                     )
-                    itemViewModel.upsertItem(item,imageUri)
+                    item?.let {
+                        newItem.id = it.id
+                        newItem.image = it.image
+                    }
+                    (requireActivity() as BaseActivity).showProgressBar().also {
+                        binding.svAddItem.alpha = 0.5f
+                        binding.btnAction.isEnabled = false
+                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        itemViewModel.upsertItem(newItem, imageUri)
+                        withContext(Dispatchers.Main) {
+                            (requireActivity() as BaseActivity).hideProgressBar()
+                            findNavController().navigateUp()
+                        }
+                    }
+
+
                 }
             }
         }
@@ -145,6 +188,12 @@ class AddItemFragment : Fragment() {
     private fun checkValidations(): Boolean {
         with(binding) {
             when {
+                (imageUri == null && item == null) -> {
+                    (requireActivity() as BaseActivity).showAlert(
+                        getString(R.string.error),
+                        getString(R.string.upload_image)
+                    )
+                }
                 etItemName.checkIsBlank() -> {
                     etItemName.showRequiredError()
                 }
@@ -153,26 +202,18 @@ class AddItemFragment : Fragment() {
                     etItemDetail.showRequiredError()
                 }
 
-                etItemPrice.checkIsBlank() -> {
-                    etItemPrice.showRequiredError()
-                }
-
-                etQuantity.checkIsBlank() -> {
-                    etQuantity.showRequiredError()
-                }
-
                 (spinnerCategory.selectedItem == getString(R.string.choose_category)) -> {
                     (requireActivity() as BaseActivity).showAlert(
                         getString(R.string.error),
                         getString(R.string.category_error)
                     )
                 }
+                etItemPrice.checkIsBlank() -> {
+                    etItemPrice.showRequiredError()
+                }
 
-                (imageUri == null) -> {
-                    (requireActivity() as BaseActivity).showAlert(
-                        getString(R.string.error),
-                        getString(R.string.upload_image)
-                    )
+                etQuantity.checkIsBlank() -> {
+                    etQuantity.showRequiredError()
                 }
 
                 else -> {
@@ -195,12 +236,23 @@ class AddItemFragment : Fragment() {
 
         binding.spinnerCategory.adapter = categoriesSpinnerAdapter
         binding.spinnerCategory.onItemSelectedListener = getSpinnerListener(spinnerCategories)
-        Toast.makeText(
-            requireContext(),
-            binding.spinnerCategory.selectedItem.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
+//        Toast.makeText(
+//            requireContext(),
+//            binding.spinnerCategory.selectedItem.toString(),
+//            Toast.LENGTH_SHORT
+//        ).show()
+        item?.apply {
+            val name = categories.firstOrNull { it.categoryId == categoryId }?.categoryName
+            binding.spinnerCategory.setSelection(getIndex(spinnerCategories,name))
+        }
 
+    }
+
+    private fun getIndex(spinnerCategories: MutableList<String>, categoryName: String?): Int {
+        categoryName?.let {
+            return spinnerCategories.indexOf(categoryName)
+        }
+        return 0
     }
 
     private fun getSpinnerAdapter(categories: List<String>): ArrayAdapter<String> {

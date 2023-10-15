@@ -1,25 +1,19 @@
 package com.example.plantlets.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantlets.R
-import com.example.plantlets.interfaces.ItemClickListener
+import com.example.plantlets.interfaces.CategoryClickListener
 import com.example.plantlets.models.Category
 
 
 class CategoryAdapter(
     private var categoryItemList: List<Category> = emptyList(),
-    private var listener: ItemClickListener
+    private var listener: CategoryClickListener
 ) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 

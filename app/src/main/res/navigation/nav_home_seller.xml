@@ -18,5 +18,11 @@
         android:id="@+id/addItemFragment"
         android:name="com.example.plantlets.fragments.AddItemFragment"
         android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" />
+        tools:layout="@layout/fragment_add_item" >
+        <argument
+            android:name="item"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.SellerItem" />
+    </fragment>
+
 </navigation>

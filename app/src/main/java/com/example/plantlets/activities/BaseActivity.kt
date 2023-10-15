@@ -76,7 +76,10 @@ open class BaseActivity : AppCompatActivity() {
         }.create()
         dialog.setOnShowListener(DialogInterface.OnShowListener {
             dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).apply {
-                setTextColor(ContextCompat.getColor(context, R.color.white))
+                setTextColor(ContextCompat.getColor(context, R.color.light_green))
+            }
+            dialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE).apply {
+                setTextColor(ContextCompat.getColor(context, R.color.black))
             }
         })
         dialog.show()

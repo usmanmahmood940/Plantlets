@@ -12,11 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.plantlets.R
+import com.example.plantlets.interfaces.CategoryClickListener
+import com.example.plantlets.interfaces.ItemClickListener
 import com.example.plantlets.models.SellerItem
 
 
-class SellerItemAdapter(private var sellerItemList: List<SellerItem>) :
+class SellerItemAdapter(
+    private var sellerItemList: List<SellerItem>,
+     var listener: ItemClickListener
+) :
     RecyclerView.Adapter<SellerItemAdapter.ViewHolder>(){
 
     fun setList(list: List<SellerItem>) {
@@ -37,10 +43,42 @@ class SellerItemAdapter(private var sellerItemList: List<SellerItem>) :
         val sellerItem = sellerItemList[position]
 
         holder.apply {
+            bind(sellerItem,listener)
+
+        }
+    }
+
+
+
+
+
+
+    // return the number of the items in the list
+    override fun getItemCount(): Int {
+        return sellerItemList.size
+    }
+
+    // Holds the views for adding it to image and text
+    class ViewHolder(SellerItemView: View) : RecyclerView.ViewHolder(SellerItemView) {
+        val ivItemImage:ImageView = SellerItemView.findViewById(R.id.ivItemImage)
+        val tvName: TextView = SellerItemView.findViewById(R.id.tvItemName)
+        val tvPrice: TextView = SellerItemView.findViewById(R.id.tvItemPrice)
+        val tvQuanttity: TextView = SellerItemView.findViewById(R.id.tvStockQuantity)
+        val clMain: ConstraintLayout = SellerItemView.findViewById(R.id.cvMain)
+        val clActions: ConstraintLayout = SellerItemView.findViewById(R.id.cvActions)
+        val ivView:ImageView = SellerItemView.findViewById(R.id.ivView)
+        val tvView: TextView = SellerItemView.findViewById(R.id.tvView)
+        val ivEdit:ImageView = SellerItemView.findViewById(R.id.ivEdit)
+        val tvEdit: TextView = SellerItemView.findViewById(R.id.tvEdit)
+        val ivDelete:ImageView = SellerItemView.findViewById(R.id.ivDelete)
+        val tvDelete: TextView = SellerItemView.findViewById(R.id.tvDelete)
+
+        fun bind(item: SellerItem, listener: ItemClickListener){
             setActionLayoutHeight(clMain, clActions)
-            tvName.text = sellerItem.name
-            tvPrice.text = sellerItem.price.toString()
-            tvQuanttity.text = "Quantity : " +sellerItem.stockQuantity.toString()
+            tvName.text = item.name
+            tvPrice.text = item.price.toString()
+            tvQuanttity.text = "Quantity : " +item.stockQuantity.toString()
+            Glide.with(ivItemImage.context).load(item.image).into(ivItemImage)
             clMain.setOnClickListener {
 
                 val slideInAnimation =
@@ -76,56 +114,52 @@ class SellerItemAdapter(private var sellerItemList: List<SellerItem>) :
 
             }
             ivView.setOnClickListener {
-                showToast(ivView.context)
+            }
+
+            tvEdit.setOnClickListener {
+                listener.onEdit(item)
+            }
+            ivEdit.setOnClickListener {
+                listener.onEdit(item)
+            }
+
+            ivDelete.setOnClickListener {
+                listener.onDelete(item)
+            }
+            tvDelete.setOnClickListener {
+                listener.onDelete(item)
             }
         }
-    }
 
-    private fun hideActionLayout(clActions: ConstraintLayout, clMain: ConstraintLayout) {
-        val slideOutAnimation = AnimationUtils.loadAnimation(clActions.context, R.anim.bottom_top_anim)
+        private fun setActionLayoutHeight(clMain: ConstraintLayout, clActions: ConstraintLayout) {
+            clMain.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    // Get the height of the first layout after it's laid out
+                    val heightOfFirstLayout = clMain.height
 
-        clActions.startAnimation(slideOutAnimation)
+                    // Apply this height to the second layout
+                    val layoutParams = clActions.layoutParams
+                    layoutParams.height = heightOfFirstLayout
+                    clActions.layoutParams = layoutParams
 
-        clMain.visibility = View.VISIBLE
-        clActions.visibility = View.GONE
-    }
+                    // Remove the global layout listener to avoid multiple calls
+                    clMain.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+        }
+        private fun hideActionLayout(clActions: ConstraintLayout, clMain: ConstraintLayout) {
+            val slideOutAnimation = AnimationUtils.loadAnimation(clActions.context, R.anim.bottom_top_anim)
 
-    private fun showToast(context: Context) {
-         Toast.makeText(context,"View clicked",Toast.LENGTH_SHORT).show()
-    }
+            clActions.startAnimation(slideOutAnimation)
 
-    private fun setActionLayoutHeight(clMain: ConstraintLayout, clActions: ConstraintLayout) {
-        clMain.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                // Get the height of the first layout after it's laid out
-                val heightOfFirstLayout = clMain.height
+            clMain.visibility = View.VISIBLE
+            clActions.visibility = View.GONE
+        }
 
-                // Apply this height to the second layout
-                val layoutParams = clActions.layoutParams
-                layoutParams.height = heightOfFirstLayout
-                clActions.layoutParams = layoutParams
-
-                // Remove the global layout listener to avoid multiple calls
-                clMain.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
-        })
-    }
-
-    // return the number of the items in the list
-    override fun getItemCount(): Int {
-        return sellerItemList.size
-    }
-
-    // Holds the views for adding it to image and text
-    class ViewHolder(SellerItemView: View) : RecyclerView.ViewHolder(SellerItemView) {
-        val tvName: TextView = SellerItemView.findViewById(R.id.tvItemName)
-        val tvPrice: TextView = SellerItemView.findViewById(R.id.tvItemPrice)
-        val tvQuanttity: TextView = SellerItemView.findViewById(R.id.tvStockQuantity)
-        val clMain: ConstraintLayout = SellerItemView.findViewById(R.id.cvMain)
-        val clActions: ConstraintLayout = SellerItemView.findViewById(R.id.cvActions)
-        val tvView: TextView = SellerItemView.findViewById(R.id.tvEdit)
-        val ivView:ImageView = SellerItemView.findViewById(R.id.ivView)
+        private fun showToast(context: Context) {
+            Toast.makeText(context,"View clicked",Toast.LENGTH_SHORT).show()
+        }
 
 
     }

@@ -1,5 +1,9 @@
 package com.example.plantlets.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class SellerItem(
     var name:String="",
     var stockQuantity:Int? =null,
@@ -10,4 +14,4 @@ data class SellerItem(
     var image:String?=null,
     var id:String? =null
 
-)
+): Parcelable

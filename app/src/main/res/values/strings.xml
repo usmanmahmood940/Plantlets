@@ -39,7 +39,10 @@
     <string name="categories">Categories</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
+    <string name="update">Update</string>
     <string name="choose_category">Choose Category</string>
+    <string name="add_item">Add Item</string>
+    <string name="eidt_item">Edit Item</string>
 
 
 

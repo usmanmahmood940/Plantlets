@@ -152,5 +152,10 @@ slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
 
          val category = tempCategories.firstOrNull { it.categoryName == "Plants" }
 
+           if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                     return;
+                 }
+                 mLastClickTime = SystemClock.elapsedRealtime();
+
 
 
