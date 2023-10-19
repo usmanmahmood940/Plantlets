@@ -42,7 +42,7 @@
             android:layout_marginTop="@dimen/margin_small_100"
             android:fontFamily="@font/futura_medium"
             android:text="34"
-            android:textColor="@color/grey"
+            android:textColor="@color/black"
             android:textSize="@dimen/font_small_115"
             app:layout_constraintStart_toStartOf="@id/tvItemName"
             app:layout_constraintTop_toBottomOf="@+id/tvItemName" />

@@ -34,7 +34,7 @@ class SellerItemViewModel @Inject constructor(
 
 
     var query: String = ""
-    val sellerItemFillter = SellerItemFillter()
+    var sellerItemFillter = SellerItemFillter()
 
     fun startObserving() {
         itemRepository.getItems()

@@ -57,7 +57,6 @@ class ItemRepository @Inject constructor(
                 }
                 if (snapshotlist != null) {
                     val itemList: MutableList<SellerItem> = mutableListOf()
-                    _itemsStateFlow.value = CustomResponse.Success(itemList)
                     for (snapshot in snapshotlist) {
                         val item = snapshot.toObject(SellerItem::class.java)
                         if (item != null) {

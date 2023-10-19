@@ -31,6 +31,7 @@
     <dimen name="search_box_height">55dp</dimen>
 
     <dimen name="padding_small_50">2dp</dimen>
+    <dimen name="padding_small_70">3dp</dimen>
     <dimen name="padding_small_100">5dp</dimen>
     <dimen name="padding_small_150">7dp</dimen>
     <dimen name="padding_normal_100">10dp</dimen>

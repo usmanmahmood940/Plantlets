@@ -2,17 +2,26 @@ package com.example.plantlets.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
@@ -25,6 +34,7 @@ import com.example.plantlets.databinding.DialogFilterItemsBinding
 import com.example.plantlets.databinding.FragmentItemsBinding
 import com.example.plantlets.interfaces.ItemClickListener
 import com.example.plantlets.models.SellerItem
+import com.example.plantlets.models.SellerItemFillter
 import com.example.plantlets.utils.Constants.ALL
 import com.example.plantlets.utils.Constants.CATEGORY_REFRENCE
 import com.example.plantlets.viewmodels.SellerItemViewModel
@@ -37,8 +47,10 @@ class ItemsFragment : Fragment(), ItemClickListener {
     lateinit var itemAdapter: SellerItemAdapter
     private lateinit var itemViewModel: SellerItemViewModel
     private var dialogCheck = false
+    private var navController:NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -78,12 +90,20 @@ class ItemsFragment : Fragment(), ItemClickListener {
     }
 
 
+
     private fun initListeners() {
-        binding.fabItem.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.itemsFragment) {
-                val action = ItemsFragmentDirections.actionItemsFragmentToAddItemFragment(null)
-                findNavController().navigate(action)
-            }
+        binding.fabItem.blockingClickListener {
+//            if (findNavController().currentDestination?.id == R.id.itemsFragment) {
+//                val action = ItemsFragmentDirections.actionItemsFragmentToAddItemFragment(null)
+//                findNavController().navigate(action)
+//            }
+//            else{
+//                Log.d("USMAN-TAG",findNavController().currentDestination?.id.toString())
+//            }
+            val action = ItemsFragmentDirections.actionItemsFragmentToAddItemFragment(null)
+            findNavController().safeNavigate(action)
+//
+
         }
         binding.btnfilter.setOnClickListener {
             showFilterDialog()
@@ -127,7 +147,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
                         (requireActivity() as SellerHomeActivity).hideProgressBar().also {
                             binding.fabItem.isEnabled = true
                         }
-                        response.data?.let { categoryList ->
+                        response.data?.let { itemList ->
                             val list = itemViewModel.filteredItems()
                             itemAdapter.submitList(list)
                         }
@@ -144,8 +164,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
                         (requireActivity() as SellerHomeActivity).apply {
                             hideProgressBar()
                             showAlert(
-                                title = getString(R.string.error),
-                                message = response.errorMessage
+                                title = getString(R.string.error), message = response.errorMessage
                             )
                         }
 
@@ -168,40 +187,39 @@ class ItemsFragment : Fragment(), ItemClickListener {
     }
 
     override fun onDelete(item: SellerItem) {
-        (requireActivity() as BaseActivity)
-            .showAlert(
-                title = "Confirmation",
-                message = "Do you really want to delete it",
-                positiveButtonText = "Yes",
-                positiveButtonClickListener = object : DialogInterface.OnClickListener {
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        itemViewModel.deleteItem(item)
-                    }
-
-                },
-                negativeButtonText = "No",
-                negativeButtonClickListener = object : DialogInterface.OnClickListener {
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        p0?.dismiss()
-                    }
-
+        (requireActivity() as BaseActivity).showAlert(title = "Confirmation",
+            message = "Do you really want to delete it",
+            positiveButtonText = "Yes",
+            positiveButtonClickListener = object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    itemViewModel.deleteItem(item)
                 }
-            )
+
+            },
+            negativeButtonText = "No",
+            negativeButtonClickListener = object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    p0?.dismiss()
+                }
+
+            })
 
     }
 
     private fun showFilterDialog() {
         if (dialogCheck) {
-            val dialogBinding = DialogFilterItemsBinding.inflate(LayoutInflater.from(requireContext()))
+            val dialogBinding =
+                DialogFilterItemsBinding.inflate(LayoutInflater.from(requireContext()))
             val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialog)
                 .setView(dialogBinding.root)
             val dialog = dialogBuilder.create()
             with(dialogBinding) {
-                spinnerCategory.adapter =
-                    itemViewModel.categoryList.value.data?.let {
-                        getSpinnerAdapter(it.map { category -> category.categoryName }
-                            .toMutableList(), CATEGORY_REFRENCE)
-                    }
+                var tempCategoryList = mutableListOf<String>()
+                itemViewModel.categoryList.value.data?.let {
+                    tempCategoryList = it.map { category -> category.categoryName }.toMutableList()
+                    tempCategoryList.add(0, ALL)
+                }
+                spinnerCategory.adapter = getSpinnerAdapter(tempCategoryList)
                 spinnerSortOption.adapter = getSpinnerAdapter(
                     enumValues<ItemSortOptions>().map { it.name }.toMutableList()
                 )
@@ -209,13 +227,44 @@ class ItemsFragment : Fragment(), ItemClickListener {
                     enumValues<SortDirection>().map { it.name }.toMutableList()
                 )
 
-                btnSetFilter.setOnClickListener {
+                itemViewModel.sellerItemFillter.apply {
+                    val name =
+                        itemViewModel.categoryList.value.data?.firstOrNull { it.categoryName == category }?.categoryName
+                    spinnerCategory.setSelection(getIndex(tempCategoryList, name))
 
+                    spinnerSortOption.setSelection(getIndex(
+                        enumValues<ItemSortOptions>().map { it.name }
+                        .toMutableList(),
+                        sortOption)
+                    )
+                    spinnerSortDirection.setSelection(getIndex(
+                        enumValues<SortDirection>().map { it.name }
+                            .toMutableList(),
+                        sortDirection)
+                    )
                 }
+
+                btnSetFilter.setOnClickListener {
+                    itemViewModel.sellerItemFillter = SellerItemFillter(
+                        category = spinnerCategory.selectedItem.toString(),
+                        sortOption = spinnerSortOption.selectedItem.toString(),
+                        sortDirection = spinnerSortDirection.selectedItem.toString()
+                    )
+                    itemAdapter.submitList(itemViewModel.filteredItems())
+                    dialog.dismiss()
+                }
+
                 dialog.show()
             }
         }
 
+    }
+
+    private fun getIndex(spinnerCategories: MutableList<String>, categoryName: String?): Int {
+        categoryName?.let {
+            return spinnerCategories.indexOf(categoryName)
+        }
+        return 0
     }
 
     fun updateDialogCheck() {
@@ -235,11 +284,12 @@ class ItemsFragment : Fragment(), ItemClickListener {
         }
     }
 
-    private fun getSpinnerAdapter(list: MutableList<String>, type: String?=null): ArrayAdapter<String> {
-        if (type != null && type == CATEGORY_REFRENCE){
-            list.add(0, ALL)
-        }
-        return ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, list)
+    private fun getSpinnerAdapter(
+        list: MutableList<String>,
+    ): ArrayAdapter<String> {
+        return ArrayAdapter<String>(
+            requireContext(), android.R.layout.simple_spinner_dropdown_item, list
+        )
     }
 
 //    private fun filterDialog() {
@@ -292,6 +342,38 @@ class ItemsFragment : Fragment(), ItemClickListener {
 //
 //        dialog.show()
 //    }
+
+    private val clickTag = "__click__"
+    fun View.blockingClickListener(debounceTime: Long = 1200L, action: () -> Unit) {
+        this.setOnClickListener(object : View.OnClickListener {
+            private var lastClickTime: Long = 0
+            override fun onClick(v: View) {
+                val timeNow = SystemClock.elapsedRealtime()
+                val elapsedTimeSinceLastClick = timeNow - lastClickTime
+                Log.d(clickTag, """
+                        DebounceTime: $debounceTime
+                        Time Elapsed: $elapsedTimeSinceLastClick
+                        Is within debounce time: ${elapsedTimeSinceLastClick < debounceTime}
+                    """.trimIndent())
+
+                if (elapsedTimeSinceLastClick < debounceTime) {
+                    Log.d(clickTag, "Double click shielded")
+                    return
+                }
+                else {
+                    Log.d(clickTag, "Click happened")
+                    action()
+                }
+                lastClickTime = SystemClock.elapsedRealtime()
+            }
+        })
+    }
+
+    fun NavController.safeNavigate(direction: NavDirections) {
+        currentDestination?.getAction(direction.actionId)?.run {
+            navigate(direction)
+        }
+    }
 
 
 }
