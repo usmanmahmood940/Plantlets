@@ -7,5 +7,5 @@ import com.example.plantlets.utils.Constants.ALL
 data class SellerItemFillter (
     var category:String=ALL,
     var sortOption:String =ItemSortOptions.Date.toString(),
-    var sortDirection:String = SortDirection.Forward.toString()
+    var sortDirection:String = SortDirection.Ascending.toString()
 )

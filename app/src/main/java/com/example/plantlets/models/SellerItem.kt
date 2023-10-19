@@ -8,9 +8,9 @@ data class SellerItem(
     var name:String="",
     var stockQuantity:Int? =null,
     var price:Double? = null,
-    var details:String? = null,
+    var details:String? = "",
     var categoryId:String?=null,
-    var soldCount:Int?=null,
+    var soldCount:Int?=0,
     var image:String?=null,
     var id:String? =null
 

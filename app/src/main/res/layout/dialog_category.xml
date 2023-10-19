@@ -18,7 +18,7 @@
         android:fontFamily="@font/futura_medium"
         android:paddingVertical="@dimen/padding_normal_100"
         android:paddingHorizontal="@dimen/padding_normal_500"
-        android:textSize="@dimen/font_small_125"
+        android:textSize="@dimen/font_small_150"
         android:textColor="@color/light_green"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
-        android:textSize="@dimen/font_small_115"
+        android:textSize="@dimen/font_small_125"
         android:fontFamily="@font/futura_medium"
         android:layout_marginTop="@dimen/margin_normal_100"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         android:background="@drawable/shape_search_border"
         android:padding="@dimen/padding_small_150"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvLabelName"
         app:layout_constraintTop_toBottomOf="@+id/tvLabelName">
 
 
@@ -59,9 +59,9 @@
             android:hint="Enter Name"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/grey"
-            android:textSize="@dimen/font_small_115"
+            android:textSize="@dimen/font_small_125"
             android:fontFamily="@font/futura_medium"
-            android:paddingVertical="@dimen/padding_normal_100"
+            android:paddingVertical="@dimen/padding_small_100"
             />
 
 
@@ -75,7 +75,7 @@
         android:background="@drawable/shape_circle_green"
         android:fontFamily="@font/futur"
         android:text="@string/add"
-        android:textSize="@dimen/font_small_115"
+        android:textSize="@dimen/font_small_125"
         android:textStyle="bold"
         app:backgroundTint="@null"
         android:elevation="2dp"

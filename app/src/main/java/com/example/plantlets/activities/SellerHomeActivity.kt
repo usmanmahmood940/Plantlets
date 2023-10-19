@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SellerHomeActivity : BaseActivity() {
-    lateinit var binding:ActivitySellerHomeBinding
+    lateinit var binding: ActivitySellerHomeBinding
     private lateinit var navController: NavController
 
 
@@ -30,7 +30,9 @@ class SellerHomeActivity : BaseActivity() {
         navController = supportFragmentManager.findFragmentById(R.id.sellerFragmentContainer)!!
             .findNavController()
         binding.bottomNavSeller.setupWithNavController(navController)
+
+        
     }
 
- 
+
 }

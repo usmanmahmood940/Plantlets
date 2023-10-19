@@ -121,7 +121,7 @@ class SellerItemViewModel @Inject constructor(
 
 
         // Reverse the list if the sort direction is backward
-        return if (sortDirection == SortDirection.Backward.toString()) {
+        return if (sortDirection == SortDirection.Descending.toString()) {
             sortedList.reversed()
         } else {
             sortedList

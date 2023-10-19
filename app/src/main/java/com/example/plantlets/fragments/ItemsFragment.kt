@@ -93,16 +93,9 @@ class ItemsFragment : Fragment(), ItemClickListener {
 
     private fun initListeners() {
         binding.fabItem.blockingClickListener {
-//            if (findNavController().currentDestination?.id == R.id.itemsFragment) {
-//                val action = ItemsFragmentDirections.actionItemsFragmentToAddItemFragment(null)
-//                findNavController().navigate(action)
-//            }
-//            else{
-//                Log.d("USMAN-TAG",findNavController().currentDestination?.id.toString())
-//            }
+
             val action = ItemsFragmentDirections.actionItemsFragmentToAddItemFragment(null)
-            findNavController().safeNavigate(action)
-//
+            findNavController().navigate(action)
 
         }
         binding.btnfilter.setOnClickListener {

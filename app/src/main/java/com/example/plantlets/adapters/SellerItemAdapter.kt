@@ -1,5 +1,6 @@
 package com.example.plantlets.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -58,12 +59,14 @@ class SellerItemAdapter(
     // Holds the views for adding it to image and text
     class ViewHolder(private val binding: ItemSellerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: SellerItem, listener: ItemClickListener){
             with(binding) {
                 setActionLayoutHeight(cvMain, cvActions)
                 tvItemName.text = item.name
                 tvItemPrice.text = item.price.toString()
                 tvStockQuantity.text = "Quantity : " + item.stockQuantity.toString()
+                tvSalesCount.text="Sales Count : "+(item.soldCount?:"1").toString()
                 Glide.with(ivItemImage.context).load(item.image).into(ivItemImage)
                 cvMain.setOnClickListener {
 

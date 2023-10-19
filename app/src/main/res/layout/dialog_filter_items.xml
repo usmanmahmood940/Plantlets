@@ -128,7 +128,7 @@
         android:background="@drawable/shape_circle_green"
         android:fontFamily="@font/futur"
         android:text="@string/update"
-        android:textSize="@dimen/font_small_115"
+        android:textSize="@dimen/font_small_125"
         android:textStyle="bold"
         app:backgroundTint="@null"
         android:elevation="2dp"

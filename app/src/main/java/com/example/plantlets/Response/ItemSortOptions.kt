@@ -9,7 +9,7 @@ enum class ItemSortOptions {
 }
 
 enum class SortDirection{
-    Forward,
-    Backward,
+    Ascending,
+    Descending,
 
 }

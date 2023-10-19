@@ -31,6 +31,7 @@
             android:maxLength="25"
             android:text="Sunflower plants"
             android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/padding_small_100"
             android:textSize="@dimen/font_small_150"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
