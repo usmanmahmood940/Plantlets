@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_grey"
-    tools:context=".fragments.CategoryFragment">
+    tools:context=".fragments.CategoryFragment"
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/tvLabelCategory"

@@ -16,6 +16,7 @@ object Constants {
 
     const val FOOD_ITEM_REFRENCE = "FoodItem"
     const val CATEGORY_REFRENCE = "Category"
+    const val ALL = "All"
     const val ORDER_REFRENCE = "Order"
     const val ORDER_TRACKING_REFRENCE = "orderTracking"
     const val ORDER_DELIVERY_INFO_REFRENCE = "deliveryInfo"

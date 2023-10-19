@@ -2,24 +2,31 @@ package com.example.plantlets.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.Response.ItemSortOptions
+import com.example.plantlets.Response.SortDirection
 import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.adapters.SellerItemAdapter
+import com.example.plantlets.databinding.DialogFilterItemsBinding
 import com.example.plantlets.databinding.FragmentItemsBinding
-import com.example.plantlets.interfaces.CategoryClickListener
 import com.example.plantlets.interfaces.ItemClickListener
-import com.example.plantlets.models.Category
 import com.example.plantlets.models.SellerItem
+import com.example.plantlets.utils.Constants.ALL
+import com.example.plantlets.utils.Constants.CATEGORY_REFRENCE
 import com.example.plantlets.viewmodels.SellerItemViewModel
 import kotlinx.coroutines.launch
 
@@ -29,6 +36,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
     private lateinit var binding: FragmentItemsBinding
     lateinit var itemAdapter: SellerItemAdapter
     private lateinit var itemViewModel: SellerItemViewModel
+    private var dialogCheck = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +53,8 @@ class ItemsFragment : Fragment(), ItemClickListener {
         initListeners()
         observeItemList()
         initItemList()
+        itemViewModel.getCategoriesOnce()
+        updateDialogCheck()
 
         return binding.root
     }
@@ -60,7 +70,7 @@ class ItemsFragment : Fragment(), ItemClickListener {
     }
 
     private fun initItemList() {
-        itemAdapter = SellerItemAdapter(emptyList(), this)
+        itemAdapter = SellerItemAdapter(this)
         binding.rvSellerItemList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = itemAdapter
@@ -75,8 +85,25 @@ class ItemsFragment : Fragment(), ItemClickListener {
                 findNavController().navigate(action)
             }
         }
+        binding.btnfilter.setOnClickListener {
+            showFilterDialog()
+        }
+        setupSearch()
 
 
+    }
+
+    private fun setupSearch() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                val query = editable.toString().lowercase()
+                itemViewModel.query = query
+                val list = itemViewModel.filteredItems()
+                itemAdapter.submitList(list)
+            }
+        })
     }
 
     fun createDummySellerItemList(): List<SellerItem> {
@@ -101,10 +128,8 @@ class ItemsFragment : Fragment(), ItemClickListener {
                             binding.fabItem.isEnabled = true
                         }
                         response.data?.let { categoryList ->
-                            val list = itemViewModel.getItemByQuery(
-                                itemViewModel.query ?: ""
-                            )
-                            itemAdapter.setList(list)
+                            val list = itemViewModel.filteredItems()
+                            itemAdapter.submitList(list)
                         }
 
                     }
@@ -155,15 +180,118 @@ class ItemsFragment : Fragment(), ItemClickListener {
 
                 },
                 negativeButtonText = "No",
-                negativeButtonClickListener =  object : DialogInterface.OnClickListener {
+                negativeButtonClickListener = object : DialogInterface.OnClickListener {
                     override fun onClick(p0: DialogInterface?, p1: Int) {
-                       p0?.dismiss()
+                        p0?.dismiss()
                     }
 
                 }
             )
 
     }
+
+    private fun showFilterDialog() {
+        if (dialogCheck) {
+            val dialogBinding = DialogFilterItemsBinding.inflate(LayoutInflater.from(requireContext()))
+            val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialog)
+                .setView(dialogBinding.root)
+            val dialog = dialogBuilder.create()
+            with(dialogBinding) {
+                spinnerCategory.adapter =
+                    itemViewModel.categoryList.value.data?.let {
+                        getSpinnerAdapter(it.map { category -> category.categoryName }
+                            .toMutableList(), CATEGORY_REFRENCE)
+                    }
+                spinnerSortOption.adapter = getSpinnerAdapter(
+                    enumValues<ItemSortOptions>().map { it.name }.toMutableList()
+                )
+                spinnerSortDirection.adapter = getSpinnerAdapter(
+                    enumValues<SortDirection>().map { it.name }.toMutableList()
+                )
+
+                btnSetFilter.setOnClickListener {
+
+                }
+                dialog.show()
+            }
+        }
+
+    }
+
+    fun updateDialogCheck() {
+        lifecycleScope.launch {
+            val job = itemViewModel.categoryList.collect { response ->
+                when (response) {
+                    is CustomResponse.Success -> {
+                        dialogCheck = true
+
+                    }
+
+                    else -> {
+                        dialogCheck = false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getSpinnerAdapter(list: MutableList<String>, type: String?=null): ArrayAdapter<String> {
+        if (type != null && type == CATEGORY_REFRENCE){
+            list.add(0, ALL)
+        }
+        return ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, list)
+    }
+
+//    private fun filterDialog() {
+//        binding.fabCategory.isEnabled = false
+//        val dialogView =
+//            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_category, null)
+//        val tvDialogLabel = dialogView.findViewById<TextView>(R.id.tv_dialog_label)
+//        val btnAction = dialogView.findViewById<TextView>(R.id.btnAction)
+//        val etCategoryName = dialogView.findViewById<EditText>(R.id.etCategoryName)
+//        var newCategory = Category()
+//
+//        val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialog)
+//            .setView(dialogView)
+//            .setOnDismissListener {
+//                binding.fabCategory.isEnabled = true
+//            }
+//
+//        val dialog = dialogBuilder.create()
+//
+//        category?.apply {
+//            tvDialogLabel.text = "Update Category"
+//            etCategoryName.setText(categoryName)
+//            newCategory.categoryId = category.categoryId
+//            btnAction.text = "Update"
+//        }
+//
+//        btnAction.setOnClickListener {
+//            if (etCategoryName.text.trim().isBlank()) {
+//                etCategoryName.showError(getString(com.example.plantlets.R.string.field_required_error))
+//                return@setOnClickListener
+//            }
+//            newCategory.categoryName = etCategoryName.text.toString()
+//            if (!sellerCategoryViewModel.categoryNameExist(
+//                    categoryAdapter.currentList,
+//                    newCategory
+//                )
+//            ) {
+//                sellerCategoryViewModel.upsertCategory(newCategory)
+//                dialog.dismiss()
+//            } else {
+//                dialog.dismiss()
+//                (requireActivity() as SellerHomeActivity).showAlert(
+//                    title = getString(R.string.error),
+//                    message = "Category of this name already exist"
+//                )
+//            }
+//
+//        }
+//
+//
+//        dialog.show()
+//    }
 
 
 }

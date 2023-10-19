@@ -14,7 +14,7 @@
         android:id="@+id/tv_dialog_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_category"
+        android:text="Choose Filters"
         android:fontFamily="@font/futura_medium"
         android:paddingVertical="@dimen/padding_normal_100"
         android:paddingHorizontal="@dimen/padding_normal_500"
@@ -27,10 +27,10 @@
         />
 
     <TextView
-        android:id="@+id/tvLabelName"
+        android:id="@+id/tvItemCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/name"
+        android:text="Item Category"
         android:textSize="@dimen/font_small_115"
         android:fontFamily="@font/futura_medium"
         android:layout_marginTop="@dimen/margin_normal_100"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_label" />
 
     <RelativeLayout
-        android:id="@+id/rlName"
+        android:id="@+id/rlCategory"
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal_100"
@@ -46,35 +46,84 @@
         android:padding="@dimen/padding_small_150"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelName">
+        app:layout_constraintTop_toBottomOf="@+id/tvItemCategory">
 
-
-        <EditText
-            android:id="@+id/etCategoryName"
+        <Spinner
+            android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:background="@null"
-            android:hint="Enter Name"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/grey"
-            android:textSize="@dimen/font_small_115"
-            android:fontFamily="@font/futura_medium"
-            android:paddingVertical="@dimen/padding_normal_100"
             />
-
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/btnAction"
+        android:id="@+id/tvSortOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort Option"
+        android:textSize="@dimen/font_small_115"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlCategory" />
+
+    <RelativeLayout
+        android:id="@+id/rlSortOption"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        android:background="@drawable/shape_search_border"
+        android:padding="@dimen/padding_small_150"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortOption">
+
+        <Spinner
+            android:id="@+id/spinnerSortOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvSortDirection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort Direction"
+        android:textSize="@dimen/font_small_115"
+        android:fontFamily="@font/futura_medium"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlSortOption" />
+
+    <RelativeLayout
+        android:id="@+id/rlSortDirection"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        android:background="@drawable/shape_search_border"
+        android:padding="@dimen/padding_small_150"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortDirection">
+
+        <Spinner
+            android:id="@+id/spinnerSortDirection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btnSetFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal_200"
         android:background="@drawable/shape_circle_green"
         android:fontFamily="@font/futur"
-        android:text="@string/add"
+        android:text="Set"
         android:textSize="@dimen/font_small_115"
         android:textStyle="bold"
         app:backgroundTint="@null"
@@ -85,7 +134,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlName"
+        app:layout_constraintTop_toBottomOf="@+id/rlSortDirection"
         />
 
 

@@ -28,8 +28,16 @@ object Helper {
 
     fun generateRandomStringWithTime(): String {
         val timestamp = System.currentTimeMillis()
-        val randomString = UUID.randomUUID().toString()
+        val randomString = generateRandomString(6)
         return "$timestamp-$randomString"
+    }
+
+    fun generateRandomString(length: Int): String {
+        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        val random = Random()
+        return (1..length)
+            .map { charset[random.nextInt(charset.length)] }
+            .joinToString("")
     }
 
 

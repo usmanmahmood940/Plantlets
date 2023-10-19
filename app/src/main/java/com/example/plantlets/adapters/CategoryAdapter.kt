@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantlets.R
 import com.example.plantlets.interfaces.CategoryClickListener
@@ -12,55 +14,40 @@ import com.example.plantlets.models.Category
 
 
 class CategoryAdapter(
-    private var categoryItemList: List<Category> = emptyList(),
-    private var listener: CategoryClickListener
+    private val listener: CategoryClickListener
 ) :
-    RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+    ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
 
-    fun setList(list: List<Category>) {
-        categoryItemList = list
-        notifyDataSetChanged()
-    }
-
-    fun getList():List<Category>{
-        return categoryItemList
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_category, parent, false)
-
         return ViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val category = categoryItemList[position]
-        holder.apply {
-            tvCategoryName.text = category.categoryName
-            ivEdit.setOnClickListener{
-                listener.onEdit(category)
-            }
-            ivDelete.setOnClickListener {
-                listener.onDelete(category)
-            }
-        }
-
-
+        val category = getItem(position)
+        holder.bind(category, listener)
     }
 
-
-    // return the number of the items in the list
-    override fun getItemCount(): Int {
-        return categoryItemList.size
-    }
-
-    // Holds the views for adding it to image and text
     class ViewHolder(CategoryItemView: View) : RecyclerView.ViewHolder(CategoryItemView) {
         val tvCategoryName: TextView = CategoryItemView.findViewById(R.id.tvCategoryName)
-        val ivEdit:ImageView = CategoryItemView.findViewById(R.id.ivEdit)
-        val ivDelete:ImageView = CategoryItemView.findViewById(R.id.ivDelete)
+        val ivEdit: ImageView = CategoryItemView.findViewById(R.id.ivEdit)
+        val ivDelete: ImageView = CategoryItemView.findViewById(R.id.ivDelete)
+
+        fun bind(category: Category, listener: CategoryClickListener) {
+            tvCategoryName.text = category.categoryName
+            ivEdit.setOnClickListener { listener.onEdit(category) }
+            ivDelete.setOnClickListener { listener.onDelete(category) }
+        }
     }
 
+    class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
+        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+            return oldItem.categoryId == newItem.categoryId
+        }
 
+        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

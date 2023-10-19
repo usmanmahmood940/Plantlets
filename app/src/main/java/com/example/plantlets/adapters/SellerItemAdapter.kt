@@ -11,36 +11,37 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.plantlets.R
+import com.example.plantlets.databinding.ItemSellerItemLayoutBinding
 import com.example.plantlets.interfaces.CategoryClickListener
 import com.example.plantlets.interfaces.ItemClickListener
+import com.example.plantlets.models.Category
 import com.example.plantlets.models.SellerItem
 
 
 class SellerItemAdapter(
-    private var sellerItemList: List<SellerItem>,
      var listener: ItemClickListener
 ) :
-    RecyclerView.Adapter<SellerItemAdapter.ViewHolder>(){
+    ListAdapter<SellerItem, SellerItemAdapter.ViewHolder>(SellerItemDiffCallback()) {
 
-    fun setList(list: List<SellerItem>) {
-        sellerItemList = list
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_seller_item_layout, parent, false)
-
-        return ViewHolder(view)
+        val binding = ItemSellerItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ViewHolder(binding)
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val sellerItem = sellerItemList[position]
+        val sellerItem = getItem(position)
 
         holder.apply {
             bind(sellerItem,listener)
@@ -53,81 +54,67 @@ class SellerItemAdapter(
 
 
 
-    // return the number of the items in the list
-    override fun getItemCount(): Int {
-        return sellerItemList.size
-    }
 
     // Holds the views for adding it to image and text
-    class ViewHolder(SellerItemView: View) : RecyclerView.ViewHolder(SellerItemView) {
-        val ivItemImage:ImageView = SellerItemView.findViewById(R.id.ivItemImage)
-        val tvName: TextView = SellerItemView.findViewById(R.id.tvItemName)
-        val tvPrice: TextView = SellerItemView.findViewById(R.id.tvItemPrice)
-        val tvQuanttity: TextView = SellerItemView.findViewById(R.id.tvStockQuantity)
-        val clMain: ConstraintLayout = SellerItemView.findViewById(R.id.cvMain)
-        val clActions: ConstraintLayout = SellerItemView.findViewById(R.id.cvActions)
-        val ivView:ImageView = SellerItemView.findViewById(R.id.ivView)
-        val tvView: TextView = SellerItemView.findViewById(R.id.tvView)
-        val ivEdit:ImageView = SellerItemView.findViewById(R.id.ivEdit)
-        val tvEdit: TextView = SellerItemView.findViewById(R.id.tvEdit)
-        val ivDelete:ImageView = SellerItemView.findViewById(R.id.ivDelete)
-        val tvDelete: TextView = SellerItemView.findViewById(R.id.tvDelete)
+    class ViewHolder(private val binding: ItemSellerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SellerItem, listener: ItemClickListener){
-            setActionLayoutHeight(clMain, clActions)
-            tvName.text = item.name
-            tvPrice.text = item.price.toString()
-            tvQuanttity.text = "Quantity : " +item.stockQuantity.toString()
-            Glide.with(ivItemImage.context).load(item.image).into(ivItemImage)
-            clMain.setOnClickListener {
+            with(binding) {
+                setActionLayoutHeight(cvMain, cvActions)
+                tvItemName.text = item.name
+                tvItemPrice.text = item.price.toString()
+                tvStockQuantity.text = "Quantity : " + item.stockQuantity.toString()
+                Glide.with(ivItemImage.context).load(item.image).into(ivItemImage)
+                cvMain.setOnClickListener {
 
-                val slideInAnimation =
-                    AnimationUtils.loadAnimation(clActions.context, R.anim.top_bottom_anim)
+                    val slideInAnimation =
+                        AnimationUtils.loadAnimation(cvActions.context, R.anim.top_bottom_anim)
 
-                clActions.visibility = View.VISIBLE
-                clActions.startAnimation(slideInAnimation)
+                    cvActions.visibility = View.VISIBLE
+                    cvActions.startAnimation(slideInAnimation)
 
-                slideInAnimation.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(animation: Animation?) {
-                        // Animation start callback
-                    }
+                    slideInAnimation.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            // Animation start callback
+                        }
 
-                    override fun onAnimationEnd(animation: Animation?) {
-                        // Make the layout invisible after the animation ends
-                        clMain.visibility = View.GONE
-                    }
+                        override fun onAnimationEnd(animation: Animation?) {
+                            // Make the layout invisible after the animation ends
+                            cvMain.visibility = View.GONE
+                        }
 
-                    override fun onAnimationRepeat(animation: Animation?) {
-                        // Animation repeat callback
-                    }
-                })
+                        override fun onAnimationRepeat(animation: Animation?) {
+                            // Animation repeat callback
+                        }
+                    })
 
 
-            }
-            clActions.setOnClickListener {
-                hideActionLayout(clActions,clMain)
+                }
+                cvActions.setOnClickListener {
+                    hideActionLayout(cvActions, cvMain)
 
-            }
+                }
 
-            tvView.setOnClickListener {
-                showToast(tvView.context)
+                tvView.setOnClickListener {
+                    showToast(tvView.context)
 
-            }
-            ivView.setOnClickListener {
-            }
+                }
+                ivView.setOnClickListener {
+                }
 
-            tvEdit.setOnClickListener {
-                listener.onEdit(item)
-            }
-            ivEdit.setOnClickListener {
-                listener.onEdit(item)
-            }
+                tvEdit.setOnClickListener {
+                    listener.onEdit(item)
+                }
+                ivEdit.setOnClickListener {
+                    listener.onEdit(item)
+                }
 
-            ivDelete.setOnClickListener {
-                listener.onDelete(item)
-            }
-            tvDelete.setOnClickListener {
-                listener.onDelete(item)
+                ivDelete.setOnClickListener {
+                    listener.onDelete(item)
+                }
+                tvDelete.setOnClickListener {
+                    listener.onDelete(item)
+                }
             }
         }
 
@@ -161,8 +148,18 @@ class SellerItemAdapter(
             Toast.makeText(context,"View clicked",Toast.LENGTH_SHORT).show()
         }
 
-
     }
+
+    class SellerItemDiffCallback : DiffUtil.ItemCallback<SellerItem>() {
+        override fun areItemsTheSame(oldItem: SellerItem, newItem: SellerItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: SellerItem, newItem: SellerItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 
 
 }

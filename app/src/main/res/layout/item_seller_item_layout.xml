@@ -27,7 +27,6 @@
             android:id="@+id/tvItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal_100"
             android:fontFamily="@font/futura_medium"
             android:maxLength="25"
             android:text="Sunflower plants"
@@ -44,7 +43,7 @@
             android:fontFamily="@font/futura_medium"
             android:text="34"
             android:textColor="@color/grey"
-            android:textSize="@dimen/font_small_125"
+            android:textSize="@dimen/font_small_115"
             app:layout_constraintStart_toStartOf="@id/tvItemName"
             app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
 
@@ -68,9 +67,21 @@
             android:fontFamily="@font/futura_medium"
             android:text="Quantity : 6"
             android:textColor="@color/grey"
-            android:textSize="@dimen/font_small_125"
+            android:textSize="@dimen/font_small_115"
             app:layout_constraintStart_toStartOf="@id/tvItemName"
             app:layout_constraintTop_toBottomOf="@+id/tvItemPrice" />
+
+        <TextView
+            android:id="@+id/tvSalesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_75"
+            android:fontFamily="@font/futura_medium"
+            android:text="Sales count : 6"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/font_small_115"
+            app:layout_constraintStart_toStartOf="@id/tvItemName"
+            app:layout_constraintTop_toBottomOf="@+id/tvStockQuantity" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivItemImage"
@@ -79,7 +90,7 @@
             android:scaleType="centerCrop"
             android:background="@color/white"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintBottom_toBottomOf="@+id/tvStockQuantity"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSalesCount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvItemName"
             android:src="@drawable/plant_sample"

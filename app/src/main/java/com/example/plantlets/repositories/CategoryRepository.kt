@@ -23,7 +23,7 @@ import javax.inject.Inject
 class CategoryRepository @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestoreRef: FirebaseFirestore,
-    private val localRepository: LocalRepository
+    private val localRepository: LocalRepository,
 ) {
 
     private var databaseReference: CollectionReference? = null
@@ -39,7 +39,7 @@ class CategoryRepository @Inject constructor(
         _categoriesStateFlow.value = CustomResponse.Loading()
         auth.currentUser?.apply {
             localRepository.getStoreFromPref()?.apply {
-               databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
+                databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
                     .collection(CATEGORIES_REFRENCE)
 
             }
@@ -51,8 +51,7 @@ class CategoryRepository @Inject constructor(
         valueEventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
-                    _categoriesStateFlow.value =
-                        CustomResponse.Error(error.message.toString())
+                    _categoriesStateFlow.value = CustomResponse.Error(error.message.toString())
                 }
                 if (snapshotlist != null) {
                     val categoryList: MutableList<Category> = mutableListOf()
@@ -71,26 +70,24 @@ class CategoryRepository @Inject constructor(
 
     }
 
-    fun removeListener(){
+    fun removeListener() {
         categoryListener?.apply {
             remove()
         }
     }
 
 
-
-    fun upsertCategory(category: Category){
+    fun upsertCategory(category: Category) {
 
         databaseReference?.apply {
             val key = generateRandomStringWithTime()
-            if(category.categoryId == null)
-                category.categoryId = key
+            if (category.categoryId == null) category.categoryId = key
             document(category.categoryId!!).set(category).addOnCompleteListener {
-                if (it.isSuccessful){
-                    Log.d("USMAN-TAG","category added")
+                if (it.isSuccessful) {
+                    Log.d("USMAN-TAG", "category added")
                 }
-                if(it.exception!=null){
-                    Log.d("USMAN-TAG",it.exception!!.message.toString())
+                if (it.exception != null) {
+                    Log.d("USMAN-TAG", it.exception!!.message.toString())
                 }
             }
         }
@@ -98,38 +95,38 @@ class CategoryRepository @Inject constructor(
     }
 
 
-    fun deleteCategory(category: Category){
+    fun deleteCategory(category: Category) {
         databaseReference?.apply {
             document(category.categoryId!!).delete()
         }
     }
 
-    suspend fun getCategoriesOnce(): CustomResponse<List<Category>> {
+    suspend fun getCategoriesOnce() {
+        _categoriesStateFlow.value = CustomResponse.Loading()
         try {
             val snapshotList: QuerySnapshot? = databaseReference?.get()?.await()
 
             if (snapshotList != null && !snapshotList.isEmpty) {
-                val categories = snapshotList.toObjects<Category>()
 
-                return CustomResponse.Success(categories)
+                val categoryList: MutableList<Category> = mutableListOf()
+                for (snapshot in snapshotList) {
+                    val category = snapshot.toObject(Category::class.java)
+                    if (category != null) {
+                        categoryList.add(category)
+                    }
+                }
+                _categoriesStateFlow.value = CustomResponse.Success(categoryList)
+
+
             } else {
-                // Handle the case where no data is available
-                return CustomResponse.Error("Category List is empty")
+                _categoriesStateFlow.value = CustomResponse.Error("Category List is empty")
             }
         } catch (e: Exception) {
             // Handle any exceptions (e.g., Firebase Firestore exceptions)
             e.printStackTrace()
-            return CustomResponse.Error(e.message.toString())
+            _categoriesStateFlow.value = CustomResponse.Error(e.message.toString())
         }
     }
-
-
-
-
-
-
-
-
 
 
 }

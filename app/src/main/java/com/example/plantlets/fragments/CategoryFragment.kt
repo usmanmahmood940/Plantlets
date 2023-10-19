@@ -18,6 +18,7 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.adapters.CategoryAdapter
+import com.example.plantlets.databinding.DialogCategoryBinding
 import com.example.plantlets.databinding.FragmentCategoryBinding
 import com.example.plantlets.interfaces.CategoryClickListener
 import com.example.plantlets.interfaces.CategoryExistListener
@@ -70,14 +71,14 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                 val query = editable.toString().lowercase()
                 sellerCategoryViewModel.query = query
                 val list = sellerCategoryViewModel.getCategoryByQuery(query)
-                categoryAdapter.setList(list)
+                categoryAdapter.submitList(list)
             }
         })
     }
 
 
     private fun setupCategoryList() {
-        categoryAdapter = CategoryAdapter(categoryItemList = emptyList(), listener = this)
+        categoryAdapter = CategoryAdapter(listener = this)
         binding.rvCategoryList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
@@ -103,7 +104,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                             val list = sellerCategoryViewModel.getCategoryByQuery(
                                 sellerCategoryViewModel.query ?: ""
                             )
-                            categoryAdapter.setList(list)
+                            categoryAdapter.submitList(list)
                         }
 
                     }
@@ -128,37 +129,33 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private fun showDialog(category: Category? = null) {
-        binding.fabCategory.isEnabled = false
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_category, null)
-        val tvDialogLabel = dialogView.findViewById<TextView>(R.id.tv_dialog_label)
-        val btnAction = dialogView.findViewById<TextView>(R.id.btnAction)
-        val etCategoryName = dialogView.findViewById<EditText>(R.id.etCategoryName)
+//        binding.fabCategory.isEnabled = false
+        val dialogBinding = DialogCategoryBinding.inflate(LayoutInflater.from(requireContext()))
         var newCategory = Category()
 
         val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomDialog)
-            .setView(dialogView)
+            .setView(dialogBinding.root)
             .setOnDismissListener {
-                binding.fabCategory.isEnabled = true
+//                binding.fabCategory.isEnabled = true
             }
 
         val dialog = dialogBuilder.create()
 
         category?.apply {
-            tvDialogLabel.text = "Update Category"
-            etCategoryName.setText(categoryName)
+            dialogBinding.tvDialogLabel.text = "Update Category"
+            dialogBinding.etCategoryName.setText(categoryName)
             newCategory.categoryId = category.categoryId
-            btnAction.text = "Update"
+            dialogBinding.btnAction.text = "Update"
         }
 
-        btnAction.setOnClickListener {
-            if (etCategoryName.text.trim().isBlank()) {
-                etCategoryName.showError(getString(com.example.plantlets.R.string.field_required_error))
+        dialogBinding.btnAction.setOnClickListener {
+            if (dialogBinding.etCategoryName.text.trim().isBlank()) {
+                dialogBinding.etCategoryName.showError(getString(com.example.plantlets.R.string.field_required_error))
                 return@setOnClickListener
             }
-            newCategory.categoryName = etCategoryName.text.toString()
+            newCategory.categoryName = dialogBinding.etCategoryName.text.toString()
             if (!sellerCategoryViewModel.categoryNameExist(
-                    categoryAdapter.getList(),
+                    categoryAdapter.currentList,
                     newCategory
                 )
             ) {
