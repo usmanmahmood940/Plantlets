@@ -52,6 +52,7 @@ class LoginActivity : BaseActivity() {
 
             override fun onFailure(errorMessage: String?) {
                 hideProgressBar().also {
+                    binding.svLogin.alpha = 1f
                     binding.btnLogin.isEnabled = true
                 }
                 showAlert(
@@ -70,6 +71,9 @@ class LoginActivity : BaseActivity() {
         binding.btnLogin.setOnClickListener {
             login()
 //            startActivity(Intent(this, SellerHomeActivity::class.java))
+        }
+        binding.tvLogin.setOnClickListener {
+            login()
         }
 
         binding.tvSignup.setOnClickListener {

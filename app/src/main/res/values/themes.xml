@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Plantlets" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Plantlets" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -22,6 +22,10 @@
     <style name="curvedCorner">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15%</item>
+    </style>
+    <style name="lightCurvedCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />

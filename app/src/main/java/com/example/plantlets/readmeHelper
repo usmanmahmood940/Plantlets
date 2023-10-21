@@ -158,4 +158,26 @@ slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
                  mLastClickTime = SystemClock.elapsedRealtime();
 
 
+button pading removal
+:   android:minHeight="20dp"
+              android:insetTop="0dp"
+              android:insetBottom="0dp"
+
+
+
+alpha 0.5 to aplha 1 view
+val topShape = ShapeDrawable(RectShape())
+topShape.paint.color = Color.argb(128, 0, 0, 0) // 128 is the alpha value (0.5)
+
+// Create a ShapeDrawable with alpha 1
+val bottomShape = ShapeDrawable(RectShape())
+bottomShape.paint.color = Color.argb(255, 0, 0, 0) // 255 is the alpha value (1)
+
+// Create a LayerDrawable with the two shapes
+val layers = arrayOf<Drawable>(bottomShape, topShape)
+val layerDrawable = LayerDrawable(layers)
+
+// Set the LayerDrawable as the background of your view
+yourView.background = layerDrawable
+
 

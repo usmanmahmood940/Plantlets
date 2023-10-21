@@ -8,6 +8,7 @@
     <dimen name="font_small_115">16sp</dimen>
     <dimen name="font_small_125">18sp</dimen>
     <dimen name="font_small_150">20sp</dimen>
+    <dimen name="font_small_175">23sp</dimen>
     <dimen name="font_normal_100">25sp</dimen>
     <dimen name="font_normal_125">30sp</dimen>
     <dimen name="font_normal_150">40sp</dimen>

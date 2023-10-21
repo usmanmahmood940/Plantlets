@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.plantlets.fragments.CategoryFragment"
+        android:name="com.example.plantlets.fragments.seller.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" />
 </navigation>

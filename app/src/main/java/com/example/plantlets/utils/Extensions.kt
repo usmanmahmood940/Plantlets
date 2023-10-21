@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.SystemClock
 import android.text.InputType
+import android.view.View
 import android.widget.EditText
 import androidx.core.content.FileProvider
 import com.example.plantlets.R
@@ -78,5 +80,26 @@ object Extensions {
         calendar.add(Calendar.DAY_OF_YEAR, days)
         return calendar.time
     }
+
+    fun View.blockingClickListener(debounceTime: Long = 1200L, action: () -> Unit) {
+        this.setOnClickListener(object : View.OnClickListener {
+            private var lastClickTime: Long = 0
+            override fun onClick(v: View) {
+                val timeNow = SystemClock.elapsedRealtime()
+                val elapsedTimeSinceLastClick = timeNow - lastClickTime
+
+
+                if (elapsedTimeSinceLastClick < debounceTime) {
+                    return
+                }
+                else {
+                    action()
+                }
+                lastClickTime = SystemClock.elapsedRealtime()
+            }
+        })
+    }
+
+
 
 }

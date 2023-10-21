@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_grey"
-    tools:context=".fragments.AddItemFragment">
+    tools:context=".fragments.seller.AddItemFragment">
 
     <ScrollView
         android:id="@+id/svAddItem"
@@ -36,7 +36,8 @@
                     android:text="@string/add_item"
                     android:textAlignment="center"
                     android:textColor="@color/light_green"
-                    android:textSize="@dimen/font_normal_150"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/font_normal_125"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -278,17 +279,35 @@
                     android:layout_marginTop="@dimen/margin_normal_300"
                     android:backgroundTint="@color/light_green"
                     android:fontFamily="@font/futur"
-                    android:paddingVertical="7dp"
+                    android:paddingVertical="@dimen/padding_small_150"
                     android:text="@string/add"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/font_small_150"
                     android:textStyle="bold"
-                    android:elevation="5dp"
-                    android:stateListAnimator="@null"
-                    app:layout_constraintWidth_percent="0.5"
+                    android:elevation="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rlItemPrice"
                     />
+                <RelativeLayout
+                    android:id="@+id/rlBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:elevation="3dp"
+                    android:layout_marginStart="@dimen/padding_small_100"
+                    android:background="@drawable/shape_oval_corner_grey"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvLabelItem"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvLabelItem">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_back" />
+                </RelativeLayout>
 
 
 

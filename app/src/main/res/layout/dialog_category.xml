@@ -67,20 +67,20 @@
 
     </RelativeLayout>
 
-    <TextView
+    <Button
         android:id="@+id/btnAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal_200"
-        android:background="@drawable/shape_circle_green"
+        android:backgroundTint="@color/light_green"
         android:fontFamily="@font/futur"
         android:text="@string/add"
         android:textSize="@dimen/font_small_125"
+        android:textAllCaps="false"
         android:textStyle="bold"
         app:backgroundTint="@null"
         android:elevation="2dp"
         android:paddingVertical="@dimen/padding_normal_100"
-        app:layout_constraintWidth_percent="0.4"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

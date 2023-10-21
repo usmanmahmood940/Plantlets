@@ -165,8 +165,7 @@
                     android:layout_marginTop="@dimen/margin_large_200"
                     android:fontFamily="@font/futur"
                     android:backgroundTint="@color/light_green"
-                    android:paddingVertical="7dp"
-                    android:text="Login"
+                    android:paddingVertical="@dimen/padding_normal_100"
                     android:textSize="@dimen/font_small_150"
                     android:textStyle="bold"
                     android:stateListAnimator="@null"
@@ -235,9 +234,33 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvForgetPass" />
 
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/btnLogin"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/tvLogin"-->
+<!--                    android:layout_marginRight="@dimen/margin_small_100"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/btnLogin"-->
+<!--                    app:srcCompat="@drawable/ic_login"-->
+<!--                    android:translationZ="10dp"-->
+<!--                    />-->
 
-
-
+                <TextView
+                    android:id="@+id/tvLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_small_150"
+                    android:textStyle="bold"
+                    android:translationZ="10dp"
+                    android:drawablePadding="@dimen/padding_small_100"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
+                    app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                    app:layout_constraintStart_toStartOf="@+id/btnLogin"
+                    app:layout_constraintTop_toTopOf="@+id/btnLogin"
+                    app:drawableStartCompat="@drawable/ic_login" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

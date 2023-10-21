@@ -111,7 +111,7 @@ open class BaseActivity : AppCompatActivity() {
                 }
 
                 Constants.USER_TYPE -> {
-                    LoginActivity::class.java
+                    UserHomeActivity::class.java
                 }
 
                 else -> {

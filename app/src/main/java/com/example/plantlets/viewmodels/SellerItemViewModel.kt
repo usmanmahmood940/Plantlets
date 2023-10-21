@@ -8,7 +8,7 @@ import com.example.plantlets.Response.ItemSortOptions
 import com.example.plantlets.Response.SortDirection
 import com.example.plantlets.models.Category
 import com.example.plantlets.models.SellerItem
-import com.example.plantlets.models.SellerItemFillter
+import com.example.plantlets.models.ItemFillter
 import com.example.plantlets.repositories.CategoryRepository
 import com.example.plantlets.repositories.ItemRepository
 import com.example.plantlets.utils.Constants.ALL
@@ -34,7 +34,7 @@ class SellerItemViewModel @Inject constructor(
 
 
     var query: String = ""
-    var sellerItemFillter = SellerItemFillter()
+    var sellerItemFillter = ItemFillter()
 
     fun startObserving() {
         itemRepository.getItems()

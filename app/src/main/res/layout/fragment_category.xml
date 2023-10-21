@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_grey"
-    tools:context=".fragments.CategoryFragment"
+    tools:context=".fragments.seller.CategoryFragment"
     android:animateLayoutChanges="true">
 
     <TextView
@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/futura_medium"
         android:paddingTop="15dp"
+        android:paddingBottom="10dp"
         android:text="@string/categories"
         android:textAlignment="center"
         android:textColor="@color/light_green"
-        android:textSize="@dimen/font_normal_150"
+        android:textSize="@dimen/font_normal_125"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
         android:layout_marginHorizontal="@dimen/margin_normal_100"
         android:layout_marginTop="@dimen/margin_normal_100"
         android:background="@drawable/shape_search_border"
-        android:paddingVertical="@dimen/padding_small_50"
+        android:paddingVertical="@dimen/padding_small_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLabelCategory">
@@ -55,7 +56,7 @@
             android:hint="@string/search"
             android:paddingVertical="@dimen/padding_small_100"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_small_125"
+            android:textSize="@dimen/font_small_150"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivSearch"

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="5dp"
+    android:background="@drawable/shape_curve_green_grey"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/cvMain"
+        android:visibility="visible"
+        android:padding="20dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/shape_curve_green_grey"
+        >
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivItemImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/plant_item2"
+            app:shapeAppearanceOverlay="@style/curvedCorner"
+            />
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/futura_medium"
+            android:maxLength="25"
+            android:layout_marginTop="@dimen/margin_normal_100"
+            android:text="Calathea"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_150"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivItemImage" />
+
+        <TextView
+            android:id="@+id/tvItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal_100"
+            android:fontFamily="@font/futura_medium"
+            android:text="34"
+            android:textColor="@color/light_green"
+            android:textSize="@dimen/font_small_150"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvItemName"
+            app:layout_constraintStart_toStartOf="@id/tvItemName"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
+
+        <TextView
+            android:id="@+id/tvPriceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_100"
+            android:fontFamily="@font/futura_medium"
+            android:text="$"
+            android:textColor="@color/light_green"
+            android:textSize="@dimen/font_small_150"
+            app:layout_constraintBottom_toBottomOf="@+id/tvItemPrice"
+            app:layout_constraintEnd_toStartOf="@id/tvItemPrice" />
+
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal_100"
+            android:background="@drawable/shape_circle_green"
+            android:fontFamily="@font/futur"
+            android:text="@string/add"
+            android:layout_marginHorizontal="@dimen/margin_small_150"
+            android:textSize="@dimen/font_small_125"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            android:elevation="2dp"
+            android:minHeight="0dp"
+            android:insetTop="5dp"
+            android:insetBottom="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemPrice"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

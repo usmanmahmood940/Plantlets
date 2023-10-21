@@ -19,6 +19,7 @@ import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivitySignupBinding
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
+import com.example.plantlets.models.Location
 import com.example.plantlets.models.Store
 import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants
@@ -157,6 +158,7 @@ class SignupActivity : BaseActivity() {
                                 btnSignup.isEnabled = false
                             }
                         }
+                        storeDetails.location = location
                         signUp(listener =  signupListener, storeDetails =  storeDetails)
                     }
 
@@ -263,6 +265,7 @@ class SignupActivity : BaseActivity() {
     private fun setAddressFromLocation(latitude: Double, longitude: Double) {
         if (latitude != 0.0 && longitude != 0.0) {
             val geocoder = Geocoder(this, Locale.getDefault())
+            signupViewModel.location = Location(latitude,longitude)
             binding.etPinLocation.setText(getAddressFromLocation(geocoder, latitude, longitude))
         }
     }

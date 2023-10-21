@@ -86,4 +86,16 @@ object Helper {
     }
 
 
+    fun capitalizeFirstLetterOfEachWord(input: String): String {
+        val words = input.split(" ") // Split the input string by spaces
+        val capitalizedWords = words.map { it.capitalizeFirstLetter() } // Capitalize the first letter of each word
+        return capitalizedWords.joinToString(" ") // Join the words back together
+    }
+
+    fun String.capitalizeFirstLetter(): String {
+        if (isEmpty()) return this
+        return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
+    }
+
+
 }

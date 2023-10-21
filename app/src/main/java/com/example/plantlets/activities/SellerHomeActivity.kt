@@ -1,11 +1,9 @@
 package com.example.plantlets.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivitySellerHomeBinding
@@ -32,6 +30,14 @@ class SellerHomeActivity : BaseActivity() {
         binding.bottomNavSeller.setupWithNavController(navController)
 
         
+    }
+
+    fun hideBottomNav() {
+        binding.bottomNavSeller.visibility = View.GONE
+
+    }
+    fun showBottomNav(){
+        binding.bottomNavSeller.visibility = View.VISIBLE
     }
 
 

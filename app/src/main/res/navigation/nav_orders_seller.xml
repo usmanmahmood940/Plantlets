@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.example.plantlets.fragments.OrdersFragment"
+        android:name="com.example.plantlets.fragments.seller.OrdersFragment"
         android:label="fragment_bookings"
         tools:layout="@layout/fragment_bookings" />
 </navigation>

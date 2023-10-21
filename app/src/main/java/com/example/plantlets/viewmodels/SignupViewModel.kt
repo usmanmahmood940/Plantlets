@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
+import com.example.plantlets.models.Location
 import com.example.plantlets.models.Store
 import com.example.plantlets.repositories.UserRepository
 import com.example.plantlets.utils.Constants.USER_TYPE
@@ -27,7 +28,9 @@ class SignupViewModel @Inject constructor(
     lateinit var storeName :String
     lateinit var storeAddress :String
     lateinit var storePinLocation :String
+    lateinit var location: Location
     var imageUri: Uri? = null
+
 
     fun signUp(
         listener: CustomSuccessFailureListener,
