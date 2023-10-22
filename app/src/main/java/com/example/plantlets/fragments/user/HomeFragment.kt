@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.Response.ItemSortOptions
@@ -21,8 +22,10 @@ import com.example.plantlets.databinding.FragmentItemsBinding
 import com.example.plantlets.models.ItemFillter
 import com.example.plantlets.utils.CenterItemZoomScrollListener
 import com.example.plantlets.viewmodels.SellerItemViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -30,6 +33,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     lateinit var itemAdapter: UserItemAdapter
     private lateinit var itemViewModel: SellerItemViewModel
+
+    @Inject
+    lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,19 +70,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun init() {
+        setupUserProfile()
         with(binding) {
             itemAdapter = UserItemAdapter()
             rvPopular.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = itemAdapter
-                addOnScrollListener(CenterItemZoomScrollListener(this))
+//                addOnScrollListener(CenterItemZoomScrollListener(this))
             }
 
             tvViewAll.setOnClickListener {
 
 
             }
+        }
+    }
+
+    private fun setupUserProfile() {
+        auth.currentUser?.apply {
+            binding.tvStoreName.text = "$displayName"
+            Glide.with(this@HomeFragment).load(photoUrl).into(binding.ivProfilePic)
+//            println(photoUrl)
         }
     }
 

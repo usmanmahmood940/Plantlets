@@ -7,11 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.plantlets.R
+import com.example.plantlets.activities.LoginActivity
 import com.example.plantlets.activities.UserHomeActivity
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SettingFragment : Fragment() {
 
+    @Inject
+    lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,7 +29,8 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        requireActivity().startActivity(Intent(requireContext(),UserHomeActivity::class.java))
+        auth.signOut()
+        requireActivity().startActivity(Intent(requireContext(),LoginActivity::class.java))
         requireActivity().finish()
 
         return inflater.inflate(R.layout.fragment_setting, container, false)
