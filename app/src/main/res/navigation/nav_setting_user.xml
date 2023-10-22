@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_setting_user">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_setting_user"
+    app:startDestination="@id/userSettingFragment">
 
+    <fragment
+        android:id="@+id/userSettingFragment"
+        android:name="com.example.plantlets.UserSettingFragment"
+        android:label="fragment_user_setting"
+        tools:layout="@layout/fragment_user_setting" />
 </navigation>

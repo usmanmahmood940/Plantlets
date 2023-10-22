@@ -90,8 +90,9 @@ class HomeFragment : Fragment() {
     private fun setupUserProfile() {
         auth.currentUser?.apply {
             binding.tvStoreName.text = "$displayName"
-            Glide.with(this@HomeFragment).load(photoUrl).into(binding.ivProfilePic)
-//            println(photoUrl)
+//            Glide.with(requireContext()).load(photoUrl).into(binding.ivProfilePic)
+            println(photoUrl)
+            Log.d("USMAN-TAG",photoUrl.toString())
         }
     }
 

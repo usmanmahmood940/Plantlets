@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_orders_user">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_orders_user"
+    app:startDestination="@id/userOrdersFragment">
 
+    <fragment
+        android:id="@+id/userOrdersFragment"
+        android:name="com.example.plantlets.UserOrdersFragment"
+        android:label="fragment_user_orders"
+        tools:layout="@layout/fragment_user_orders" />
 </navigation>

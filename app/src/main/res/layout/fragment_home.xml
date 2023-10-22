@@ -60,7 +60,7 @@
                     android:layout_marginEnd="@dimen/margin_normal_100"
                     android:padding="@dimen/padding_small_50"
                     android:scaleType="fitXY"
-                    android:src="@drawable/my_image"
+                    android:src="@drawable/profile_pic"
                     app:backgroundTint="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/tvStoreName"
                     app:layout_constraintDimensionRatio="1:1"
