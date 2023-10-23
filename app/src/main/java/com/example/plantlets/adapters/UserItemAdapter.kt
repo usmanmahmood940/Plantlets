@@ -38,11 +38,11 @@ class UserItemAdapter(
             false
         )
         val recyclerViewWidth = parent.measuredWidth
-        val desiredItemWidth = (0.5 * recyclerViewWidth).toInt()
+        val desiredItemWidth = (0.6 * recyclerViewWidth).toInt()
 
         // Set the layout parameters for the CardView
         val layoutParams = ViewGroup.MarginLayoutParams(desiredItemWidth, ViewGroup.LayoutParams.MATCH_PARENT)
-        layoutParams.setMargins(50,10,50,10)
+        layoutParams.setMargins(0,10,0,10)
         binding.root.layoutParams = layoutParams
         return ViewHolder(binding)
     }

@@ -13,6 +13,10 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import com.example.plantlets.Response.ItemSortOptions
+import com.example.plantlets.Response.SortDirection
+import com.example.plantlets.models.ItemFillter
+import com.example.plantlets.models.SellerItem
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -95,6 +99,28 @@ object Helper {
     fun String.capitalizeFirstLetter(): String {
         if (isEmpty()) return this
         return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
+    }
+
+    fun sortBy(items: List<SellerItem>, sortOption: String, sortDirection: String): List<SellerItem> {
+        // Create a comparator based on the chosen sort option
+        val sortedList = when (sortOption) {
+            ItemSortOptions.Name.toString() -> items.sortedBy { it.name }
+            ItemSortOptions.Price.toString() -> items.sortedBy  { it.price }
+            ItemSortOptions.Popularity.toString() ->items.sortedBy  { it.soldCount }
+            ItemSortOptions.Quantity.toString() ->items.sortedBy  { it.stockQuantity }
+            else -> {items}
+        }
+
+        // Sort the items using the comparator
+
+
+        // Reverse the list if the sort direction is backward
+        return if (sortDirection == SortDirection.Descending.toString()) {
+            sortedList.reversed()
+        } else {
+            sortedList
+        }
+
     }
 
 

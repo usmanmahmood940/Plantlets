@@ -12,6 +12,7 @@ import com.example.plantlets.models.ItemFillter
 import com.example.plantlets.repositories.CategoryRepository
 import com.example.plantlets.repositories.ItemRepository
 import com.example.plantlets.utils.Constants.ALL
+import com.example.plantlets.utils.Helper.sortBy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
@@ -107,27 +108,7 @@ class SellerItemViewModel @Inject constructor(
 
     }
 
-    fun sortBy(items: List<SellerItem>, sortOption: String, sortDirection: String): List<SellerItem> {
-        // Create a comparator based on the chosen sort option
-        val sortedList = when (sortOption) {
-            ItemSortOptions.Name.toString() -> items.sortedBy { it.name }
-            ItemSortOptions.Price.toString() -> items.sortedBy  { it.price }
-            ItemSortOptions.Popularity.toString() ->items.sortedBy  { it.soldCount }
-            ItemSortOptions.Quantity.toString() ->items.sortedBy  { it.stockQuantity }
-            else -> {items}
-        }
 
-        // Sort the items using the comparator
-
-
-        // Reverse the list if the sort direction is backward
-        return if (sortDirection == SortDirection.Descending.toString()) {
-            sortedList.reversed()
-        } else {
-            sortedList
-        }
-
-    }
 
 
 }

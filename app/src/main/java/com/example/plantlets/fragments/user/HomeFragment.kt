@@ -22,6 +22,7 @@ import com.example.plantlets.databinding.FragmentItemsBinding
 import com.example.plantlets.models.ItemFillter
 import com.example.plantlets.utils.CenterItemZoomScrollListener
 import com.example.plantlets.viewmodels.SellerItemViewModel
+import com.example.plantlets.viewmodels.user.HomeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     lateinit var itemAdapter: UserItemAdapter
-    private lateinit var itemViewModel: SellerItemViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     @Inject
     lateinit var auth:FirebaseAuth
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        itemViewModel = ViewModelProvider(this).get(SellerItemViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         (requireActivity() as UserHomeActivity).showBottomNav()
 
         init()
@@ -58,13 +59,13 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        itemViewModel.startObserving()
+        homeViewModel.startObserving()
 
     }
 
     override fun onPause() {
         super.onPause()
-        itemViewModel.stopObserving()
+        homeViewModel.stopObserving()
 
 
     }
@@ -77,7 +78,7 @@ class HomeFragment : Fragment() {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = itemAdapter
-//                addOnScrollListener(CenterItemZoomScrollListener(this))
+                addOnScrollListener(CenterItemZoomScrollListener(this))
             }
 
             tvViewAll.setOnClickListener {
@@ -90,15 +91,17 @@ class HomeFragment : Fragment() {
     private fun setupUserProfile() {
         auth.currentUser?.apply {
             binding.tvStoreName.text = "$displayName"
-//            Glide.with(requireContext()).load(photoUrl).into(binding.ivProfilePic)
-            println(photoUrl)
+            homeViewModel.getUserData()?.image?.let{
+                Glide.with(requireContext()).load(it).into(binding.ivProfilePic)
+            }
+
             Log.d("USMAN-TAG",photoUrl.toString())
         }
     }
 
     fun observeList() {
         lifecycleScope.launch {
-            itemViewModel.itemList.collect { response ->
+            homeViewModel.itemList.collect { response ->
                 when (response) {
                     is CustomResponse.Success -> {
                         (requireActivity() as UserHomeActivity).hideProgressBar()
@@ -109,10 +112,7 @@ class HomeFragment : Fragment() {
 
                             }else {
                                 binding.rvPopular.visibility= View.VISIBLE
-                                val sortOptions =
-                                    ItemFillter(sortOption = ItemSortOptions.Popularity.toString())
-                                itemViewModel.sellerItemFillter = sortOptions
-                                val list = itemViewModel.filteredItems().toMutableList()
+                                val list = homeViewModel.sortByPopularity(itemList)
                                 itemAdapter.submitList(list)
                             }
 

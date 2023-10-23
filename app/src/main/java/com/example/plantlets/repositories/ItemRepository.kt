@@ -57,13 +57,16 @@ class ItemRepository @Inject constructor(
                 }
                 if (snapshotlist != null) {
                     val itemList: MutableList<SellerItem> = mutableListOf()
-                    for (snapshot in snapshotlist) {
-                        val item = snapshot.toObject(SellerItem::class.java)
-                        if (item != null) {
-                            itemList.add(item)
-                        }
+                    if (snapshotlist.isEmpty)
                         _itemsStateFlow.value = CustomResponse.Success(itemList)
-                    }
+                    else
+                        for (snapshot in snapshotlist) {
+                            val item = snapshot.toObject(SellerItem::class.java)
+                            if (item != null) {
+                                itemList.add(item)
+                            }
+                            _itemsStateFlow.value = CustomResponse.Success(itemList)
+                        }
                 }
             }
         }
@@ -111,7 +114,7 @@ class ItemRepository @Inject constructor(
         }
     }
 
-   suspend fun deleteItem(item: SellerItem) {
+    suspend fun deleteItem(item: SellerItem) {
         try {
             databaseReference?.apply {
                 document(item.id!!).delete().await()

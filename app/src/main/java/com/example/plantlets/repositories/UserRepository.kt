@@ -1,6 +1,7 @@
 package com.example.plantlets.repositories
 
 import android.net.Uri
+import android.util.Log
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Store
 import com.example.plantlets.models.User
@@ -10,6 +11,7 @@ import com.example.plantlets.utils.Constants.VENDOR_TYPE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -39,13 +41,16 @@ class UserRepository @Inject constructor(
                 .build()
 
 
+
+
             task.user?.apply {
 //                sendEmailVerification()
                 updateProfile(displayNameUpdate)
                 runOnMain({ listener.onSuccess() })
                 withContext(Dispatchers.IO) {
+                    val image = uploadImage(email,imageUri)
                     saveUser(
-                        user = User(uid, email, type, mobileNumber)
+                        user = User(uid, email, type, mobileNumber,image)
                     )
                     storeDetails?.let {
                         addStore(storeDetails)
@@ -128,6 +133,24 @@ class UserRepository @Inject constructor(
     private suspend fun getStoreData(storeId: String): Store? {
         val storeDoc = firestoreRef.collection(STORE_REFRENCE).document(storeId).get().await()
         return storeDoc.toObject(Store::class.java)
+    }
+
+    private suspend fun uploadImage(email:String,uri: Uri): String {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val fileName = "${email}/${System.currentTimeMillis()}.jpg"
+        val fileRef = storageRef.child(fileName)
+
+        return try {
+            val uploadTask = fileRef.putFile(uri)
+            val taskSnapshot = uploadTask.await() // Wait for the upload to complete
+
+            val downloadUri = fileRef.downloadUrl.await() // Wait for the URL to be available
+            downloadUri.toString() // Return the URL as a String
+        } catch (e: Exception) {
+            Log.e("USMAN-TAG", "Image upload failed: ${e.message}")
+            // Handle thsafe error or return a default URL
+            ""
+        }
     }
 
 

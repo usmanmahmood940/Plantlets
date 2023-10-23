@@ -6,6 +6,7 @@ import android.content.Intent
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -317,6 +318,8 @@ class SignupActivity : BaseActivity() {
                 binding.tvUploadImage.visibility = View.GONE
                 binding.ivProfileImage.setImageURI(uri)
                 signupViewModel.imageUri = uri
+                Log.d("USMAN-TAG", signupViewModel.imageUri.toString())
+
 
             }
         }
@@ -327,6 +330,7 @@ class SignupActivity : BaseActivity() {
                 binding.tvUploadImage.visibility = View.GONE
                 binding.ivProfileImage.setImageBitmap(bitmap.getImprovedBitmap())
                 signupViewModel.imageUri = bitmap.toUri(applicationContext)
+                Log.d("USMAN-TAG", signupViewModel.imageUri.toString())
             }
         }
 
