@@ -3,6 +3,7 @@ package com.example.plantlets.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -54,5 +55,9 @@ class UserHomeActivity : BaseActivity() {
     fun changeIconCart(){
         binding.btnCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_cart_outlined))
 
+    }
+
+    fun changeBottomNavColor(color:Int= R.color.green_grey){
+        binding.coordinatorLayout.setBackgroundResource(color)
     }
 }

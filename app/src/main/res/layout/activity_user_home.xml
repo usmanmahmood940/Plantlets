@@ -24,7 +24,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:background="@color/green_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,8 @@
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
+
+
         <com.andremion.counterfab.CounterFab
             android:id="@+id/btn_cart"
             android:layout_width="wrap_content"
@@ -66,19 +68,20 @@
             android:elevation="@dimen/floating_btn_elevation"
             android:src="@drawable/ic_cart_outlined"
             app:backgroundTint="@color/light_green"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="center|bottom"
-            app:maxImageSize="@dimen/cart_image_maxsize"
-            app:tint="@color/white"
             app:badgeBackgroundColor="@color/light_grey"
             app:badgePosition="RightTop"
             app:badgeTextColor="@color/light_green"
-
-            >
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="center|bottom"
+            android:layout_marginBottom="@dimen/margin_normal_200"
+            app:maxImageSize="@dimen/cart_image_maxsize"
+            app:tint="@color/white">
 
         </com.andremion.counterfab.CounterFab>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 
 

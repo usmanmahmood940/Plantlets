@@ -1,10 +1,12 @@
 package com.example.plantlets.models
 
+import android.os.Parcelable
 import com.example.plantlets.utils.Extensions.addDays
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.android.parcel.Parcelize
 import java.util.Date
-
+@Parcelize
 data class Store(
     var email:String?=null,
     var storeName:String? = null,
@@ -16,4 +18,4 @@ data class Store(
     var location: Location?=null,
     var displayImage: String?=null,
     var bannerImage:String?=null,
-)
+):Parcelable

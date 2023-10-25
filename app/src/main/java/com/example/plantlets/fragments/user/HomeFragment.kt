@@ -1,27 +1,23 @@
 package com.example.plantlets.fragments.user
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
-import com.example.plantlets.Response.ItemSortOptions
-import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.activities.UserHomeActivity
-import com.example.plantlets.adapters.SellerItemAdapter
 import com.example.plantlets.adapters.UserItemAdapter
 import com.example.plantlets.databinding.FragmentHomeBinding
-import com.example.plantlets.databinding.FragmentItemsBinding
-import com.example.plantlets.models.ItemFillter
+import com.example.plantlets.fragments.seller.AddItemFragmentArgs
+import com.example.plantlets.models.Store
 import com.example.plantlets.utils.CenterItemZoomScrollListener
-import com.example.plantlets.viewmodels.SellerItemViewModel
 import com.example.plantlets.viewmodels.user.HomeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,9 +30,10 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     lateinit var itemAdapter: UserItemAdapter
     private lateinit var homeViewModel: HomeViewModel
+    var store: Store? = null
 
     @Inject
-    lateinit var auth:FirebaseAuth
+    lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,6 +47,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         (requireActivity() as UserHomeActivity).showBottomNav()
+        (requireActivity() as UserHomeActivity).changeBottomNavColor(R.color.green_grey)
+
+        val args: HomeFragmentArgs by navArgs()
+        store = args.store
 
         init()
         observeList()
@@ -71,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun init() {
-        setupUserProfile()
+        setupStore()
         with(binding) {
             itemAdapter = UserItemAdapter()
             rvPopular.apply {
@@ -81,6 +82,10 @@ class HomeFragment : Fragment() {
                 addOnScrollListener(CenterItemZoomScrollListener(this))
             }
 
+            rlBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             tvViewAll.setOnClickListener {
 
 
@@ -88,14 +93,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupUserProfile() {
-        auth.currentUser?.apply {
-            binding.tvStoreName.text = "$displayName"
-            homeViewModel.getUserData()?.image?.let{
-                Glide.with(requireContext()).load(it).into(binding.ivProfilePic)
-            }
-
-            Log.d("USMAN-TAG",photoUrl.toString())
+    private fun setupStore() {
+//        auth.currentUser?.apply {
+//            binding.tvStoreName.text = "$displayName"
+//            homeViewModel.getUserData()?.image?.let{
+//                Glide.with(requireContext()).load(it).into(binding.ivProfilePic)
+//            }
+//
+//            Log.d("USMAN-TAG",photoUrl.toString())
+//        }
+        store?.apply {
+            binding.tvStore.text = storeName
         }
     }
 
@@ -107,11 +115,11 @@ class HomeFragment : Fragment() {
                         (requireActivity() as UserHomeActivity).hideProgressBar()
                         response.data?.let { itemList ->
                             binding.progressBarRv.visibility = View.GONE
-                            if(itemList.isEmpty()){
+                            if (itemList.isEmpty()) {
                                 binding.tvNoItems.visibility = View.VISIBLE
 
-                            }else {
-                                binding.rvPopular.visibility= View.VISIBLE
+                            } else {
+                                binding.rvPopular.visibility = View.VISIBLE
                                 val list = homeViewModel.sortByPopularity(itemList)
                                 itemAdapter.submitList(list)
                             }
@@ -123,7 +131,7 @@ class HomeFragment : Fragment() {
                     is CustomResponse.Loading -> {
                         (requireActivity() as UserHomeActivity).showProgressBar()
                         binding.progressBarRv.visibility = View.VISIBLE
-                        binding.rvPopular.visibility= View.GONE
+                        binding.rvPopular.visibility = View.GONE
                         binding.tvNoItems.visibility = View.GONE
                     }
 
@@ -135,7 +143,7 @@ class HomeFragment : Fragment() {
                             )
                         }
                         binding.progressBarRv.visibility = View.GONE
-                        binding.rvPopular.visibility= View.GONE
+                        binding.rvPopular.visibility = View.GONE
                         binding.tvNoItems.visibility = View.VISIBLE
 
                     }

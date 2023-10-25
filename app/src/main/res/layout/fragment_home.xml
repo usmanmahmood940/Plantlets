@@ -26,7 +26,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvWelcome"
+                    android:id="@+id/tvTagline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal_100"
@@ -42,7 +42,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvStoreName"
+                    android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small_50"
@@ -53,8 +53,8 @@
                     android:textSize="@dimen/font_normal_100"
                     android:textStyle="bold"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@+id/tvWelcome"
-                    app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+                    app:layout_constraintStart_toStartOf="@+id/tvTagline"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTagline" />
 
 
 
@@ -68,10 +68,10 @@
                     android:src="@drawable/profile_pic"
                     android:visibility="gone"
                     app:backgroundTint="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvStoreName"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvWelcome"
+                    app:layout_constraintTop_toTopOf="@+id/tvTagline"
                     app:shapeAppearanceOverlay="@style/roundImage" />
 
                 <TextView
@@ -80,7 +80,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_normal_100"
                     android:fontFamily="@font/futura_medium"
-                    android:paddingBottom="@dimen/padding_small_100"
                     android:text="My Store"
                     android:textColor="@color/light_green"
                     android:textSize="@dimen/font_normal_100"
@@ -119,7 +118,7 @@
                     android:layout_marginHorizontal="@dimen/margin_normal_100"
 
                     app:layout_constraintEnd_toStartOf="@id/btnfilter"
-                    app:layout_constraintStart_toStartOf="@id/tvStoreName"
+                    app:layout_constraintStart_toStartOf="@id/tvUserName"
                     app:layout_constraintTop_toBottomOf="@+id/tvStore">
 
                     <ImageView
@@ -140,7 +139,7 @@
                         android:background="@null"
                         android:fontFamily="@font/futura_medium"
                         android:hint="@string/find_perfect_plant"
-                        android:paddingVertical="@dimen/padding_small_100"
+                        android:paddingVertical="@dimen/padding_small_50"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:textColor="@color/black"
