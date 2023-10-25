@@ -10,13 +10,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -25,7 +29,6 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.databinding.FragmentAddItemBinding
-import com.example.plantlets.fragments.seller.AddItemFragmentArgs
 import com.example.plantlets.models.Category
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.utils.Extensions.checkIsBlank
@@ -49,7 +52,7 @@ class AddItemFragment : Fragment() {
     var imageUri: Uri? = null
     private lateinit var categoriesList: List<Category>
 
-    private var item:SellerItem?=null
+    private var item: SellerItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +78,7 @@ class AddItemFragment : Fragment() {
 
     private fun checkEdit() {
         val args: AddItemFragmentArgs by navArgs()
-        item =  args.item
+        item = args.item
         item?.let {
             with(binding) {
                 tvLabelItem.text = getString(R.string.eidt_item)
@@ -183,7 +186,7 @@ class AddItemFragment : Fragment() {
                 }
             }
         }
-        binding.rlBack.setOnClickListener{
+        binding.rlBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
@@ -203,6 +206,7 @@ class AddItemFragment : Fragment() {
                         getString(R.string.upload_image)
                     )
                 }
+
                 etItemName.checkIsBlank() -> {
                     etItemName.showRequiredError()
                 }
@@ -217,6 +221,7 @@ class AddItemFragment : Fragment() {
                         getString(R.string.category_error)
                     )
                 }
+
                 etItemPrice.checkIsBlank() -> {
                     etItemPrice.showRequiredError()
                 }
@@ -252,7 +257,7 @@ class AddItemFragment : Fragment() {
 //        ).show()
         item?.apply {
             val name = categories.firstOrNull { it.categoryId == categoryId }?.categoryName
-            binding.spinnerCategory.setSelection(getIndex(spinnerCategories,name))
+            binding.spinnerCategory.setSelection(getIndex(spinnerCategories, name))
         }
 
     }
@@ -321,7 +326,8 @@ class AddItemFragment : Fragment() {
     }
 
     private fun showDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_image_options, null)
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_image_options, null)
         val openCameraButton = dialogView.findViewById<Button>(R.id.btn_open_camera)
         val chooseGalleryButton = dialogView.findViewById<Button>(R.id.btn_choose_gallery)
 
@@ -343,6 +349,7 @@ class AddItemFragment : Fragment() {
 
         dialog.show()
     }
+
     private fun lauchCamera() {
         takePhotoLauncher.launch(null)
     }

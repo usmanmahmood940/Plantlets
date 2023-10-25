@@ -60,6 +60,7 @@
                     app:layout_constraintWidth_percent="0.5"
                     app:shapeAppearanceOverlay="@style/curvedCorner"
                     app:strokeColor="@color/light_green"
+                    android:visibility="gone"
                     app:strokeWidth="1dp" />
 
                 <TextView

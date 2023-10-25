@@ -1,13 +1,18 @@
 package com.example.plantlets.activities
 
 import android.content.DialogInterface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivityBaseBinding
 import com.example.plantlets.models.User
@@ -15,14 +20,16 @@ import com.example.plantlets.repositories.LocalRepository
 import com.example.plantlets.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 @AndroidEntryPoint
 
 open class BaseActivity : AppCompatActivity() {
 
     private var progressBar: ProgressBar? = null
     lateinit var baseBinding: ActivityBaseBinding
+
     @Inject
-    lateinit var localRepository:LocalRepository
+    lateinit var localRepository: LocalRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +40,11 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun setChildView(childView: View){
-       baseBinding.layoutContainer.addView(childView)
+    fun setChildView(childView: View) {
+        baseBinding.layoutContainer.addView(childView)
     }
 
-     val dismissListener = object : DialogInterface.OnDismissListener {
+    val dismissListener = object : DialogInterface.OnDismissListener {
         override fun onDismiss(dialog: DialogInterface?) {
             finish()
         }
@@ -63,7 +70,7 @@ open class BaseActivity : AppCompatActivity() {
             setTitle(title)
             setMessage(message)
 
-            onDismissListener?.let{
+            onDismissListener?.let {
                 setOnDismissListener(onDismissListener)
 
             }
@@ -86,11 +93,12 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun hideStatusbar(){
+    fun hideStatusbar() {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
+
     fun showProgressBar() {
         baseBinding.baseProgressBar.visibility = View.VISIBLE
 
@@ -122,4 +130,21 @@ open class BaseActivity : AppCompatActivity() {
         return destinationClass
     }
 
+
+    fun setTitleBar(title: String = getString(R.string.app_name), backVisibility: Boolean? = null,activity:AppCompatActivity) {
+
+        activity.supportActionBar?.apply {
+            setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            setCustomView(R.layout.custom_toolbar)
+            customView.findViewById<TextView>(R.id.tvTitle).text = title
+            backVisibility?.let {
+                customView.findViewById<ImageView>(R.id.ivBack).apply {
+                    visibility = View.VISIBLE
+                    setOnClickListener {
+                        findNavController().navigateUp()
+                    }
+                }
+            }
+        }
+    }
 }

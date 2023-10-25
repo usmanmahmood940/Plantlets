@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small_100"
             android:fontFamily="@font/futura_medium"
-            android:text="$"
+            android:text="Rs."
             android:textColor="@color/grey"
             android:textSize="@dimen/font_small_100"
             app:layout_constraintBottom_toBottomOf="@+id/tvItemPrice"

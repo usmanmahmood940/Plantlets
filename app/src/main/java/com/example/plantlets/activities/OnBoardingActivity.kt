@@ -2,6 +2,7 @@ package com.example.plantlets.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.example.plantlets.databinding.ActivityOnBoardingBinding
 import com.example.plantlets.repositories.LocalRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -43,5 +44,7 @@ class OnBoardingActivity : BaseActivity() {
         super.onResume()
 
     }
+
+
 
 }

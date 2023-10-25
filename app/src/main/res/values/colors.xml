@@ -21,5 +21,6 @@
     <color name="grey_50">#CCCCCC</color>
     <color name="grey2">#C1C1C1</color>
     <color name="greyish_blue">#5d687e</color>
+    <color name="transparent_grey">#70676767</color>
 
 </resources>

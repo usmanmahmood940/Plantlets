@@ -13,5 +13,7 @@ data class Store(
     val freeTrialDate: Timestamp = Timestamp.now(),
     var freeTrialExpireDate:Timestamp = Timestamp(Date().addDays(30)) ,
     var activeStatus:Boolean = false,
-    var location: Location?=null
+    var location: Location?=null,
+    var displayImage: String?=null,
+    var bannerImage:String?=null,
 )

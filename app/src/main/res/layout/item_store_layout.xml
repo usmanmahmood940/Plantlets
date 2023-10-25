@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="3dp"
+    android:id="@+id/storeLayout"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_normal_100"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivDisplayImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:adjustViewBounds="true"
+            android:src="@drawable/display_store"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedSquare"
+
+            />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal_100"
+            android:layout_marginTop="@dimen/margin_normal_200"
+            android:fontFamily="@font/futur"
+            android:text="Aroma gardens"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_150"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivDisplayImage" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/tvRatingPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_small_75"
+                android:fontFamily="@font/futur"
+                android:text="Rating 9.2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_small_125"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                />
+
+
+        <TextView
+            android:id="@+id/tvReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Orders 200+"
+            android:textSize="@dimen/font_small_125"
+            android:layout_marginTop="@dimen/margin_small_75"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvRatingPlace" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_75"
+            android:fontFamily="@font/futur"
+            android:text="Lahore"
+            android:textColor="@color/light_green"
+            android:textSize="@dimen/font_small_125"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvReviews" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_75"
+            android:fontFamily="@font/roboto_condensed_light"
+            android:text="Open Now"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_100"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+
+        <ImageView
+            android:id="@+id/ivMapIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/margin_small_50"
+            app:layout_constraintEnd_toStartOf="@+id/tvDistance"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            app:srcCompat="@drawable/ic_location_marker" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small_100"
+            android:fontFamily="@font/roboto_light"
+            android:text="0.2 mi"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_125"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

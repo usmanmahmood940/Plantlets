@@ -27,6 +27,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10%</item>
     </style>
+    <style name="roundedSquare">
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+
+    </style>
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
     <style name="BaseBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">

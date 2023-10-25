@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.example.plantlets.models.Store
 import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants
+import com.example.plantlets.utils.Constants.STORE_REFRENCE
 import com.google.gson.Gson
 import javax.inject.Inject
 
@@ -20,11 +21,11 @@ class LocalRepository @Inject constructor(
         editor.apply()
     }
 
-     fun saveStoreDataToSharedPreferences(store: Store) {
+     fun saveStoreDataToSharedPreferences(store: Store,storeRef:String =STORE_REFRENCE ) {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val storeJson: String = gson.toJson(store)
-        editor.putString(Constants.STORE_REFRENCE, storeJson)
+        editor.putString(storeRef, storeJson)
         // Add other store-related data to SharedPreferences
         editor.apply()
     }
@@ -38,8 +39,8 @@ class LocalRepository @Inject constructor(
 
     }
 
-    fun getStoreFromPref(): Store? {
-        val storeString: String? = sharedPreferences.getString(Constants.STORE_REFRENCE, null)
+    fun getStoreFromPref(storeRef:String =STORE_REFRENCE ): Store? {
+        val storeString: String? = sharedPreferences.getString(storeRef, null)
         storeString?.let {
             val objStore: Store = Gson().fromJson(storeString, Store::class.java)
             return objStore
