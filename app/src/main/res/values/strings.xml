@@ -56,7 +56,7 @@
     <string name="item_total">"Item Total : "</string>
     <string name="delivery">Delivery Charges</string>
     <string name="total">Total:</string>
-    <string name="tax">Tax</string>
+    <string name="tax">Tax </string>
 
 
 </resources>
