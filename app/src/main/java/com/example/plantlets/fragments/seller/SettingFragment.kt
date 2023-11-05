@@ -29,8 +29,8 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-//        auth.signOut()
-        requireActivity().startActivity(Intent(requireContext(),UserHomeActivity::class.java))
+        auth.signOut()
+        requireActivity().startActivity(Intent(requireContext(),LoginActivity::class.java))
         requireActivity().finish()
 
         return inflater.inflate(R.layout.fragment_setting, container, false)

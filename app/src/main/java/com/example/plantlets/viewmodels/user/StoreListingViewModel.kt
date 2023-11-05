@@ -29,7 +29,7 @@ class StoreListingViewModel @Inject constructor(
         storeRepository.removeListener()
     }
 
-    fun setStore(store:Store){
+    fun setStore(store:Store?){
         localRepository.saveStoreDataToSharedPreferences(store,STORE_REFRENCE_USER)
     }
     fun getStore():Store?{

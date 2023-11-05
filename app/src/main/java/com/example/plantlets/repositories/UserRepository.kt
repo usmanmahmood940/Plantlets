@@ -46,9 +46,9 @@ class UserRepository @Inject constructor(
             task.user?.apply {
 //                sendEmailVerification()
                 updateProfile(displayNameUpdate)
+                val image = uploadImage(email,imageUri)
                 runOnMain({ listener.onSuccess() })
                 withContext(Dispatchers.IO) {
-                    val image = uploadImage(email,imageUri)
                     saveUser(
                         user = User(uid, email, type, mobileNumber,image)
                     )
@@ -135,7 +135,7 @@ class UserRepository @Inject constructor(
         return storeDoc.toObject(Store::class.java)
     }
 
-    private suspend fun uploadImage(email:String,uri: Uri): String {
+    private suspend fun uploadImage(email:String,uri: Uri): String? {
         val storageRef = FirebaseStorage.getInstance().reference
         val fileName = "${email}/${System.currentTimeMillis()}.jpg"
         val fileRef = storageRef.child(fileName)
@@ -149,7 +149,7 @@ class UserRepository @Inject constructor(
         } catch (e: Exception) {
             Log.e("USMAN-TAG", "Image upload failed: ${e.message}")
             // Handle thsafe error or return a default URL
-            ""
+            null
         }
     }
 

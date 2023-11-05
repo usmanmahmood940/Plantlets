@@ -9,5 +9,31 @@
         android:id="@+id/cartFragment"
         android:name="com.example.plantlets.fragments.user.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_itemDetails"
+            app:destination="@id/itemDetails" />
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetails"
+        android:name="com.example.plantlets.fragments.user.ItemDetailsFragment"
+        android:label="fragment_item_details"
+        tools:layout="@layout/fragment_item_details" >
+        <argument
+            android:name="item"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.SellerItem" />
+        <argument
+            android:name="store"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.Store" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.example.plantlets.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" />
 </navigation>

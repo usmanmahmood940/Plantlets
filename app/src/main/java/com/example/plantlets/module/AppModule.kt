@@ -2,6 +2,8 @@ package com.example.plantlets.module
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.plantlets.Manager.CartManager
+import com.example.plantlets.repositories.LocalRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -46,6 +48,12 @@ class AppModule {
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartManager(sharedPreferences: SharedPreferences,localRepository:LocalRepository): CartManager {
+        return CartManager(sharedPreferences, localRepository )
     }
 
 }

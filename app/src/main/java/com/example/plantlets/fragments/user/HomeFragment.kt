@@ -16,6 +16,9 @@ import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.UserItemAdapter
 import com.example.plantlets.databinding.FragmentHomeBinding
 import com.example.plantlets.fragments.seller.AddItemFragmentArgs
+import com.example.plantlets.interfaces.ItemClickListener
+import com.example.plantlets.interfaces.UserItemClickListener
+import com.example.plantlets.models.SellerItem
 import com.example.plantlets.models.Store
 import com.example.plantlets.utils.CenterItemZoomScrollListener
 import com.example.plantlets.viewmodels.user.HomeViewModel
@@ -25,7 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), UserItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     lateinit var itemAdapter: UserItemAdapter
@@ -74,7 +77,7 @@ class HomeFragment : Fragment() {
     private fun init() {
         setupStore()
         with(binding) {
-            itemAdapter = UserItemAdapter()
+            itemAdapter = UserItemAdapter(this@HomeFragment)
             rvPopular.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -157,6 +160,13 @@ class HomeFragment : Fragment() {
         val recyclerViewWidth = binding.rvPopular.width
         val itemWidth = binding.rvPopular.getChildAt(0)?.width ?: 0
         return secondItemPosition * itemWidth + (itemWidth / 2) - (recyclerViewWidth / 2)
+    }
+
+    override fun onClick(item: SellerItem) {
+        if (findNavController().currentDestination?.id == R.id.homeFragment) {
+            val action = HomeFragmentDirections.actionHomeFragmentToItemDetails(item,null)
+            findNavController().navigate(action)
+        }
     }
 
 

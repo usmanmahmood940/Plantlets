@@ -21,7 +21,7 @@ class LocalRepository @Inject constructor(
         editor.apply()
     }
 
-     fun saveStoreDataToSharedPreferences(store: Store,storeRef:String =STORE_REFRENCE ) {
+     fun saveStoreDataToSharedPreferences(store: Store?,storeRef:String =STORE_REFRENCE ) {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val storeJson: String = gson.toJson(store)

@@ -26,64 +26,16 @@
 
 
                 <TextView
-                    android:id="@+id/tvTagline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal_100"
-                    android:fontFamily="@font/futura_medium"
-                    android:paddingTop="@dimen/padding_small_100"
-                    android:text="Welcome back,"
-                    android:visibility="gone"
-                    android:textColor="@color/black_grey"
-                    android:textSize="@dimen/font_small_125"
-                    android:textStyle="bold"
-
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small_50"
-                    android:fontFamily="@font/futura_medium"
-                    android:paddingBottom="@dimen/padding_small_100"
-                    android:text="Usman Mahmood"
-                    android:textColor="@color/light_green"
-                    android:textSize="@dimen/font_normal_100"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@+id/tvTagline"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTagline" />
-
-
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_profile_pic"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/margin_normal_100"
-                    android:padding="@dimen/padding_small_50"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/profile_pic"
-                    android:visibility="gone"
-                    app:backgroundTint="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvTagline"
-                    app:shapeAppearanceOverlay="@style/roundImage" />
-
-                <TextView
                     android:id="@+id/tvStore"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_normal_100"
                     android:fontFamily="@font/futura_medium"
                     android:text="My Store"
                     android:textColor="@color/light_green"
-                    android:textSize="@dimen/font_normal_100"
+                    android:textSize="@dimen/font_normal_125"
+                    android:textAlignment="center"
                     android:textStyle="bold"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -94,10 +46,10 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:elevation="3dp"
+                    android:layout_marginStart="15dp"
                     android:background="@drawable/shape_oval_corner_grey"
-                    android:layout_marginStart="@dimen/margin_normal_100"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="@+id/tvStore"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvStore">
 
                     <ImageView
@@ -118,7 +70,7 @@
                     android:layout_marginHorizontal="@dimen/margin_normal_100"
 
                     app:layout_constraintEnd_toStartOf="@id/btnfilter"
-                    app:layout_constraintStart_toStartOf="@id/tvUserName"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvStore">
 
                     <ImageView
@@ -164,7 +116,7 @@
                     android:layout_marginEnd="@dimen/margin_normal_100"
                     app:layout_constraintBottom_toBottomOf="@id/cvSearchBar"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="@+id/iv_profile_pic"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/cvSearchBar"
                     app:shapeAppearanceOverlay="@style/roundImage"
                     app:strokeColor="@color/green"

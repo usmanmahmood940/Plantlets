@@ -29,7 +29,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvLabelItem"
+                    android:id="@+id/tvLabel"
                     android:layout_width="@dimen/zero"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/futura_medium"
@@ -52,15 +52,13 @@
                     android:background="@color/light_grey"
                     android:elevation="3dp"
                     android:padding="2dp"
-                    android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLabelItem"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabel"
                     app:layout_constraintWidth_percent="0.5"
                     app:shapeAppearanceOverlay="@style/curvedCorner"
                     app:strokeColor="@color/light_green"
-                    android:visibility="gone"
                     app:strokeWidth="1dp" />
 
                 <TextView
@@ -298,9 +296,9 @@
                     android:elevation="3dp"
                     android:layout_marginStart="@dimen/padding_small_100"
                     android:background="@drawable/shape_oval_corner_grey"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvLabelItem"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvLabel"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvLabelItem">
+                    app:layout_constraintTop_toTopOf="@+id/tvLabel">
 
                     <ImageView
                         android:id="@+id/ivBack"

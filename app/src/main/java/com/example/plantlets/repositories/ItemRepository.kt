@@ -5,8 +5,11 @@ import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.interfaces.CategoryExistListener
 import com.example.plantlets.models.SellerItem
+import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.ITEM_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
+import com.example.plantlets.utils.Constants.STORE_REFRENCE_USER
+import com.example.plantlets.utils.Constants.VENDOR_TYPE
 import com.example.plantlets.utils.Helper.generateRandomStringWithTime
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -38,12 +41,22 @@ class ItemRepository @Inject constructor(
 
     init {
         _itemsStateFlow.value = CustomResponse.Loading()
-        auth.currentUser?.apply {
-            localRepository.getStoreFromPref()?.apply {
-                databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
-                    .collection(ITEM_REFRENCE)
-
+        localRepository.getCurrentUserData()?.let {user ->
+            if(user.type == Constants.USER_TYPE){
+                localRepository.getStoreFromPref(STORE_REFRENCE_USER)?.apply {
+                    databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
+                        .collection(ITEM_REFRENCE)
+                    return@let
+                }
             }
+            else if(user.type == VENDOR_TYPE){
+                localRepository.getStoreFromPref()?.apply {
+                    databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
+                        .collection(ITEM_REFRENCE)
+                    return@let
+                }
+            }
+
         }
     }
 

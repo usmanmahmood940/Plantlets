@@ -46,6 +46,17 @@
     <string name="find_perfect_plant">Find perfect plant</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="find_nurseries">Find Nurseries</string>
+    <string name="item_details">Item Details</string>
+    <string name="plant_detail_sample">
+        A plant is a living organism that converts sunlight into energy through photosynthesis. It consists of roots, stems, leaves, and often flowers, and plays a vital role in oxygen production and environmental balance
+    </string>
+    <string name="cart_empty">Cart is Empty</string>
+    <string name="checkout">Checkout</string>
+    <string name="my_cart">My Cart</string>
+    <string name="item_total">"Item Total : "</string>
+    <string name="delivery">Delivery Charges</string>
+    <string name="total">Total:</string>
+    <string name="tax">Tax</string>
 
 
 </resources>

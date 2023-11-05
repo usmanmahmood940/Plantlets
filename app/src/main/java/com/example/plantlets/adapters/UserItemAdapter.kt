@@ -21,12 +21,13 @@ import com.example.plantlets.databinding.ItemPlantUserBinding
 import com.example.plantlets.databinding.ItemSellerItemLayoutBinding
 import com.example.plantlets.interfaces.CategoryClickListener
 import com.example.plantlets.interfaces.ItemClickListener
+import com.example.plantlets.interfaces.UserItemClickListener
 import com.example.plantlets.models.Category
 import com.example.plantlets.models.SellerItem
 
 
 class UserItemAdapter(
-     var listener: ItemClickListener?=null
+     var listener: UserItemClickListener?=null
 ) :
     ListAdapter<SellerItem, UserItemAdapter.ViewHolder>(UserItemDiffCallback()) {
 
@@ -67,15 +68,16 @@ class UserItemAdapter(
     // Holds the views for adding it to image and text
     class ViewHolder(private val binding: ItemPlantUserBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SellerItem, listener: ItemClickListener?){
+        fun bind(item: SellerItem, listener: UserItemClickListener?){
             with(binding) {
 
                 tvItemName.text = item.name
                 tvItemPrice.text = item.price?.toInt().toString()
                 Glide.with(ivItemImage.context).load(item.image).into(ivItemImage)
                 cvMain.setOnClickListener {
-
+                    listener?.onClick(item)
                 }
+
 
             }
         }

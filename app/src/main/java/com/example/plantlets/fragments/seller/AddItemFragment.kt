@@ -81,7 +81,7 @@ class AddItemFragment : Fragment() {
         item = args.item
         item?.let {
             with(binding) {
-                tvLabelItem.text = getString(R.string.eidt_item)
+                tvLabel.text = getString(R.string.eidt_item)
                 btnAction.text = getString(R.string.update)
                 tvUploadImage.visibility = View.GONE
                 Glide.with(ivItemImage.context).load(it.image).into(ivItemImage)

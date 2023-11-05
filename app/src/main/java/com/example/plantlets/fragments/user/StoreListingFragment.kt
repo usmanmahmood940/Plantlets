@@ -10,10 +10,13 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.plantlets.R
+import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.StoreItemAdapter
 import com.example.plantlets.adapters.UserItemAdapter
@@ -26,6 +29,7 @@ import com.example.plantlets.utils.CenterItemZoomScrollListener
 import com.example.plantlets.viewmodels.user.StoreListingViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,14 +53,29 @@ class StoreListingFragment : Fragment(),StoreClickListener {
         // Inflate the layout for this fragment
         binding = FragmentStoreListingBinding.inflate(inflater, container, false)
         storeListingViewModel = ViewModelProvider(this).get(StoreListingViewModel::class.java)
-        (requireActivity() as UserHomeActivity).changeBottomNavColor(R.color.white)
+        (requireActivity() as UserHomeActivity).apply {
+            changeBottomNavColor(R.color.white)
+            showBottomNav()
+        }
 
         init()
+        observeStoreList()
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        storeListingViewModel.setStore(null)
+        storeListingViewModel.startObserving()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        storeListingViewModel.stopObserving()
+    }
+
     private fun init() {
-//        setupUserProfile()
+        setupUserProfile()
         with(binding) {
             storeItemAdapter = StoreItemAdapter(this@StoreListingFragment)
             rvStores.apply {
@@ -65,28 +84,61 @@ class StoreListingFragment : Fragment(),StoreClickListener {
                 adapter = storeItemAdapter
             }
         }
-        val list = mutableListOf<Store>(
-            Store(email = "usman@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-            Store(email = "humza@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-            Store(email = "hassan@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-            Store(email = "ahmad@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore")
-        )
-        storeItemAdapter.submitList(list)
+//        val list = mutableListOf<Store>(
+//            Store(email = "usman@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
+//            Store(email = "humza@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
+//            Store(email = "hassan@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
+//            Store(email = "ahmad@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore")
+//        )
+//        storeItemAdapter.submitList(list)
     }
+
+    private fun observeStoreList() {
+        lifecycleScope.launch {
+            storeListingViewModel.storeList.collect { response ->
+                when (response) {
+                    is CustomResponse.Success -> {
+                        (requireActivity() as UserHomeActivity).hideProgressBar()
+                        response.data?.let { storeList ->
+                            storeItemAdapter.submitList(storeList)
+                        }
+
+                    }
+
+                    is CustomResponse.Loading -> {
+                        (requireActivity() as UserHomeActivity).showProgressBar()
+                    }
+
+                    is CustomResponse.Error -> {
+                        (requireActivity() as UserHomeActivity).apply {
+                            hideProgressBar()
+                            showAlert(
+                                title = getString(R.string.error), message = response.errorMessage
+                            )
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun setupUserProfile() {
         auth.currentUser?.apply {
-            binding.tvUserName.text = "$displayName"
-
-//            storeListingViewModel.getUserData()?.image?.let{
-//                Glide.with(requireContext()).load(it).into(binding.ivProfilePic)
-//            }
+            binding.tvUserName.text = "Hey $displayName"
+            storeListingViewModel.getUserData()?.let {
+                it.image?.let {image ->
+                    Glide.with(binding.ivProfilePic.context).load(image).into(binding.ivProfilePic)
+                }
+            }
 
             Log.d("USMAN-TAG",photoUrl.toString())
         }
     }
     override fun onClick(store: Store) {
         if (findNavController().currentDestination?.id == R.id.storeListingFragment) {
+            storeListingViewModel.setStore(store)
             val action = StoreListingFragmentDirections.actionStoreListingFragmentToHomeFragment(store)
             findNavController().navigate(action)
         }

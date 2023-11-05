@@ -24,5 +24,23 @@
             android:name="store"
             app:nullable="true"
             app:argType="com.example.plantlets.models.Store" />
+        <action
+            android:id="@+id/action_homeFragment_to_itemDetails"
+            app:destination="@id/itemDetails" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetails"
+        android:name="com.example.plantlets.fragments.user.ItemDetailsFragment"
+        android:label="fragment_item_details"
+        tools:layout="@layout/fragment_item_details" >
+        <argument
+            android:name="item"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.SellerItem" />
+        <argument
+            android:name="store"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.Store" />
     </fragment>
 </navigation>

@@ -34,11 +34,11 @@ class UserHomeActivity : BaseActivity() {
     }
 
     fun hideBottomNav() {
-        binding.bottomNavigationView.visibility = View.GONE
+        binding.coordinatorLayout.visibility = View.GONE
 
     }
     fun showBottomNav(){
-        binding.bottomNavigationView.visibility = View.VISIBLE
+        binding.coordinatorLayout.visibility = View.VISIBLE
     }
 
     private fun setupCartButton() {

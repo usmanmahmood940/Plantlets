@@ -7,7 +7,7 @@
     app:cardElevation="3dp"
     android:id="@+id/storeLayout"
     android:backgroundTint="@color/green_grey"
-    android:layout_marginVertical="@dimen/margin_normal_200"
+    android:layout_marginVertical="@dimen/margin_normal_100"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:adjustViewBounds="true"
             android:src="@drawable/display_store"
             android:scaleType="fitXY"
-            app:layout_constraintDimensionRatio="2.1:1"
+            app:layout_constraintDimensionRatio="2.2:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,11 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal_100"
-            android:layout_marginTop="@dimen/margin_normal_180"
+            android:layout_marginTop="@dimen/margin_normal_125"
             android:fontFamily="@font/futur"
             android:text="Aroma gardens"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_small_150"
+            android:textSize="@dimen/font_small_125"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivDisplayImage" />
@@ -52,9 +52,8 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/futur"
             android:text="9.2 "
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_small_125"
-
+            android:textColor="@color/black_grey"
+            android:textSize="@dimen/font_small_100"
             app:layout_constraintEnd_toStartOf="@id/tvReviews"
             app:layout_constraintTop_toTopOf="@+id/tvReviews" />
 
@@ -63,11 +62,11 @@
             android:id="@+id/tvReviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/futur"
             android:text="(200+)"
-            android:textSize="@dimen/font_small_125"
+            android:textSize="@dimen/font_small_100"
             android:layout_marginTop="@dimen/margin_small_50"
-            android:textColor="@color/black"
+            android:textColor="@color/black_grey"
             android:layout_marginEnd="@dimen/margin_normal_100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvName"
@@ -81,7 +80,7 @@
             android:fontFamily="@font/futur"
             android:text="Lahore"
             android:textColor="@color/light_green"
-            android:textSize="@dimen/font_small_125"
+            android:textSize="@dimen/font_small_115"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -90,29 +89,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small_50"
-            android:fontFamily="@font/roboto_condensed_light"
+            android:fontFamily="@font/futur"
             android:text="Open Now"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_small_100"
+            android:textSize="@dimen/font_small_85"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
         <ImageView
             android:id="@+id/ivMapIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="@dimen/margin_small_50"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:layout_marginEnd="2dp"
             app:layout_constraintEnd_toStartOf="@+id/tvDistance"
-            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            app:layout_constraintTop_toTopOf="@+id/tvDistance"
+            app:layout_constraintBottom_toBottomOf="@id/tvDistance"
             app:srcCompat="@drawable/ic_location_marker" />
 
         <ImageView
             android:id="@+id/ivStar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="@dimen/margin_small_50"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="2dp"
+            android:adjustViewBounds="true"
             app:layout_constraintEnd_toStartOf="@+id/tvRatingPlace"
             app:layout_constraintTop_toTopOf="@+id/tvRatingPlace"
+            app:layout_constraintBottom_toBottomOf="@id/tvRatingPlace"
             app:srcCompat="@drawable/baseline_star_24" />
 
         <TextView
@@ -120,12 +123,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal_100"
-            android:fontFamily="@font/roboto_light"
+            android:fontFamily="@font/futur"
             android:text="0.2 mi"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_small_125"
+            android:textColor="@color/black_grey"
+            android:textSize="@dimen/font_small_100"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+            app:layout_constraintTop_toTopOf="@+id/tvStatus" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
