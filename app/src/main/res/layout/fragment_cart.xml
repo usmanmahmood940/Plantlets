@@ -265,11 +265,10 @@
                         android:textStyle="bold"
                         android:text="Checkout"
                         android:layout_marginTop="@dimen/margin_normal_200"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/guide_end"
                         app:layout_constraintStart_toStartOf="@id/guide_start"
                         app:layout_constraintTop_toBottomOf="@id/tv_total"
-                        app:layout_constraintVertical_bias="0.75" />
+                         />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

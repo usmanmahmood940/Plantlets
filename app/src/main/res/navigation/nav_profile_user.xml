@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.example.plantlets.UserProfileFragment"
+        android:name="com.example.plantlets.fragments.user.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
 </navigation>

@@ -57,6 +57,13 @@
     <string name="delivery">Delivery Charges</string>
     <string name="total">Total:</string>
     <string name="tax">Tax </string>
+    <string name="full_name">Enter Full Name</string>
+    <string name="email">Enter Email</string>
+    <string name="mobile_number">Enter Mobile Number</string>
+    <string name="address">Enter Address</string>
+    <string name="zipcode">Enter Zipcode</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="credit_debit_card">Credit/Debit Card</string>
 
 
 </resources>

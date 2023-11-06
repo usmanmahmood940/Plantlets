@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_itemDetails"
             app:destination="@id/itemDetails" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
 
     </fragment>
     <fragment
@@ -43,4 +46,9 @@
             app:nullable="true"
             app:argType="com.example.plantlets.models.Store" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.plantlets.fragments.user.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

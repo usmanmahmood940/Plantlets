@@ -33,7 +33,13 @@
     </fragment>
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.example.plantlets.CheckoutFragment"
+        android:name="com.example.plantlets.fragments.user.CheckoutFragment"
         android:label="fragment_checkout"
-        tools:layout="@layout/fragment_checkout" />
+        tools:layout="@layout/fragment_checkout" >
+        <argument
+            android:name="amounts"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.Amounts" />
+
+    </fragment>
 </navigation>

@@ -62,7 +62,10 @@ class CartFragment : Fragment(),CartAdapter.OnCartListener {
             setupItemTouchHelper(cartAdapter)
 
             btnCheckout.setOnClickListener {
-
+                if (findNavController().currentDestination?.id == R.id.cartFragment) {
+                    val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(amounts)
+                    findNavController().navigate(action)
+                }
             }
 
         }

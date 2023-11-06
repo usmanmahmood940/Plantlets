@@ -1,9 +1,9 @@
-package com.example.plantlets
+package com.example.plantlets.adapters
 
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.plantlets.R
 
 
 @BindingAdapter("imageFromUrl")

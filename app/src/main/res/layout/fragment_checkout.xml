@@ -1,14 +1,353 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckoutFragment">
+    android:background="@color/green_grey"
+    tools:context=".fragments.user.CheckoutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/scCheckout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_normal_200"
+                android:paddingBottom="@dimen/padding_normal_500">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/start_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/end_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/rlBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:elevation="3dp"
+                    android:layout_marginStart="@dimen/padding_small_100"
+                    android:background="@drawable/shape_oval_corner_grey"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvLabelCheckout"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toTopOf="@+id/tvLabelCheckout">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_back" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvLabelCheckout"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_medium"
+                    android:text="@string/checkout"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_green"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/font_normal_125"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_label_customer_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/customer_info"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_125"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_normal_200"
+                    android:fontFamily="@font/futura_medium"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelCheckout" />
+
+                <RelativeLayout
+                    android:id="@+id/rlNameBox"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_label_customer_info">
+
+                    <ImageView
+                        android:id="@+id/iv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_person_outline" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/iv_name"
+                        android:background="@null"
+                        android:hint="@string/full_name"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+                        android:fontFamily="@font/futura_medium"
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlEmailBox"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_100"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rlNameBox">
+
+                    <ImageView
+                        android:id="@+id/iv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_email" />
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/iv_email"
+                        android:background="@null"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/futura_medium"
+
+
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlNumberBox"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_100"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rlEmailBox">
+
+                    <ImageView
+                        android:id="@+id/iv_mobile_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_phone_outline" />
+
+                    <EditText
+                        android:id="@+id/et_mobile_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/iv_mobile_num"
+                        android:background="@null"
+                        android:hint="@string/mobile_number"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_115"
+                        android:fontFamily="@font/futura_medium"
+
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_label_delivery_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delivery_info"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_125"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_normal_200"
+                    android:fontFamily="@font/futura_medium"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rlNumberBox" />
+
+                <RelativeLayout
+                    android:id="@+id/rlAddressBox"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_label_delivery_info">
+
+                    <ImageView
+                        android:id="@+id/iv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_location" />
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/iv_address"
+                        android:background="@null"
+                        android:hint="@string/address"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/grey"
+                        android:fontFamily="@font/futura_medium"
+                        android:textSize="@dimen/font_small_115" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlZipCodeBox"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:background="@drawable/shape_email_pass"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rlAddressBox">
+
+                    <ImageView
+                        android:id="@+id/iv_zip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_zip_code" />
+
+                    <EditText
+                        android:id="@+id/et_zipcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_normal_100"
+                        android:layout_toRightOf="@+id/iv_zip"
+                        android:background="@null"
+                        android:hint="@string/zipcode"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/grey"
+                        android:fontFamily="@font/futura_medium"
+                        android:textSize="@dimen/font_small_115"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_label_payment_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_info"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_125"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/margin_normal_200"
+                    android:fontFamily="@font/futura_medium"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rlZipCodeBox" />
+
+                <RadioGroup
+                    android:id="@+id/rg_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_label_payment_info"
+                    >
+                    <RadioButton
+                        android:id="@+id/rb_cash_on_delivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_on_delivery"
+                        android:checked="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_small_100"
+                        android:buttonTint="@color/light_green"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rb_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/credit_debit_card"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_small_100"
+                        android:buttonTint="@color/light_green"
+                        />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/btnCheckout"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_green"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/futur"
+                    android:paddingVertical="@dimen/padding_normal_100"
+                    android:stateListAnimator="@null"
+                    android:textSize="@dimen/font_small_150"
+                    android:textStyle="bold"
+                    android:text="@string/checkout"
+                    android:layout_marginTop="@dimen/margin_normal_200"
+                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                    app:layout_constraintStart_toStartOf="@id/start_guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/rg_payment"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

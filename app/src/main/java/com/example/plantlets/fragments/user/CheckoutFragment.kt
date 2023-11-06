@@ -1,15 +1,16 @@
-package com.example.plantlets
+package com.example.plantlets.fragments.user
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.plantlets.R
+import com.example.plantlets.databinding.FragmentCheckoutBinding
 
+class CheckoutFragment : Fragment() {
 
-class UserOrdersFragment : Fragment() {
-
-
+    private lateinit var binding:FragmentCheckoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,8 +21,8 @@ class UserOrdersFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_orders, container, false)
+        binding = FragmentCheckoutBinding.inflate(inflater,container,false)
+        return binding.root
     }
-
 
 }
