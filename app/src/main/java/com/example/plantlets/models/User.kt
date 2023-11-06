@@ -9,4 +9,5 @@ data class User(
     val type:String= USER_TYPE,
     val mobileNumber:String?=null,
     val image:String?=null
+    val name:String=""
 )
