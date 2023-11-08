@@ -4,9 +4,11 @@ import android.net.Uri
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.interfaces.CategoryExistListener
+import com.example.plantlets.models.Order
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.ITEM_REFRENCE
+import com.example.plantlets.utils.Constants.ORDER_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE_USER
 import com.example.plantlets.utils.Constants.VENDOR_TYPE
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -69,17 +72,20 @@ class ItemRepository @Inject constructor(
                         CustomResponse.Error(error.message.toString())
                 }
                 if (snapshotlist != null) {
-                    val itemList: MutableList<SellerItem> = mutableListOf()
+                    var itemList: MutableList<SellerItem> = mutableListOf()
                     if (snapshotlist.isEmpty)
                         _itemsStateFlow.value = CustomResponse.Success(itemList)
-                    else
-                        for (snapshot in snapshotlist) {
-                            val item = snapshot.toObject(SellerItem::class.java)
-                            if (item != null) {
-                                itemList.add(item)
-                            }
-                            _itemsStateFlow.value = CustomResponse.Success(itemList)
-                        }
+                    else{
+                        itemList = snapshotlist.toObjects(SellerItem::class.java)
+                        _itemsStateFlow.value = CustomResponse.Success(itemList)
+                    }
+//                        for (snapshot in snapshotlist) {
+//                            val item = snapshot.toObject(SellerItem::class.java)
+//                            if (item != null) {
+//                                itemList.add(item)
+//                            }
+//                            _itemsStateFlow.value = CustomResponse.Success(itemList)
+//                        }
                 }
             }
         }
@@ -156,6 +162,26 @@ class ItemRepository @Inject constructor(
                 .addOnFailureListener { exception ->
                     listener.onFailure(exception.message.toString())
                 }
+        }
+    }
+
+    fun placeOrder(order:Order){
+        firestoreRef.collection(ORDER_REFRENCE).document(order.orderId).set(order).addOnCompleteListener {
+            if(it.isSuccessful){
+                Log.d("USMAN-TAG","order placed")
+            }
+            else{
+                Log.d("USMAN-TAG","Exception : ${it.exception?.message}")
+            }
+        }
+    }
+
+    fun getOrders(){
+        firestoreRef.collection(ORDER_REFRENCE).whereEqualTo("customerInfo.email", "user@gmail.com").get().addOnSuccessListener {
+            for(snap in it){
+                val order  = snap.toObject(Order::class.java)
+                Log.d("USMAN-TAG","Order : ${order.customerInfo?.email}")
+            }
         }
     }
 

@@ -20,6 +20,8 @@ import com.example.plantlets.models.Amounts
 import com.example.plantlets.models.CartItem
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.viewmodels.user.CartViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -88,6 +90,7 @@ class CartFragment : Fragment(),CartAdapter.OnCartListener {
             }
         }
     }
+
 
     private fun showCartItems(cartItems: List<CartItem>) {
         binding.apply {

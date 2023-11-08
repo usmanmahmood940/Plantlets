@@ -5,9 +5,9 @@ import com.example.plantlets.utils.Constants.USER_TYPE
 
 data class User(
     val id:String="",
-    val email:String? =null,
+    var email:String? =null,
     val type:String= USER_TYPE,
-    val mobileNumber:String?=null,
-    val image:String?=null
-    val name:String=""
+    var mobileNumber:String?=null,
+    val image:String?=null,
+    var name:String=""
 )

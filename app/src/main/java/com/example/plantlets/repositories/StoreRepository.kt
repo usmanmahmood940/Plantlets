@@ -44,17 +44,22 @@ class StoreRepository @Inject constructor(
                         CustomResponse.Error(error.message.toString())
                 }
                 if (snapshotlist != null) {
-                    val storeList: MutableList<Store> = mutableListOf()
+                    var storeList: MutableList<Store> = mutableListOf()
                     if (snapshotlist.isEmpty)
                         _storesStateFlow.value = CustomResponse.Success(storeList)
-                    else
-                        for (snapshot in snapshotlist) {
-                            val item = snapshot.toObject(Store::class.java)
-                            if (item != null) {
-                                storeList.add(item)
-                            }
-                            _storesStateFlow.value = CustomResponse.Success(storeList)
-                        }
+                    else{
+                        storeList = snapshotlist.toObjects(Store::class.java)
+                        _storesStateFlow.value = CustomResponse.Success(storeList)
+                    }
+
+
+//                        for (snapshot in snapshotlist) {
+//                            val item = snapshot.toObject(Store::class.java)
+//                            if (item != null) {
+//                                storeList.add(item)
+//                            }
+//                            _storesStateFlow.value = CustomResponse.Success(storeList)
+//                        }
                 }
             }
         }

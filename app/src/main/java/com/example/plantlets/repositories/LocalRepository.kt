@@ -42,7 +42,7 @@ class LocalRepository @Inject constructor(
     fun getStoreFromPref(storeRef:String =STORE_REFRENCE ): Store? {
         val storeString: String? = sharedPreferences.getString(storeRef, null)
         storeString?.let {
-            val objStore: Store = Gson().fromJson(storeString, Store::class.java)
+            val objStore: Store? = Gson().fromJson(storeString, Store::class.java)
             return objStore
         }
         return null

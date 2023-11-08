@@ -40,6 +40,14 @@
             android:name="amounts"
             app:nullable="true"
             app:argType="com.example.plantlets.models.Amounts" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_pinLocationFragment"
+            app:destination="@id/pinLocationFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/pinLocationFragment"
+        android:name="com.example.plantlets.fragments.user.PinLocationFragment"
+        android:label="fragment_pin_location"
+        tools:layout="@layout/fragment_pin_location" />
 </navigation>
