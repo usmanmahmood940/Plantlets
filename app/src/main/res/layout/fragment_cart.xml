@@ -180,7 +180,7 @@
                         android:id="@+id/tv_tax_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{@string/tax + "" + String.valueOf(amounts.taxPercent)+"%"}'
+                        android:text='@{@string/tax + " " + String.valueOf(amounts.taxPercent)+"%"}'
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_small_115"
