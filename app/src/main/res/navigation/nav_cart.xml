@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_checkoutFragment_to_pinLocationFragment"
             app:destination="@id/pinLocationFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
 
     </fragment>
     <fragment
@@ -50,4 +53,9 @@
         android:name="com.example.plantlets.fragments.user.PinLocationFragment"
         android:label="fragment_pin_location"
         tools:layout="@layout/fragment_pin_location" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.plantlets.fragments.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
 </navigation>

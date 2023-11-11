@@ -65,6 +65,8 @@
     <string name="cash_on_delivery">Cash on Delivery</string>
     <string name="credit_debit_card">Credit/Debit Card</string>
     <string name="pin_location">Select Pin Location</string>
+    <string name="order_details">Order Details</string>
+    <string name="order_summary">Order Summary</string>
 
 
 </resources>

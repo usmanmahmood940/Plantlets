@@ -47,6 +47,9 @@ class CheckoutFragment : Fragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+    @Inject
+    lateinit var cartManager: CartManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -91,12 +94,18 @@ class CheckoutFragment : Fragment() {
                 }
             }
             btnCheckout.setOnClickListener {
-                placeOrder()
+                moveToOrderDetails()
             }
         }
 
     }
 
+    fun moveToOrderDetails(){
+        if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
+            val action = CheckoutFragmentDirections.actionCheckoutFragmentToOrderDetailsFragment()
+            findNavController().navigate(action)
+        }
+    }
     private fun placeOrder() {
 
         val order = Order(
@@ -106,7 +115,8 @@ class CheckoutFragment : Fragment() {
             cartItemList = getCartItemList(),
             paymentMethod = CASH_ON_DELIVERY,
             amounts = amount?:Amounts(),
-            orderStatus = ORDER_PLACED
+            orderStatus = ORDER_PLACED,
+            storeId = cartManager.store?.email!!
         )
         checkoutViewModel.placeOrder(order)
     }

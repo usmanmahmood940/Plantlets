@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="20dp">
+
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/futura_medium"
+        android:maxLength="25"
+        android:text="Sunflower plants"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_small_150"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small_100"
+        android:fontFamily="@font/futura_medium"
+        android:text="34"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_small_115"
+        app:layout_constraintStart_toEndOf="@id/tvPriceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
+        />
+
+    <TextView
+        android:id="@+id/tvPriceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small_100"
+        android:fontFamily="@font/futura_medium"
+        android:text="Rs."
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_small_115"
+        app:layout_constraintStart_toStartOf="@id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small_75"
+        android:fontFamily="@font/futura_medium"
+        android:text="Qty : 6"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/font_small_100"
+        app:layout_constraintStart_toStartOf="@id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
+
+    <View
+        android:id="@+id/separaterOrderItem"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel" />
+
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivItemImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        android:src="@drawable/plant_sample"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPriceLabel"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvItemName"
+        app:shapeAppearanceOverlay="@style/curvedCorner" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

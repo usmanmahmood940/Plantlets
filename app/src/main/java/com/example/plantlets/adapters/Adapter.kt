@@ -1,5 +1,6 @@
 package com.example.plantlets.adapters
 
+import android.opengl.Visibility
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -18,6 +19,17 @@ fun ImageView.imageByQuantity(quantity: Int){
     }
     else{
         this.setImageResource(R.drawable.ic_minus_disabled_image)
+    }
+
+}
+
+@BindingAdapter("imageByVisibility")
+fun ImageView.imageByVisibility(visibility: Boolean){
+    if(visibility) {
+        this.setImageResource(R.drawable.ic_arrow_up)
+    }
+    else{
+        this.setImageResource(R.drawable.ic_arrow_down)
     }
 
 }
