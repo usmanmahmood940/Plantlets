@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_grey"
+    tools:context=".activities.AdminHomeActivity">
+    <TextView
+        android:id="@+id/tvLabelReviewMap"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_medium"
+        android:text="Dashboard"
+        android:textColor="@color/light_green"
+        android:textSize="@dimen/font_normal_125"
+        android:textStyle="bold"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvSearchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_search_border"
+        android:layout_marginTop="@dimen/margin_normal_100"
+        android:layout_marginHorizontal="@dimen/margin_normal_100"
+        android:paddingVertical="@dimen/padding_small_100"
+        app:layout_constraintEnd_toStartOf="@id/btnfilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelReviewMap">
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_search"
+            android:layout_marginStart="@dimen/margin_small_100"
+            app:layout_constraintBottom_toBottomOf="@id/etSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/etSearch"
+            />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small_150"
+            android:background="@null"
+            android:textColor="@color/black"
+            android:hint="Search"
+            android:paddingVertical="@dimen/padding_small_100"
+            android:fontFamily="@font/futura_medium"
+            android:textSize="@dimen/font_small_150"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_normal_100"
+        app:layout_constraintTop_toTopOf="@id/cvSearchBar"
+        app:layout_constraintBottom_toBottomOf="@id/cvSearchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_filter"
+        android:background="@color/white"
+        app:shapeAppearanceOverlay="@style/roundImage"
+        app:strokeColor="@color/light_green"
+        app:strokeWidth="1dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        android:id="@+id/btnfilter"
+        app:contentPadding="2dp"
+        android:padding="1dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStoresList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_normal_200"
+        android:padding="@dimen/padding_normal_100"
+        tools:listitem="@layout/item_admin_store"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvSearchBar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

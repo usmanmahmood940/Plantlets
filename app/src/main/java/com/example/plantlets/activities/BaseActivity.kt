@@ -122,8 +122,11 @@ open class BaseActivity : AppCompatActivity() {
                     UserHomeActivity::class.java
                 }
 
+                Constants.ADMIN_TYPE -> {
+                    AdminHomeActivity::class.java
+                }
                 else -> {
-                    SellerHomeActivity::class.java
+                    UserHomeActivity::class.java
                 }
             }
         }

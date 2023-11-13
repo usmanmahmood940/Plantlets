@@ -41,10 +41,6 @@ class StoreListingFragment : Fragment(),StoreClickListener {
 
     @Inject
     lateinit var auth: FirebaseAuth
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,13 +80,6 @@ class StoreListingFragment : Fragment(),StoreClickListener {
                 adapter = storeItemAdapter
             }
         }
-//        val list = mutableListOf<Store>(
-//            Store(email = "usman@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-//            Store(email = "humza@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-//            Store(email = "hassan@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore"),
-//            Store(email = "ahmad@gmail.com", storeName = "Aroma Gardens", storeAddress ="Cantt,Lahore")
-//        )
-//        storeItemAdapter.submitList(list)
     }
 
     private fun observeStoreList() {

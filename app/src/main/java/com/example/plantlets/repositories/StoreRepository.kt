@@ -52,14 +52,6 @@ class StoreRepository @Inject constructor(
                         _storesStateFlow.value = CustomResponse.Success(storeList)
                     }
 
-
-//                        for (snapshot in snapshotlist) {
-//                            val item = snapshot.toObject(Store::class.java)
-//                            if (item != null) {
-//                                storeList.add(item)
-//                            }
-//                            _storesStateFlow.value = CustomResponse.Success(storeList)
-//                        }
                 }
             }
         }

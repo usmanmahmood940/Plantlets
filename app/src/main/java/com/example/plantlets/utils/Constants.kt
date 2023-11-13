@@ -31,6 +31,11 @@ object Constants {
     const val TYPE_REFRENCE = "type"
     const val USER_TYPE="user"
     const val VENDOR_TYPE="vendor"
+    const val ADMIN_TYPE="admin"
+
+    const val ACTIVE = "active"
+    const val Non_ACTIVE = "non-active"
+    const val IN_PROCESS = "in_process"
 
 
 
