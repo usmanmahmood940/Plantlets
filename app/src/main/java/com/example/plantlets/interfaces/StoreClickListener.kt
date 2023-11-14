@@ -7,6 +7,4 @@ import com.example.plantlets.models.Store
 interface StoreClickListener {
 
     fun onClick(store: Store)
-
-
 }

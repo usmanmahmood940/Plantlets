@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantlets.R
+import com.example.plantlets.databinding.ItemAdminStoreBinding
 import com.example.plantlets.databinding.ItemSellerItemLayoutBinding
 import com.example.plantlets.databinding.ItemStoreLayoutBinding
 import com.example.plantlets.interfaces.CategoryClickListener
@@ -17,13 +18,13 @@ import com.example.plantlets.models.Category
 import com.example.plantlets.models.Store
 
 
-class StoreItemAdapter(
+class AdminStoreItemAdapter(
     private val listener: StoreClickListener
 ) :
-    ListAdapter<Store, StoreItemAdapter.ViewHolder>(StoreDiffCallback()) {
+    ListAdapter<Store, AdminStoreItemAdapter.ViewHolder>(StoreDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemStoreLayoutBinding.inflate(
+        val binding = ItemAdminStoreBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -36,11 +37,11 @@ class StoreItemAdapter(
         holder.bind(store, listener)
     }
 
-    class ViewHolder(private val binding: ItemStoreLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemAdminStoreBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(store: Store, listener: StoreClickListener) {
             with(binding){
-               tvName.text = store.storeName
-               tvLocation.text = store.storeAddress
+                tvName.text = store.storeName
+                tvLocation.text = store.storeAddress
                 storeLayout.setOnClickListener {
                     listener.onClick(store)
                 }
