@@ -38,6 +38,8 @@ class AdminStoreItemAdapter(
     }
 
     class ViewHolder(private val binding: ItemAdminStoreBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
         fun bind(store: Store, listener: StoreClickListener) {
             with(binding){
                 tvName.text = store.storeName
@@ -45,6 +47,7 @@ class AdminStoreItemAdapter(
                 storeLayout.setOnClickListener {
                     listener.onClick(store)
                 }
+                tvStatus.text = store.status
 
             }
 

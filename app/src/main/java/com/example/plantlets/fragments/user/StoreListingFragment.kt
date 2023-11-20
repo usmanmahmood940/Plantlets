@@ -132,6 +132,4 @@ class StoreListingFragment : Fragment(),StoreClickListener {
             findNavController().navigate(action)
         }
     }
-
-
 }

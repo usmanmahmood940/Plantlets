@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_grey"
-    tools:context=".activities.AdminHomeActivity">
+    tools:context=".activities.admin.AdminHomeActivity">
     <TextView
         android:id="@+id/tvLabelReviewMap"
         android:layout_width="@dimen/zero"

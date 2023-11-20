@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Plantlets"
         tools:targetApi="31">
         <activity
-            android:name=".activities.AdminHomeActivity"
+            android:name=".activities.admin.AdminHomeActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -66,6 +66,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.EditStoreActivity"
             android:exported="false" />
         <activity
             android:name=".activities.OnBoardingActivity"

@@ -1,15 +1,14 @@
-package com.example.plantlets.activities
+package com.example.plantlets.activities.admin
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.adapters.AdminStoreItemAdapter
-import com.example.plantlets.adapters.StoreItemAdapter
 import com.example.plantlets.databinding.ActivityAdminHomeBinding
 import com.example.plantlets.interfaces.StoreClickListener
 import com.example.plantlets.models.Store
@@ -65,20 +64,15 @@ class AdminHomeActivity : BaseActivity(), StoreClickListener {
                         response.data?.let { storeList ->
                             adminStoreItemAdapter.submitList(storeList)
                         }
-
                     }
-
                     is CustomResponse.Loading -> {
                         showProgressBar()
                     }
-
                     is CustomResponse.Error -> {
                             hideProgressBar()
                             showAlert(
                                 title = getString(R.string.error), message = response.errorMessage
                             )
-
-
                     }
                 }
             }
@@ -86,6 +80,12 @@ class AdminHomeActivity : BaseActivity(), StoreClickListener {
     }
 
     override fun onClick(store: Store) {
+        val intent = Intent(this, EditStoreActivity::class.java)
+        intent.putExtra("storeName", store.storeName)
+        intent.putExtra("storeAddress", store.storeAddress)
+        intent.putExtra("storeStatus", store.status)
+        intent.putExtra("storeEmail", store.email)
+        this.startActivity(intent)
 
     }
 }

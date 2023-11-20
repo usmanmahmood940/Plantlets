@@ -22,3 +22,4 @@ data class Store(
     var status:String?=null,
 
 ):Parcelable
+

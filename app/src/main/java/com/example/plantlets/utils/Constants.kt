@@ -33,9 +33,9 @@ object Constants {
     const val VENDOR_TYPE="vendor"
     const val ADMIN_TYPE="admin"
 
-    const val ACTIVE = "active"
-    const val Non_ACTIVE = "non-active"
-    const val IN_PROCESS = "in_process"
+    const val ACTIVE = "Active"
+    const val Non_ACTIVE = "Non Active"
+    const val IN_PROCESS = "In Process"
 
 
 

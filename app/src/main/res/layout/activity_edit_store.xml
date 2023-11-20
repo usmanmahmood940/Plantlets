@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_grey"
+    tools:context=".fragments.seller.AddItemFragment">
+
+    <ScrollView
+        android:id="@+id/svAddItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/horizontal_guideline"
+                android:paddingTop="@dimen/padding_normal_200"
+                android:paddingBottom="@dimen/padding_normal_500">
+
+
+                <TextView
+                    android:id="@+id/tvLabel"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_medium"
+                    android:text="@string/edit_store"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_green"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/font_normal_125"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/tvItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_200"
+                    android:fontFamily="@font/futura_medium"
+                    android:text="Store Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_150"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
+
+                <RelativeLayout
+                    android:id="@+id/rlItemName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:background="@drawable/shape_search_border"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvItemName">
+
+
+                    <EditText
+                        android:id="@+id/etItemName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/futura_medium"
+                        android:hint="Store Name"
+                        android:inputType="text"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_125" />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvItemDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_180"
+                    android:fontFamily="@font/futura_medium"
+                    android:text="Location"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_150"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rlItemName" />
+
+                <RelativeLayout
+                    android:id="@+id/rlItemDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:background="@drawable/shape_search_border"
+                    android:padding="@dimen/padding_small_150"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvItemDetail">
+
+
+                    <EditText
+                        android:id="@+id/etStoreLoc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/futura_medium"
+                        android:gravity="top"
+                        android:hint="Enter Details"
+                        android:inputType="textMultiLine"
+                        android:lines="2"
+                        android:scrollbars="vertical"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/font_small_125" />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvItemCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_180"
+                    android:fontFamily="@font/futura_medium"
+                    android:text="Status"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_small_150"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rlItemDetail" />
+
+                <LinearLayout
+                    android:id="@+id/rlCategory"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_small_150"
+                    android:padding="@dimen/padding_normal_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvItemCategory">
+                    <TextView
+                        android:id="@+id/nActiveBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:text="Not Active"
+                        android:textSize="@dimen/font_small_75"
+                        android:textColor="@color/light_green"
+                        android:background="@drawable/button_bg"
+                        />
+                    <TextView
+                        android:id="@+id/activeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:text="Active"
+                        android:textSize="@dimen/font_small_75"
+                        android:textColor="@color/light_green"
+                        android:background="@drawable/button_bg"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/progressBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:text="In progress"
+                        android:textSize="@dimen/font_small_75"
+                        android:textColor="@color/light_green"
+                        android:background="@drawable/button_bg"
+                        />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:elevation="3dp"
+                    android:layout_marginStart="@dimen/padding_small_100"
+                    android:background="@drawable/shape_oval_corner_grey"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvLabel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvLabel">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_back" />
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/btnAction"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal_300"
+                    android:backgroundTint="@color/light_green"
+                    android:fontFamily="@font/futur"
+                    android:paddingVertical="@dimen/padding_small_150"
+                    android:text="update"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/font_small_150"
+                    android:textStyle="bold"
+                    android:elevation="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rlCategory"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
