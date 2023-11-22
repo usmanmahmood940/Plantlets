@@ -2,6 +2,7 @@ package com.example.plantlets.adapters
 
 import android.opengl.Visibility
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.plantlets.R
@@ -33,4 +34,6 @@ fun ImageView.imageByVisibility(visibility: Boolean){
     }
 
 }
+
+
 

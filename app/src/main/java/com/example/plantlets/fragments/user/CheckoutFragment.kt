@@ -12,28 +12,38 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.plantlets.Manager.CartManager
 import com.example.plantlets.R
 import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.databinding.FragmentCheckoutBinding
+import com.example.plantlets.fragments.seller.AddItemFragmentArgs
 import com.example.plantlets.models.Amounts
 import com.example.plantlets.models.CartItem
 import com.example.plantlets.models.DeliveryInfo
 import com.example.plantlets.models.Order
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.models.User
+import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.CART
 import com.example.plantlets.utils.Constants.CASH_ON_DELIVERY
 import com.example.plantlets.utils.Constants.LATITUDE
 import com.example.plantlets.utils.Constants.LOCATION_DATA
 import com.example.plantlets.utils.Constants.LONGITUDE
+import com.example.plantlets.utils.Constants.ORDER_PENDING
 import com.example.plantlets.utils.Constants.ORDER_PLACED
 import com.example.plantlets.utils.Helper.generateRandomStringWithTime
 import com.example.plantlets.utils.Helper.getAddressFromLocation
+import com.example.plantlets.utils.Helper.getCurrentDateFormatted
 import com.example.plantlets.viewmodels.user.CheckoutViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import java.util.Locale
 import javax.inject.Inject
 
@@ -74,6 +84,8 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun init() {
+        val args: CheckoutFragmentArgs by navArgs()
+        amount = args.amounts
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             user = checkoutViewModel.getUser()
@@ -101,10 +113,29 @@ class CheckoutFragment : Fragment() {
     }
 
     fun moveToOrderDetails(){
-        if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
-            val action = CheckoutFragmentDirections.actionCheckoutFragmentToOrderDetailsFragment()
-            findNavController().navigate(action)
+        val order = Order(
+            customerInfo = binding.user?: User(),
+            customerDeliveryInfo = binding.deliveryInfo?: DeliveryInfo(),
+            cartItemList = getCartItemList(),
+            paymentMethod = CASH_ON_DELIVERY,
+            amounts = amount?:Amounts(),
+            orderStatus = ORDER_PENDING,
+            storeId = cartManager.store?.email!!,
+            date = getCurrentDateFormatted()
+        )
+        CoroutineScope(Dispatchers.Main).launch{
+            order.orderId =  checkoutViewModel.getOrderId()
+            checkoutViewModel.placeOrder(order)
+            withContext(Dispatchers.Main){
+                if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
+                    val action = CheckoutFragmentDirections.actionCheckoutFragmentToOrderDetailsFragment(order)
+                    findNavController().navigate(action)
+                }
+            }
+
         }
+
+
     }
     private fun placeOrder() {
 
@@ -115,7 +146,7 @@ class CheckoutFragment : Fragment() {
             cartItemList = getCartItemList(),
             paymentMethod = CASH_ON_DELIVERY,
             amounts = amount?:Amounts(),
-            orderStatus = ORDER_PLACED,
+            orderStatus = ORDER_PENDING,
             storeId = cartManager.store?.email!!
         )
         checkoutViewModel.placeOrder(order)

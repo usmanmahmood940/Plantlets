@@ -41,6 +41,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
                     android:paddingTop="@dimen/padding_normal_200"
                     android:paddingBottom="@dimen/padding_normal_500">
 
@@ -100,6 +101,7 @@
                         android:layout_marginTop="@dimen/margin_normal_300"
                         android:background="@drawable/shape_search_border"
                         android:paddingVertical="20dp"
+                        android:animateLayoutChanges="true"
                         app:layout_constraintEnd_toEndOf="@id/end_guideline"
                         app:layout_constraintStart_toEndOf="@id/start_guideline"
                         app:layout_constraintTop_toBottomOf="@id/tvLabelOrderSummary">
@@ -156,7 +158,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="#242423"
+                                android:text="@{order.orderId}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -182,7 +184,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="25 July,2023"
+                                android:text="@{order.date}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -208,7 +210,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="In Delivery"
+                                android:text="@{order.orderStatus}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -281,7 +283,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="Ahmad Khan"
+                                android:text="@{order.customerInfo.name}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -307,7 +309,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="03204442342"
+                                android:text="@{order.customerInfo.mobileNumber}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -333,7 +335,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_large_100"
                                 android:fontFamily="@font/futura_medium"
-                                android:text="Johar Town, Lahore"
+                                android:text="@{order.customerDeliveryInfo.fullAddress}"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/black_grey"
                                 android:textSize="@dimen/font_small_125"
@@ -347,182 +349,220 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layoutItemPayment"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal_300"
-                    android:background="@drawable/shape_search_border"
-                    android:paddingVertical="20dp"
-                    app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                    app:layout_constraintStart_toEndOf="@id/start_guideline"
-                    app:layout_constraintTop_toBottomOf="@id/layoutOrderDeilivery">
-
-                    <TextView
-                        android:id="@+id/tvLabelOrderId2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:fontFamily="@font/futura_medium"
-                        android:text="Order #2324234"
-                        android:textColor="@color/black_grey"
-                        android:textSize="@dimen/font_small_125"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/separaterOrderId"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/black_grey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvLabelOrderId2" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvOrderItemList"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/separaterOrderId" />
-
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layoutPaymentDetails"
+                        android:id="@+id/layoutItemPayment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:paddingHorizontal="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rvOrderItemList">
-
+                        android:layout_marginTop="112dp"
+                        android:background="@drawable/shape_search_border"
+                        android:paddingVertical="20dp"
+                        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@id/start_guideline"
+                        app:layout_constraintTop_toBottomOf="@id/layoutOrderDeilivery">
 
                         <TextView
-                            android:id="@+id/tvLabelSubTotal"
+                            android:id="@+id/tvLabelOrderId2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
                             android:fontFamily="@font/futura_medium"
-                            android:text="Sub Total"
+                            android:text="@{`Order #` + order.orderId}"
                             android:textColor="@color/black_grey"
                             android:textSize="@dimen/font_small_125"
+                            android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tvSubTotal"
+
+                        <View
+                            android:id="@+id/separaterOrderId"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/black_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelOrderId2" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvOrderItemList"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_large_100"
-                            android:fontFamily="@font/futura_medium"
-                            android:text="Rs. 345234"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black_grey"
-                            android:textSize="@dimen/font_small_125"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvLabelSubTotal"
-                            app:layout_constraintTop_toTopOf="@id/tvLabelSubTotal" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/separaterOrderId" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutPaymentDetails"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:paddingHorizontal="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvOrderItemList">
+
+
+                            <TextView
+                                android:id="@+id/tvLabelSubTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Sub Total"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvSubTotal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{`Rs. ` +String.valueOf(order.getSubTotal())}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelSubTotal"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelSubTotal" />
+
+                            <TextView
+                                android:id="@+id/tvLabelTax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small_150"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{`Tax `+String.valueOf(order.amounts.taxPercent)+`%`}"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvSubTotal" />
+
+                            <TextView
+                                android:id="@+id/tvTax"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{`Rs. ` +String.valueOf(order.amounts.taxAmount)}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelTax"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelTax" />
+
+                            <TextView
+                                android:id="@+id/tvLabelDelivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small_150"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Delievery"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvTax" />
+
+                            <TextView
+                                android:id="@+id/tvDelivery"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Free"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelDelivery"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelDelivery" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/separaterPayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/black_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layoutPaymentDetails" />
 
                         <TextView
-                            android:id="@+id/tvLabelTax"
+                            android:id="@+id/tvLabelTotalPayment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small_150"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
                             android:fontFamily="@font/futura_medium"
-                            android:text="Tax"
-                            android:textColor="@color/black_grey"
-                            android:textSize="@dimen/font_small_125"
+                            android:text="Total"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_150"
+                            android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tvSubTotal" />
+                            app:layout_constraintTop_toBottomOf="@id/separaterPayment" />
 
                         <TextView
-                            android:id="@+id/tvTax"
+                            android:id="@+id/tvTotalPayment"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_large_100"
+                            android:layout_marginEnd="20dp"
                             android:fontFamily="@font/futura_medium"
-                            android:text="400"
+                            android:text="@{`Rs.` +String.valueOf(order.getTotal())}"
                             android:textAlignment="textEnd"
-                            android:textColor="@color/black_grey"
-                            android:textSize="@dimen/font_small_125"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_150"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvLabelTax"
-                            app:layout_constraintTop_toTopOf="@id/tvLabelTax" />
-
-                        <TextView
-                            android:id="@+id/tvLabelDelivery"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small_150"
-                            android:fontFamily="@font/futura_medium"
-                            android:text="Delievery"
-                            android:textColor="@color/black_grey"
-                            android:textSize="@dimen/font_small_125"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tvTax" />
-
-                        <TextView
-                            android:id="@+id/tvDelivery"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_large_100"
-                            android:fontFamily="@font/futura_medium"
-                            android:text="Free"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black_grey"
-                            android:textSize="@dimen/font_small_125"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvLabelDelivery"
-                            app:layout_constraintTop_toTopOf="@id/tvLabelDelivery" />
-
+                            app:layout_constraintStart_toEndOf="@+id/tvLabelTotalPayment"
+                            app:layout_constraintTop_toTopOf="@id/tvLabelTotalPayment" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <View
-                        android:id="@+id/separaterPayment"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/black_grey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layoutPaymentDetails" />
-
-                    <TextView
-                        android:id="@+id/tvLabelTotalPayment"
-                        android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/btnConfirm"
+                        android:layout_width="@dimen/zero"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/futura_medium"
-                        android:text="Total"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/margin_normal_300"
+                        android:backgroundTint="@color/light_green"
+                        android:fontFamily="@font/futur"
+                        android:paddingVertical="@dimen/padding_small_150"
+                        android:text="@string/confirm"
+                        android:textAllCaps="false"
                         android:textSize="@dimen/font_small_150"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:textStyle="bold"
+                        android:elevation="3dp"
+                        app:layout_constraintEnd_toStartOf="@id/btnCancel"
+                        app:layout_constraintStart_toStartOf="@id/start_guideline"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutItemPayment"
+                        />
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        android:layout_width="@dimen/zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal_300"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/futur"
+                        android:paddingVertical="@dimen/padding_small_150"
+                        android:text="@string/cancel"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/font_small_150"
+                        android:textStyle="bold"
+                        android:textColor="@color/light_green"
+                        android:elevation="3dp"
                         android:layout_marginStart="20dp"
-                        app:layout_constraintTop_toBottomOf="@id/separaterPayment" />
-
-                    <TextView
-                        android:id="@+id/tvTotalPayment"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_large_100"
-                        android:fontFamily="@font/futura_medium"
-                        android:text="Rs. 32,532,532"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/font_small_150"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="20dp"
-                        app:layout_constraintStart_toEndOf="@+id/tvLabelTotalPayment"
-                        app:layout_constraintTop_toTopOf="@id/tvLabelTotalPayment" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                        app:layout_constraintStart_toEndOf="@id/btnConfirm"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutItemPayment"
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

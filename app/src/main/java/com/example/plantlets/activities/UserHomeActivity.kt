@@ -41,6 +41,10 @@ class UserHomeActivity : BaseActivity() {
         binding.coordinatorLayout.visibility = View.VISIBLE
     }
 
+    fun openHome(){
+        binding.bottomNavigationView.selectedItemId = R.id.homeFragment
+    }
+
     private fun setupCartButton() {
         binding.btnCart.setOnClickListener {
             binding.bottomNavigationView.apply {

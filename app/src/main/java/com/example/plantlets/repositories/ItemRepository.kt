@@ -165,25 +165,7 @@ class ItemRepository @Inject constructor(
         }
     }
 
-    fun placeOrder(order:Order){
-        firestoreRef.collection(ORDER_REFRENCE).document(order.orderId).set(order).addOnCompleteListener {
-            if(it.isSuccessful){
-                Log.d("USMAN-TAG","order placed")
-            }
-            else{
-                Log.d("USMAN-TAG","Exception : ${it.exception?.message}")
-            }
-        }
-    }
 
-    fun getOrders(){
-        firestoreRef.collection(ORDER_REFRENCE).whereEqualTo("customerInfo.email", "user@gmail.com").get().addOnSuccessListener {
-            for(snap in it){
-                val order  = snap.toObject(Order::class.java)
-                Log.d("USMAN-TAG","Order : ${order.customerInfo?.email}")
-            }
-        }
-    }
 
 }
 

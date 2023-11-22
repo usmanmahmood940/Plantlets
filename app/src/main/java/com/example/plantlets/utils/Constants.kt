@@ -46,10 +46,12 @@ object Constants {
     const val RUNNING_RIDER_ORDER_ID = "RiderOrderId"
     const val MY_TAG = "USMAN CODE"
 
+    const val ORDER_PENDING="Pending"
+    const val ORDER_IN_PROGRESS="In Progress"
     const val ORDER_PLACED = "Order Placed"
     const val ORDER_PROCEED = "Order Proceeded"
     const val ORDER_IN_DELIVERY = "Order In Delivery"
-    const val ORDER_DELIVERED = "Order Delivered"
+    const val ORDER_DELIVERED = "Delivered"
     const val ORDER_ASSIGNING = "Order Assigning to Rider"
 
     const val CASH_ON_DELIVERY = "CashOnDelivery"

@@ -57,5 +57,10 @@
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.plantlets.fragments.OrderDetailsFragment"
         android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" />
+        tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="order"
+            app:nullable="true"
+            app:argType="com.example.plantlets.models.Order" />
+    </fragment>
 </navigation>

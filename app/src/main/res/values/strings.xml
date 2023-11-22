@@ -67,6 +67,8 @@
     <string name="pin_location">Select Pin Location</string>
     <string name="order_details">Order Details</string>
     <string name="order_summary">Order Summary</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

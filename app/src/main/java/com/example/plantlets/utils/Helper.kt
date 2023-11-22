@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.DialogInterface.OnDismissListener
 import android.content.DialogInterface.OnShowListener
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.location.Address
 import android.location.Geocoder
@@ -23,12 +24,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ui.IconGenerator
 import java.io.IOException
 import java.lang.ref.WeakReference
+import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
 object Helper {
 
-
+    fun getCurrentDateFormatted(): String {
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("dd, MMMM yyyy", Locale.getDefault())
+        return dateFormat.format(currentDate)
+    }
 
     fun generateRandomStringWithTime(): String {
         val timestamp = System.currentTimeMillis()

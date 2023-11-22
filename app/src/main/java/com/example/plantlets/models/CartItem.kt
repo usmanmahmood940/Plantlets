@@ -1,10 +1,14 @@
 package com.example.plantlets.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CartItem(
     val plantItem: SellerItem,
     var quantity:Int,
     var totalAmount:Double
-) {
+): Parcelable {
 
     fun updateTotalAmount() {
         totalAmount = plantItem.price!! * quantity
