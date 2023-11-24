@@ -18,4 +18,5 @@ data class Store(
     var location: Location?=null,
     var displayImage: String?=null,
     var bannerImage:String?=null,
+    var contact:String?=null
 ):Parcelable

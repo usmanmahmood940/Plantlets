@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp">
+        android:paddingTop="20dp">
 
 
         <TextView
@@ -26,7 +26,7 @@
             android:text="@{orderItem.plantItem.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_small_150"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivItemImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -83,10 +83,10 @@
             android:background="@color/white"
             android:scaleType="centerCrop"
             imageFromUrl="@{orderItem.plantItem.image}"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvPriceLabel"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvItemName"
             app:shapeAppearanceOverlay="@style/curvedCorner" />
 

@@ -3,6 +3,7 @@ package com.example.plantlets.repositories
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Order
+import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
@@ -75,7 +76,30 @@ class OrderRepository  @Inject constructor(
 //        }
     }
 
-    fun removeListener() {
+    fun getUserOrders(user: User) {
+        _ordersStateFlow.value = CustomResponse.Loading()
+        valueEventListener = object : EventListener<QuerySnapshot> {
+            override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null) {
+                    _ordersStateFlow.value =
+                        CustomResponse.Error(error.message.toString())
+                }
+                if (snapshotlist != null) {
+                    var ordersList: MutableList<Order> = mutableListOf()
+                    if (snapshotlist.isEmpty)
+                        _ordersStateFlow.value = CustomResponse.Success(ordersList)
+                    else {
+                        ordersList = snapshotlist.toObjects(Order::class.java)
+                        _ordersStateFlow.value = CustomResponse.Success(ordersList)
+                    }
+                }
+            }
+        }
+        itemListener = firestoreRef.collection(Constants.ORDER_REFRENCE).whereEqualTo("customerInfo.email",user.email)
+            .addSnapshotListener(valueEventListener!!)
+    }
+
+        fun removeListener() {
         itemListener?.apply {
             remove()
         }

@@ -4,19 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <import type="com.example.plantlets.models.Order" />
-
+        <import type="com.example.plantlets.models.Store" />
         <variable
             name="order"
             type="Order" />
         <variable
+            name="store"
+            type="Store" />
+        <variable
             name="orderDetail"
-            type="Boolean" />
+            type="Boolean"
+            />
         <variable
             name="deliveryDetail"
+            type="Boolean"
+            />
+        <variable
+            name="itemDetails"
             type="Boolean" />
-    </data>
+        <variable
+            name="storeDetail"
+            type="Boolean" />
+  </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -99,7 +110,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_normal_300"
-                        android:background="@drawable/shape_search_border"
+                        android:background="@drawable/shape_curve_border_grey"
                         android:paddingVertical="20dp"
                         android:animateLayoutChanges="true"
                         app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -121,8 +132,8 @@
 
                         <ImageView
                             android:id="@+id/arrowOrderDetails"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             android:layout_marginEnd="20dp"
                             imageByVisibility="@{orderDetail}"
                             app:layout_constraintBottom_toBottomOf="@id/tvOrderDetail"
@@ -136,6 +147,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:paddingHorizontal="20dp"
+                            android:visibility="@{orderDetail ? View.VISIBLE : View.GONE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvOrderDetail">
@@ -246,8 +258,8 @@
 
                         <ImageView
                             android:id="@+id/arrowDeliveryDetails"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             android:layout_marginEnd="20dp"
                             imageByVisibility="@{deliveryDetail}"
                             app:layout_constraintBottom_toBottomOf="@id/tvDeliveryDetails"
@@ -261,6 +273,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:paddingHorizontal="20dp"
+                            android:visibility="@{deliveryDetail ? View.VISIBLE : View.GONE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvDeliveryDetails">
@@ -344,7 +357,128 @@
                                 app:layout_constraintTop_toTopOf="@id/tvLabelAddress" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+                        <View
+                            android:id="@+id/separaterStoreDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/black_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layoutDeliveryDetails" />
+                        <TextView
+                            android:id="@+id/tvStoreDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/futura_medium"
+                            android:text="Store Details"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_125"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/separaterStoreDetails" />
 
+                        <ImageView
+                            android:id="@+id/arrowStoreDetails"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_marginEnd="20dp"
+                            imageByVisibility="@{storeDetail}"
+                            app:layout_constraintBottom_toBottomOf="@id/tvStoreDetails"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvStoreDetails" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutStoreDetails"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:paddingHorizontal="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStoreDetails">
+
+
+                            <TextView
+                                android:id="@+id/tvLabelStoreName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Store"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvStoreName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{store.storeName}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelStoreName"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelStoreName" />
+
+                            <TextView
+                                android:id="@+id/tvLabelStoreContact"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small_150"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Contact No"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvStoreName" />
+
+                            <TextView
+                                android:id="@+id/tvStoreContact"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{store.contact}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelStoreContact"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelStoreContact" />
+
+                            <TextView
+                                android:id="@+id/tvLabelStoreAddress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small_150"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Address"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvStoreContact" />
+
+                            <TextView
+                                android:id="@+id/tvStoreAddress"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{store.storeAddress}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelStoreAddress"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelStoreAddress" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -353,14 +487,24 @@
                         android:id="@+id/layoutItemPayment"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="112dp"
-                        android:background="@drawable/shape_search_border"
+                        android:layout_marginTop="@dimen/margin_normal_300"
+                        android:background="@drawable/shape_curve_border_grey"
                         android:paddingVertical="20dp"
+                        android:animateLayoutChanges="true"
                         app:layout_constraintEnd_toEndOf="@id/end_guideline"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@id/start_guideline"
                         app:layout_constraintTop_toBottomOf="@id/layoutOrderDeilivery">
-
+                        <ImageView
+                            android:id="@+id/arrowItemDetails"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_marginEnd="20dp"
+                            imageByVisibility="@{itemDetails}"
+                            app:layout_constraintBottom_toBottomOf="@id/tvLabelOrderId2"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvLabelOrderId2" />
                         <TextView
                             android:id="@+id/tvLabelOrderId2"
                             android:layout_width="wrap_content"
@@ -388,6 +532,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvOrderItemList"
                             android:layout_width="0dp"
+                            android:visibility="@{itemDetails ? View.VISIBLE : View.GONE}"
                             android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -539,6 +684,7 @@
                         android:textSize="@dimen/font_small_150"
                         android:textStyle="bold"
                         android:elevation="3dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toStartOf="@id/btnCancel"
                         app:layout_constraintStart_toStartOf="@id/start_guideline"
                         app:layout_constraintTop_toBottomOf="@+id/layoutItemPayment"
@@ -553,6 +699,7 @@
                         android:fontFamily="@font/futur"
                         android:paddingVertical="@dimen/padding_small_150"
                         android:text="@string/cancel"
+                        android:visibility="gone"
                         android:textAllCaps="false"
                         android:textSize="@dimen/font_small_150"
                         android:textStyle="bold"

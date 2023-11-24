@@ -24,4 +24,6 @@ data class Order(
         val itemTotal =  cartItemList?.sumOf { it.totalAmount } ?: 0.0
         return (itemTotal + amounts?.taxAmount!!)
     }
+
 }
+
