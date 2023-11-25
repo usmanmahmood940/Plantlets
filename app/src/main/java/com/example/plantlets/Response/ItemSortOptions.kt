@@ -13,3 +13,8 @@ enum class SortDirection{
     Descending,
 
 }
+enum class StoreStatus{
+    Active,
+    Non_Active,
+    In_progress
+}

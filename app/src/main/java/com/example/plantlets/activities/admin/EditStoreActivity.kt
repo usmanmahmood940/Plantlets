@@ -11,8 +11,9 @@ import com.example.plantlets.databinding.ActivityEditStoreBinding
 import com.example.plantlets.models.Store
 import com.example.plantlets.repositories.StoreRepository
 import com.example.plantlets.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class EditStoreActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditStoreBinding
@@ -65,6 +66,7 @@ class EditStoreActivity : AppCompatActivity() {
             }
             btnAction.setOnClickListener{
                 storeRepository.upsertStore(intent.getStringExtra("storeEmail"),status)
+                super.onBackPressed()
             }
         }
     }
