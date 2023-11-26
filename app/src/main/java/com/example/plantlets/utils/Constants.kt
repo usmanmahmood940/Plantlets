@@ -48,10 +48,12 @@ object Constants {
 
     const val ORDER_PENDING="Pending"
     const val ORDER_IN_PROGRESS="In Progress"
+    const val ORDER_CANCELLED="Cancelled"
+    const val ORDER_IN_DELIVERY = "In Delivery"
+    const val ORDER_DELIVERED="Delivered"
+
     const val ORDER_PLACED = "Order Placed"
     const val ORDER_PROCEED = "Order Proceeded"
-    const val ORDER_IN_DELIVERY = "Order In Delivery"
-    const val ORDER_DELIVERED = "Delivered"
     const val ORDER_ASSIGNING = "Order Assigning to Rider"
 
     const val CASH_ON_DELIVERY = "CashOnDelivery"
@@ -84,5 +86,9 @@ object Constants {
     const val MAP_ZOOM_WIDTH = 500
     const val MAP_ZOOM_HEIGHT = 500
     const val PADDING = 0
+
+    const val RATING="Rating"
+    const val RATING_DATA="Rating_Data"
+
 
 }

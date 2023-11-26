@@ -69,6 +69,7 @@
     <string name="order_summary">Order Summary</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="deliver">Deliver\n</string>
 
 
 </resources>

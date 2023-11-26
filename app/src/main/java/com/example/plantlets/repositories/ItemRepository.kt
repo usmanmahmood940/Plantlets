@@ -89,7 +89,7 @@ class ItemRepository @Inject constructor(
                 }
             }
         }
-        itemListener = databaseReference?.addSnapshotListener(valueEventListener!!)
+        itemListener = databaseReference?.whereGreaterThanOrEqualTo("stockQuantity",1)?.addSnapshotListener(valueEventListener!!)
 
     }
 

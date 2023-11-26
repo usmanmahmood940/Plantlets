@@ -45,6 +45,19 @@
             app:layout_constraintStart_toEndOf="@id/tvPriceLabel" />
 
         <TextView
+            android:id="@+id/tvCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_100"
+            android:fontFamily="@font/futura_medium"
+            android:text="@{order.customerInfo.name}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_115"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tvOrderId"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderId"
+            />
+        <TextView
             android:id="@+id/tvPriceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,8 +66,8 @@
             android:text="Rs. "
             android:textColor="@color/black"
             android:textSize="@dimen/font_small_115"
-            app:layout_constraintStart_toStartOf="@id/tvOrderId"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrderId"
+            app:layout_constraintStart_toStartOf="@id/tvCustomerName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCustomerName"
             />
 
         <TextView
@@ -63,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small_75"
             android:fontFamily="@font/futura_medium"
-            android:text="@{`Status : `+order.orderStatus}"
+            android:text="@{order.orderStatus}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_small_115"
             app:layout_constraintStart_toStartOf="@id/tvPriceLabel"

@@ -22,6 +22,14 @@
             android:name="order"
             app:nullable="true"
             app:argType="com.example.plantlets.models.Order" />
+        <action
+            android:id="@+id/action_orderDetailsFragment2_to_orderRatingFragment"
+            app:destination="@id/orderRatingFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/orderRatingFragment"
+        android:name="com.example.plantlets.OrderRatingFragment"
+        android:label="fragment_order_rating"
+        tools:layout="@layout/fragment_order_rating" />
 </navigation>

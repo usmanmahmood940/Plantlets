@@ -1,6 +1,7 @@
 package com.example.plantlets.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +13,8 @@ import com.example.plantlets.models.SellerItem
 
 
 class OrderAdapter(
-    private val listener: OrderClickListener
+    private val listener: OrderClickListener,
+    private val fromSeller:Boolean=false
 ) : ListAdapter<Order, OrderAdapter.ViewHolder>(OrderDiffCallback()) {
 
     interface OrderClickListener {
@@ -41,6 +43,13 @@ class OrderAdapter(
             binding.executePendingBindings()
             binding.root.setOnClickListener {
                 listener.onClick(order)
+            }
+            if (fromSeller){
+                binding.tvCustomerName.visibility = View.VISIBLE
+            }
+            else{
+                binding.tvCustomerName.visibility = View.GONE
+
             }
         }
 

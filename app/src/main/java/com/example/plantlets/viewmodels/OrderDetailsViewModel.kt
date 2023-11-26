@@ -5,12 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Order
 import com.example.plantlets.models.Store
 import com.example.plantlets.models.User
 import com.example.plantlets.repositories.LocalRepository
 import com.example.plantlets.repositories.OrderRepository
 import com.example.plantlets.repositories.StoreRepository
+import com.example.plantlets.utils.Constants.ORDER_CANCELLED
+import com.example.plantlets.utils.Constants.ORDER_DELIVERED
+import com.example.plantlets.utils.Constants.ORDER_IN_DELIVERY
+import com.example.plantlets.utils.Constants.ORDER_IN_PROGRESS
 import com.example.plantlets.utils.Constants.STORE_REFRENCE_USER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +34,10 @@ class OrderDetailsViewModel @Inject constructor(
     val ordersList: StateFlow<CustomResponse<List<Order>>>
         get() = orderRepository.ordersStateFlow
 
+    var order: MutableLiveData<CustomResponse<Order>> = MutableLiveData(CustomResponse.Loading())
+
     var store: MutableLiveData<CustomResponse<Store>> = MutableLiveData(CustomResponse.Loading())
+
 
     fun startObserving() {
         localRepository.getCurrentUserData()?.let {
@@ -45,6 +53,36 @@ class OrderDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             store.postValue(storeRepository.getStoreFromId(storeId))
 
+        }
+    }
+
+    fun confirmOrder(tempOrder: Order?) {
+        viewModelScope.launch {
+          order.postValue( orderRepository.updateOrder(tempOrder,ORDER_IN_PROGRESS))
+        }
+    }
+
+    fun cancelOrder(tempOrder: Order?) {
+        viewModelScope.launch {
+            order.postValue( orderRepository.updateOrder(tempOrder,ORDER_CANCELLED))
+        }
+    }
+
+    fun deliverOrder(myOrder: Order?) {
+        viewModelScope.launch {
+            order.postValue( orderRepository.updateOrder(myOrder,ORDER_IN_DELIVERY))
+        }
+    }
+
+    fun completeOrder(myOrder: Order?) {
+        viewModelScope.launch {
+            order.postValue( orderRepository.updateOrder(myOrder,ORDER_DELIVERED))
+        }
+    }
+
+    fun updateRating(myOrder: Order?) {
+        viewModelScope.launch {
+            order.postValue( orderRepository.updateRating(myOrder))
         }
     }
 

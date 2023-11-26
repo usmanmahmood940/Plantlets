@@ -2,7 +2,9 @@ package com.example.plantlets.repositories
 
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Order
+import com.example.plantlets.models.SellerItem
 import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -11,9 +13,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import javax.inject.Inject
 
 class OrderRepository  @Inject constructor(
@@ -102,6 +109,87 @@ class OrderRepository  @Inject constructor(
         fun removeListener() {
         itemListener?.apply {
             remove()
+        }
+    }
+
+    fun getStoreOrders(storeId: String?) {
+        _ordersStateFlow.value = CustomResponse.Loading()
+        valueEventListener = object : EventListener<QuerySnapshot> {
+            override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null) {
+                    _ordersStateFlow.value =
+                        CustomResponse.Error(error.message.toString())
+                }
+                if (snapshotlist != null) {
+                    var ordersList: MutableList<Order> = mutableListOf()
+                    if (snapshotlist.isEmpty)
+                        _ordersStateFlow.value = CustomResponse.Success(ordersList)
+                    else {
+                        ordersList = snapshotlist.toObjects(Order::class.java)
+                        _ordersStateFlow.value = CustomResponse.Success(ordersList)
+                    }
+                }
+            }
+        }
+        itemListener = firestoreRef.collection(Constants.ORDER_REFRENCE).whereEqualTo("storeId",storeId)
+            .addSnapshotListener(valueEventListener!!)
+    }
+
+    suspend fun updateOrder(myOrder: Order?,orderStatus:String): CustomResponse<Order>? {
+        try {
+            // Update the status of the order
+            firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder!!.orderId)
+                .update("orderStatus", orderStatus)
+                .await()
+
+            // Retrieve the updated order document
+            val updatedOrderDoc = firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder.orderId).get().await()
+
+            // Check if the document exists and convert it to an Order object
+            return if (updatedOrderDoc.exists()) {
+                val updatedOrder = updatedOrderDoc.toObject(Order::class.java)
+                if(orderStatus == Constants.ORDER_IN_PROGRESS) {
+                    withContext(Dispatchers.IO) {
+                        var itemRef = firestoreRef.collection(Constants.STORE_REFRENCE)
+                            .document(myOrder.storeId ?: "").collection(Constants.ITEM_REFRENCE)
+                        for (cartItem in myOrder.cartItemList) {
+                            val item = itemRef.document(cartItem.plantItem.id!!).get().await()
+                                .toObject(SellerItem::class.java)
+                            item?.stockQuantity = item?.stockQuantity?.minus(cartItem.quantity) ?: 0
+                            itemRef.document(item?.id!!).set(item).await()
+                        }
+                    }
+                }
+                CustomResponse.Success(updatedOrder)
+            } else {
+                CustomResponse.Error("Order with ID ${myOrder.orderId} not found")
+            }
+        } catch (e: Exception) {
+            // Handle exceptions (e.g., FirestoreException, etc.) appropriately
+            return CustomResponse.Error("Error confirming order: ${e.message}")
+        }
+    }
+
+    suspend fun updateRating(myOrder: Order?): CustomResponse<Order>? {
+        try {
+            // Update the status of the order
+            firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder!!.orderId)
+                .update("rating", myOrder.rating)
+                .await()
+
+            // Retrieve the updated order document
+            val updatedOrderDoc = firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder.orderId).get().await()
+
+            // Check if the document exists and convert it to an Order object
+            return if (updatedOrderDoc.exists()) {
+                val updatedOrder = updatedOrderDoc.toObject(Order::class.java)
+                CustomResponse.Success(updatedOrder)
+            } else {
+                CustomResponse.Error("Order with ID ${myOrder.orderId} not found")
+            }
+        } catch (e: Exception) {
+            // Handle exceptions (e.g., FirestoreException, etc.) appropriately
+            return CustomResponse.Error("Error confirming order: ${e.message}")
         }
     }
 }

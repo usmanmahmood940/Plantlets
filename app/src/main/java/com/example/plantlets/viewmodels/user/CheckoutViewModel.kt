@@ -20,9 +20,7 @@ class CheckoutViewModel @Inject constructor(
 
     ) : ViewModel() {
 
-    init {
-        orderRepository.getOrders()
-    }
+
     fun getUser(): User? {
         val user = localRepository.getCurrentUserData()
         user?.name = firebaseAuth.currentUser?.displayName ?: ""
