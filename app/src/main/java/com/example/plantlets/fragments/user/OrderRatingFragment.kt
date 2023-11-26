@@ -17,7 +17,7 @@ class OrderRatingFragment : Fragment() {
 
     lateinit var binding:FragmentOrderRatingBinding
     private lateinit var onBackPressedCallback: OnBackPressedCallback
-    private var rating:Int?=null
+    private var rating:Float?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,11 +44,12 @@ class OrderRatingFragment : Fragment() {
     }
 
     private fun submitRating() {
+        rating = binding.ratingBar.rating
         val previousFragment = findNavController().previousBackStackEntry
         if (previousFragment != null) {
             rating?.let {
                 val data = Bundle().apply {
-                    putInt(Constants.RATING, it)
+                    putFloat(Constants.RATING, it)
                 }
                 previousFragment.savedStateHandle.set(RATING_DATA, data)
                 findNavController().popBackStack()
@@ -59,28 +60,6 @@ class OrderRatingFragment : Fragment() {
         }
     }
 
-    private fun setupBackButton() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val previousFragment = findNavController().previousBackStackEntry
-                if (previousFragment != null) {
-                    rating?.let {
-                        val data = Bundle().apply {
-                            putInt(Constants.RATING, it)
-                        }
-                        previousFragment.savedStateHandle.set(RATING_DATA, data)
-                        findNavController().popBackStack()
-                    }?: kotlin.run {
-                        findNavController().navigateUp()
-                    }
 
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
-    }
 
 }

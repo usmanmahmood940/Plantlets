@@ -15,7 +15,7 @@ data class Order(
     val orderStatus : String=ORDER_PENDING,
     val storeId:String?=null,
     val date: String?=null,
-    var rating:Int?=null
+    var rating:Float?=null
 ): Parcelable {
 
     fun getSubTotal():Double{

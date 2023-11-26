@@ -69,18 +69,21 @@ class OrderDetailsViewModel @Inject constructor(
     }
 
     fun deliverOrder(myOrder: Order?) {
+        order.value =CustomResponse.Loading()
         viewModelScope.launch {
             order.postValue( orderRepository.updateOrder(myOrder,ORDER_IN_DELIVERY))
         }
     }
 
     fun completeOrder(myOrder: Order?) {
+        order.value =CustomResponse.Loading()
         viewModelScope.launch {
             order.postValue( orderRepository.updateOrder(myOrder,ORDER_DELIVERED))
         }
     }
 
     fun updateRating(myOrder: Order?) {
+        order.value =CustomResponse.Loading()
         viewModelScope.launch {
             order.postValue( orderRepository.updateRating(myOrder))
         }

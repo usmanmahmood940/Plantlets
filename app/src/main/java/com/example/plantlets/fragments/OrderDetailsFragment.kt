@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
+import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.OrderItemAdapter
 import com.example.plantlets.databinding.FragmentOrderDetailsBinding
 import com.example.plantlets.fragments.user.UserOrdersFragmentDirections
@@ -45,6 +46,9 @@ class OrderDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
+        if(requireActivity() is UserHomeActivity) {
+            (requireActivity() as UserHomeActivity).changeBottomNavColor()
+        }
         init()
         setBackPress()
         handleRatingResult()
@@ -54,13 +58,14 @@ class OrderDetailsFragment : Fragment() {
 
     private fun handleRatingResult() {
         val navBackStackEntry = findNavController().getBackStackEntry(R.id.orderDetailsFragment2)
-        val ratingData = navBackStackEntry.savedStateHandle.getLiveData<Bundle>(Constants.RATING)
+        val ratingData = navBackStackEntry.savedStateHandle.getLiveData<Bundle>(Constants.RATING_DATA)
         ratingData.observe(viewLifecycleOwner) { data ->
-            val rating = data.getInt(Constants.RATING)
+            val rating = data.getFloat(Constants.RATING)
             myOrder?.rating = rating
             binding.order = myOrder
             binding.invalidateAll()
             orderDetailsViewModel.updateRating(myOrder)
+            binding.btnRate.visibility = View.GONE
             observeOrder()
 
         }
@@ -185,12 +190,12 @@ class OrderDetailsFragment : Fragment() {
                             }
 
                             Constants.ORDER_DELIVERED -> {
-                                myOrder?.let { tempOrder ->
+                                btnCompleted.visibility = View.GONE
+                                myOrder?.rating?.let { rating ->
                                     ratingBar.visibility = View.VISIBLE
                                     ratingBar.setOnClickListener {
-                                        ratingBar.rating = tempOrder.rating?.toFloat()!!
+                                        ratingBar.rating = rating
                                     }
-
                                 }
                             }
 
@@ -206,10 +211,9 @@ class OrderDetailsFragment : Fragment() {
                         when (myOrder?.orderStatus) {
                             Constants.ORDER_DELIVERED -> {
                                 myOrder?.rating?.let { rating ->
+                                    btnRate.visibility = View.GONE
                                     ratingBar.visibility = View.VISIBLE
-                                    ratingBar.setOnClickListener {
-                                        ratingBar.rating = rating.toFloat()
-                                    }
+                                    ratingBar.rating = rating
 
                                 } ?: kotlin.run {
                                     btnRate.visibility = View.VISIBLE
