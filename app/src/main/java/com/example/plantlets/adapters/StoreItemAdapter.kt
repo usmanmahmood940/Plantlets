@@ -41,6 +41,7 @@ class StoreItemAdapter(
             with(binding){
                tvName.text = store.storeName
                tvLocation.text = store.storeAddress
+
                 storeLayout.setOnClickListener {
                     listener.onClick(store)
                 }

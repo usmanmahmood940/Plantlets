@@ -27,7 +27,8 @@ import com.example.plantlets.models.SellerItem
 
 
 class UserItemAdapter(
-     var listener: UserItemClickListener?=null
+     var listener: UserItemClickListener?=null,
+    var fromSearch:Boolean = false
 ) :
     ListAdapter<SellerItem, UserItemAdapter.ViewHolder>(UserItemDiffCallback()) {
 
@@ -38,13 +39,26 @@ class UserItemAdapter(
             parent,
             false
         )
-        val recyclerViewWidth = parent.measuredWidth
-        val desiredItemWidth = (0.6 * recyclerViewWidth).toInt()
+        if(!fromSearch) {
+            val recyclerViewWidth = parent.measuredWidth
+            val desiredItemWidth = (0.6 * recyclerViewWidth).toInt()
 
-        // Set the layout parameters for the CardView
-        val layoutParams = ViewGroup.MarginLayoutParams(desiredItemWidth, ViewGroup.LayoutParams.MATCH_PARENT)
-        layoutParams.setMargins(0,10,0,10)
-        binding.root.layoutParams = layoutParams
+            // Set the layout parameters for the CardView
+            val layoutParams =
+                ViewGroup.MarginLayoutParams(desiredItemWidth, ViewGroup.LayoutParams.MATCH_PARENT)
+            layoutParams.setMargins(0, 10, 0, 10)
+            binding.root.layoutParams = layoutParams
+        }
+        else{
+            val recyclerViewWidth = parent.measuredWidth
+            val desiredItemWidth = (0.5 * recyclerViewWidth).toInt()
+
+            // Set the layout parameters for the CardView
+            val layoutParams =
+                ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            layoutParams.setMargins(20, 40, 20, 40)
+            binding.root.layoutParams = layoutParams
+        }
         return ViewHolder(binding)
     }
 

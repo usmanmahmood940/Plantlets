@@ -1,14 +1,13 @@
 package com.example.plantlets.fragments.user
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,16 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
-import com.example.plantlets.activities.SellerHomeActivity
 import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.StoreItemAdapter
-import com.example.plantlets.adapters.UserItemAdapter
-import com.example.plantlets.databinding.FragmentHomeBinding
 import com.example.plantlets.databinding.FragmentStoreListingBinding
-import com.example.plantlets.fragments.seller.ItemsFragmentDirections
 import com.example.plantlets.interfaces.StoreClickListener
 import com.example.plantlets.models.Store
-import com.example.plantlets.utils.CenterItemZoomScrollListener
 import com.example.plantlets.viewmodels.user.StoreListingViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +54,7 @@ class StoreListingFragment : Fragment(),StoreClickListener {
 
         init()
         observeStoreList()
+        setupSearchBar()
         return binding.root
     }
 
@@ -100,7 +95,9 @@ class StoreListingFragment : Fragment(),StoreClickListener {
                     is CustomResponse.Success -> {
                         (requireActivity() as UserHomeActivity).hideProgressBar()
                         response.data?.let { storeList ->
-                            storeItemAdapter.submitList(storeList)
+                            val list =
+                                storeListingViewModel.getStoresBySearch(storeListingViewModel.query ?: "")
+                            storeItemAdapter.submitList(list)
                         }
 
                     }
@@ -142,6 +139,19 @@ class StoreListingFragment : Fragment(),StoreClickListener {
             val action = StoreListingFragmentDirections.actionStoreListingFragmentToHomeFragment(store)
             findNavController().navigate(action)
         }
+    }
+
+    private fun setupSearchBar() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                val query = editable.toString()
+                storeListingViewModel.query = query
+                val list = storeListingViewModel.getStoresBySearch(query)
+                storeItemAdapter.submitList(list)
+            }
+        })
     }
 
 

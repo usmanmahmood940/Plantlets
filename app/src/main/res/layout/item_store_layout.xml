@@ -102,6 +102,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:layout_marginEnd="2dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/tvDistance"
             app:layout_constraintTop_toTopOf="@+id/tvDistance"
             app:layout_constraintBottom_toBottomOf="@id/tvDistance"
@@ -127,6 +128,7 @@
             android:text="0.2 mi"
             android:textColor="@color/black_grey"
             android:textSize="@dimen/font_small_100"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvStatus" />
 

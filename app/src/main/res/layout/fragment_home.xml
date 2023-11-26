@@ -96,6 +96,8 @@
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_small_150"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

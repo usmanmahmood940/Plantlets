@@ -88,6 +88,12 @@ class HomeFragment : Fragment(), UserItemClickListener {
             rlBack.setOnClickListener {
                 findNavController().navigateUp()
             }
+            etSearch.setOnClickListener {
+                if (findNavController().currentDestination?.id == R.id.homeFragment) {
+                    val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                    findNavController().navigate(action)
+                }
+            }
 
             tvViewAll.setOnClickListener {
 

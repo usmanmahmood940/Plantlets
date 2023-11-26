@@ -9,9 +9,9 @@ import java.util.Date
 @Parcelize
 data class Store(
     var email:String?=null,
-    var storeName:String? = null,
-    var storeAddress:String? = null,
-    var storePinLocation:String?=null,
+    var storeName:String = "",
+    var storeAddress:String = "",
+    var storePinLocation:String="",
     val freeTrialDate: Timestamp = Timestamp.now(),
     var freeTrialExpireDate:Timestamp = Timestamp(Date().addDays(30)) ,
     var activeStatus:Boolean = false,
@@ -19,6 +19,6 @@ data class Store(
     var displayImage: String?=null,
     var bannerImage:String?=null,
     var contact:String?=null,
-    var totalRating:Double?=5.0,
-    var totalOrders:Int?=0
+    var totalRating:Double=5.0,
+    var totalOrders:Int=1
 ):Parcelable

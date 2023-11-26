@@ -21,6 +21,7 @@ class StoreListingViewModel @Inject constructor(
     val storeList: StateFlow<CustomResponse<List<Store>>>
         get() = storeRepository.storesStateFlow
 
+    var query: String? = null
     fun startObserving() {
         storeRepository.getStores()
     }
@@ -38,6 +39,18 @@ class StoreListingViewModel @Inject constructor(
 
     fun getUserData(): User? {
         return localRepository.getCurrentUserData()
+    }
+
+    fun getStoresBySearch(query: String): List<Store> {
+
+        val filteredItems = storeList.value?.data?.filter { store ->
+            store.storeName.contains(query) ||
+                    store.storeAddress.contains(query) ||
+                    store.storePinLocation.contains(query)||
+                    store.totalRating.toString().contains(query)
+        } ?: emptyList()
+        return filteredItems
+
     }
 
 
