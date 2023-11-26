@@ -1,8 +1,11 @@
 package com.example.plantlets.repositories
 
+import android.util.Log
 import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.models.Category
 import com.example.plantlets.models.Store
 import com.example.plantlets.utils.Constants
+import com.example.plantlets.utils.Helper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.EventListener
@@ -53,18 +56,24 @@ class StoreRepository @Inject constructor(
                         _storesStateFlow.value = CustomResponse.Success(storeList)
                     }
 
-
-//                        for (snapshot in snapshotlist) {
-//                            val item = snapshot.toObject(Store::class.java)
-//                            if (item != null) {
-//                                storeList.add(item)
-//                            }
-//                            _storesStateFlow.value = CustomResponse.Success(storeList)
-//                        }
                 }
             }
         }
         storeListener = databaseReference?.addSnapshotListener(valueEventListener!!)
+
+    }
+    fun upsertStore(email: String?,status:String?) {
+
+        val updatedData = mapOf(
+            "status" to status
+        )
+        firestoreRef.collection(Constants.STORE_REFRENCE).document(email!!).update(updatedData).addOnCompleteListener {
+            if(it.isSuccessful){
+                Log.d("ss","aaa")
+            }
+            else  Log.d("ss","bbb")
+
+        }
 
     }
 

@@ -1,0 +1,7 @@
+<!-- button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/light_green" /> <!-- Green color -->
+    <corners android:radius="8dp" /> <!-- Adjust the radius as needed -->
+    <stroke android:width="2dp" android:color="@color/light_green" />
+</shape>

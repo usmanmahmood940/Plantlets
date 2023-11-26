@@ -18,6 +18,7 @@ data class Store(
     var location: Location?=null,
     var displayImage: String?=null,
     var bannerImage:String?=null,
+    var status:String?=null,
     var contact:String?=null,
     var totalRating:Double=5.0,
     var totalOrders:Int=1
