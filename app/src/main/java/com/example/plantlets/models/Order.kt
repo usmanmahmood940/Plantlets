@@ -13,7 +13,8 @@ data class Order(
     val amounts: Amounts?=null,
     val orderStatus : String?=null,
     val storeId:String?=null,
-    val date: String?=null
+    val date: String?=null,
+    var rating:Int?=null
 ): Parcelable {
 
     fun getSubTotal():Double{

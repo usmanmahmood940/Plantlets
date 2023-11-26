@@ -2,7 +2,6 @@ package com.example.plantlets.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivityLoginBinding

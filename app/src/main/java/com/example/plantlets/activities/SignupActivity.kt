@@ -1,29 +1,23 @@
 package com.example.plantlets.activities
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.location.Geocoder
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.R
 import com.example.plantlets.databinding.ActivitySignupBinding
 import com.example.plantlets.interfaces.CustomSuccessFailureListener
 import com.example.plantlets.models.Location
 import com.example.plantlets.models.Store
-import com.example.plantlets.models.User
-import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.LATITUDE
 import com.example.plantlets.utils.Constants.LONGITUDE
 import com.example.plantlets.utils.Constants.USER_TYPE
@@ -36,7 +30,6 @@ import com.example.plantlets.utils.Extensions.togglePasswordVisibility
 import com.example.plantlets.utils.Helper.getAddressFromLocation
 import com.example.plantlets.viewmodels.SignupViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.ref.WeakReference
 import java.util.*
 
 
@@ -160,6 +153,7 @@ class SignupActivity : BaseActivity() {
                             }
                         }
                         storeDetails.location = location
+                        storeDetails.contact = mobileNumber
                         signUp(listener =  signupListener, storeDetails =  storeDetails)
                     }
 

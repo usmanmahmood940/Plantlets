@@ -22,5 +22,6 @@
             android:name="order"
             app:nullable="true"
             app:argType="com.example.plantlets.models.Order" />
+
     </fragment>
 </navigation>

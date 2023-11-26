@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
+import com.example.plantlets.Response.CustomResponse
+import com.example.plantlets.activities.BaseActivity
+import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.OrderItemAdapter
 import com.example.plantlets.databinding.FragmentOrderDetailsBinding
 import com.example.plantlets.models.Order
@@ -23,14 +26,13 @@ class OrderDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderDetailsBinding
     private lateinit var orderDetailsViewModel: OrderDetailsViewModel
-    private var order:Order?=null
-    private var store: Store?=null
+    private var order: Order? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args: OrderDetailsFragmentArgs by navArgs()
         order = args.order
-        orderDetailsViewModel = ViewModelProvider(this).get(OrderDetailsViewModel::class.java)
 
+        orderDetailsViewModel = ViewModelProvider(this).get(OrderDetailsViewModel::class.java)
 
 
     }
@@ -64,9 +66,11 @@ class OrderDetailsFragment : Fragment() {
                 R.id.userOrdersFragment -> {
                     findNavController().navigateUp()
                 }
+
                 R.id.checkoutFragment -> {
                     findNavController().popBackStack(R.id.cartFragment, false)
                 }
+
                 else -> {
                     // Handle other cases if necessary
                 }
@@ -75,19 +79,55 @@ class OrderDetailsFragment : Fragment() {
     }
 
     private fun init() {
+        orderDetailsViewModel.store.observe(viewLifecycleOwner, {response ->
+            when (response) {
+                is CustomResponse.Loading -> {
+                    (requireActivity() as BaseActivity).showProgressBar().also {
+                        binding.svOrderDetails.alpha = 0.5f
+                    }
+
+                }
+
+                is CustomResponse.Success -> {
+                    (requireActivity() as BaseActivity).hideProgressBar().also {
+                        binding.svOrderDetails.alpha = 1f
+                        binding.store = response.data
+                    }
+                }
+
+                is CustomResponse.Error -> {
+                    (requireActivity() as BaseActivity).apply {
+                        hideProgressBar()
+                        binding.svOrderDetails.alpha = 1f
+                        showAlert(
+                            title = getString(R.string.error), message = response.errorMessage
+                        )
+                    }
+
+                }
+            }
+        })
+        order?.storeId?.let {
+            orderDetailsViewModel.getStore(it)
+        } ?: kotlin.run {
+            orderDetailsViewModel.store.value = CustomResponse.Success(null)
+        }
         binding.order = order
         binding.orderDetail = true
         binding.deliveryDetail = true
         binding.itemDetails = true
+        binding.storeDetail = true
         initItemList()
         initListners()
+
+
     }
 
     private fun initItemList() {
         order?.cartItemList?.let {
             binding.rvOrderItemList.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter =OrderItemAdapter(it)
+                adapter = OrderItemAdapter(it)
             }
         }
     }
@@ -96,7 +136,7 @@ class OrderDetailsFragment : Fragment() {
 
 
         binding.arrowOrderDetails.setOnClickListener {
-            binding.orderDetail =  binding.orderDetail?.let { !it }
+            binding.orderDetail = binding.orderDetail?.let { !it }
             binding.invalidateAll()
         }
         binding.arrowDeliveryDetails.setOnClickListener {
@@ -104,11 +144,11 @@ class OrderDetailsFragment : Fragment() {
             binding.invalidateAll()
         }
         binding.arrowItemDetails.setOnClickListener {
-            binding.itemDetails =  binding.itemDetails?.let { !it }
+            binding.itemDetails = binding.itemDetails?.let { !it }
             binding.invalidateAll()
         }
         binding.arrowStoreDetails.setOnClickListener {
-            binding.storeDetail =  binding.storeDetail?.let { !it }
+            binding.storeDetail = binding.storeDetail?.let { !it }
             binding.invalidateAll()
         }
 
@@ -116,8 +156,6 @@ class OrderDetailsFragment : Fragment() {
             back()
         }
     }
-
-
 
 
 }

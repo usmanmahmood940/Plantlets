@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class StoreRepository @Inject constructor(
@@ -70,6 +71,21 @@ class StoreRepository @Inject constructor(
     fun removeListener() {
         storeListener?.apply {
             remove()
+        }
+    }
+
+    suspend fun getStoreFromId(storeId: String): CustomResponse<Store> {
+        try {
+            val storeDoc = firestoreRef.collection(Constants.STORE_REFRENCE).document(storeId).get().await()
+
+            return if (storeDoc.exists()) {
+                CustomResponse.Success(storeDoc.toObject(Store::class.java))
+            } else {
+                CustomResponse.Error("Store with ID $storeId not found")
+            }
+        } catch (e: Exception) {
+            // Handle exceptions (e.g., FirestoreException, etc.) appropriately
+            return CustomResponse.Error("Error fetching store: ${e.message}")
         }
     }
 

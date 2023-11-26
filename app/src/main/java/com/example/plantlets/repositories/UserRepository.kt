@@ -40,14 +40,11 @@ class UserRepository @Inject constructor(
                 .setPhotoUri(imageUri)
                 .build()
 
-
-
-
             task.user?.apply {
 //                sendEmailVerification()
                 updateProfile(displayNameUpdate)
                 val image = uploadImage(email,imageUri)
-                runOnMain({ listener.onSuccess() })
+                runOnMain { listener.onSuccess() }
                 withContext(Dispatchers.IO) {
                     saveUser(
                         user = User(uid, email, type, mobileNumber,image)
@@ -114,7 +111,7 @@ class UserRepository @Inject constructor(
                         }
                     }
                 }
-                runOnMain({ listener.onSuccess() })
+                runOnMain({ listener.onSuccess()})
 
 
             }
