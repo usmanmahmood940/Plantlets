@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.plantlets.R
+import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.databinding.FragmentUserProfileBinding
 import com.example.plantlets.models.User
 import com.example.plantlets.repositories.LocalRepository
@@ -28,7 +29,7 @@ class UserProfileFragment : Fragment() {
     ): View? {
 
         binding = FragmentUserProfileBinding.inflate(layoutInflater)
-
+        (requireActivity() as UserHomeActivity).changeBottomNavColor()
         setUI()
 
         return binding.root
