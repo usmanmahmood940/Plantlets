@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.plantlets.R
 import com.example.plantlets.activities.LoginActivity
 import com.example.plantlets.activities.UserHomeActivity
+import com.example.plantlets.databinding.FragmentSettingBinding
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
 
+    lateinit var binding:FragmentSettingBinding
     @Inject
     lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,11 +31,19 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        auth.signOut()
-        requireActivity().startActivity(Intent(requireContext(),LoginActivity::class.java))
-        requireActivity().finish()
 
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        binding = FragmentSettingBinding.inflate(inflater, container, false)
+
+        init()
+        return binding.root
+    }
+
+    private fun init() {
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+            requireActivity().startActivity(Intent(requireContext(),LoginActivity::class.java))
+            requireActivity().finish()
+        }
     }
 
 

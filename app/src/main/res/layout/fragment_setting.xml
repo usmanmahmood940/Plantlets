@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_grey"
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.seller.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvLabelSetting"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_medium"
+        android:text="Settings"
+        android:textAlignment="center"
+        android:textColor="@color/light_green"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/font_normal_125"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_green"
+        android:elevation="3dp"
+        android:fontFamily="@font/futur"
+        android:paddingVertical="@dimen/padding_small_150"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_small_150"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelSetting"
+        app:layout_constraintVertical_bias="0.120000005" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.adapters.OrderItemAdapter
 import com.example.plantlets.databinding.FragmentOrderDetailsBinding
+import com.example.plantlets.fragments.user.UserOrdersFragmentDirections
 import com.example.plantlets.models.Order
 import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.ORDER_IN_PROGRESS
@@ -204,15 +205,21 @@ class OrderDetailsFragment : Fragment() {
                     with(binding) {
                         when (myOrder?.orderStatus) {
                             Constants.ORDER_DELIVERED -> {
-                                myOrder?.let { tempOrder ->
+                                myOrder?.rating?.let { rating ->
                                     ratingBar.visibility = View.VISIBLE
                                     ratingBar.setOnClickListener {
-                                        ratingBar.rating = tempOrder.rating?.toFloat()!!
+                                        ratingBar.rating = rating.toFloat()
                                     }
 
                                 } ?: kotlin.run {
                                     btnRate.visibility = View.VISIBLE
-                                    btnRate.
+                                    btnRate.setOnClickListener{
+                                        if (findNavController().currentDestination?.id == R.id.orderDetailsFragment2) {
+                                            val action = OrderDetailsFragmentDirections.actionOrderDetailsFragment2ToOrderRatingFragment()
+                                            findNavController().navigate(action)
+                                        }
+                                    }
+
                                 }
                             }
                         }

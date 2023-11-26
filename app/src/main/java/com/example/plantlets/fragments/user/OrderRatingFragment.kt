@@ -1,4 +1,4 @@
-package com.example.plantlets
+package com.example.plantlets.fragments.user
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.plantlets.databinding.FragmentOrderRatingBinding
 import com.example.plantlets.utils.Constants
-import com.example.plantlets.utils.Constants.RATING
 import com.example.plantlets.utils.Constants.RATING_DATA
 
 
@@ -36,9 +35,27 @@ class OrderRatingFragment : Fragment() {
     }
 
     private fun init() {
-        setupBackButton()
         binding.btnSubmit.setOnClickListener {
-            onBackPressedCallback.handleOnBackPressed()
+            submitRating()
+        }
+        binding.rlBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun submitRating() {
+        val previousFragment = findNavController().previousBackStackEntry
+        if (previousFragment != null) {
+            rating?.let {
+                val data = Bundle().apply {
+                    putInt(Constants.RATING, it)
+                }
+                previousFragment.savedStateHandle.set(RATING_DATA, data)
+                findNavController().popBackStack()
+            }?: kotlin.run {
+                findNavController().navigateUp()
+            }
+
         }
     }
 
