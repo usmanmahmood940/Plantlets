@@ -40,7 +40,7 @@ class OrdersViewModel @Inject constructor(
             order.orderId.contains(query) ||
                     order.orderStatus.contains(query) ||
                     order.date.contains(query) ||
-                    order.customerInfo?.name?.contains(query) == false ||
+                    order.customerInfo?.name?.contains(query)==true ||
                     order.amounts?.totalAmount.toString().contains(query)
         } ?: emptyList()
         return filteredItems
