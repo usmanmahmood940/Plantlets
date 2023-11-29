@@ -7,6 +7,7 @@ import com.example.plantlets.models.Order
 import com.example.plantlets.models.SellerItem
 import com.example.plantlets.models.User
 import com.example.plantlets.utils.Constants
+import com.example.plantlets.utils.Constants.ORDER_DELIVERED
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +28,7 @@ class OrderRepository  @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestoreRef: FirebaseFirestore,
     private val localRepository: LocalRepository,
+    private val storeRepository: StoreRepository
 ) {
 
     private var valueEventListener: EventListener<QuerySnapshot>? = null
@@ -52,7 +54,7 @@ class OrderRepository  @Inject constructor(
         }
     }
 
-    fun getOrders(){
+    fun getStore(){
         _ordersStateFlow.value = CustomResponse.Loading()
         valueEventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -82,6 +84,12 @@ class OrderRepository  @Inject constructor(
 //            }
 //        }
     }
+
+    suspend fun getStoreOrdersFromId(storeId: String?,orderStatus: String =ORDER_DELIVERED):List<Order>{
+        val orders = firestoreRef.collection(Constants.ORDER_REFRENCE).whereEqualTo("storeId",storeId).whereEqualTo("orderStatus",orderStatus).get().await()
+       return  orders.toObjects(Order::class.java).filter { it.rating != null}
+    }
+
 
     fun getUserOrders(user: User) {
         _ordersStateFlow.value = CustomResponse.Loading()
@@ -137,6 +145,11 @@ class OrderRepository  @Inject constructor(
 
     suspend fun updateOrder(myOrder: Order?,orderStatus:String): CustomResponse<Order>? {
         try {
+            withContext(Dispatchers.IO){
+                if(orderStatus == ORDER_DELIVERED){
+                    storeRepository.incrementStoreOrderCount()
+                }
+            }
             // Update the status of the order
             firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder!!.orderId)
                 .update("orderStatus", orderStatus)
@@ -173,6 +186,13 @@ class OrderRepository  @Inject constructor(
     suspend fun updateRating(myOrder: Order?): CustomResponse<Order>? {
         try {
             // Update the status of the order
+            withContext(Dispatchers.IO){
+                myOrder?.storeId?.let { storeId ->
+                    val ordersList = getStoreOrdersFromId(storeId)
+                    val rating = ordersList.sumOf { it.rating?.toDouble()?:0.0 }.plus(myOrder.rating?.toDouble()?:0.0)/(ordersList.size+1)
+                    storeRepository.updateStoreRating(storeId,rating)
+                }
+            }
             firestoreRef.collection(Constants.ORDER_REFRENCE).document(myOrder!!.orderId)
                 .update("rating", myOrder.rating)
                 .await()

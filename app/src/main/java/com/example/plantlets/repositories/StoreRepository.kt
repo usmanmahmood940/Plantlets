@@ -78,6 +78,23 @@ class StoreRepository @Inject constructor(
 
     }
 
+    suspend fun updateStoreRating(storeId:String,rating:Double){
+        val updatedData = mapOf(
+            "totalRating" to rating
+        )
+        firestoreRef.collection(Constants.STORE_REFRENCE).document(storeId).update(updatedData).await()
+    }
+
+    suspend fun incrementStoreOrderCount(){
+        localRepository.getStoreFromPref()?.let {
+            it.totalOrders = it.totalOrders+1
+            val updatedData = mapOf(
+                "totalOrders" to it.totalOrders
+            )
+            firestoreRef.collection(Constants.STORE_REFRENCE).document(it.email!!).update(updatedData).await()
+        }
+    }
+
     fun removeListener() {
         storeListener?.apply {
             remove()

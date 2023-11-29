@@ -21,5 +21,5 @@ data class Store(
     var status:String?=null,
     var contact:String?=null,
     var totalRating:Double=5.0,
-    var totalOrders:Int=1
+    var totalOrders:Int=0
 ):Parcelable
