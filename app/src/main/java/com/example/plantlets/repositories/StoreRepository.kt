@@ -5,6 +5,7 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
 import com.example.plantlets.models.Store
 import com.example.plantlets.utils.Constants
+import com.example.plantlets.utils.Constants.ACTIVE
 import com.example.plantlets.utils.Helper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -59,7 +60,7 @@ class StoreRepository @Inject constructor(
                 }
             }
         }
-        storeListener = databaseReference?.addSnapshotListener(valueEventListener!!)
+        storeListener = databaseReference?.whereEqualTo("status",ACTIVE)?.addSnapshotListener(valueEventListener!!)
 
     }
     fun upsertStore(email: String?,status:String?) {

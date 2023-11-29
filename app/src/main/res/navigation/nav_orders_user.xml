@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_user_orders" >
         <action
             android:id="@+id/action_userOrdersFragment_to_orderDetailsFragment2"
-            app:destination="@id/orderDetailsFragment2" />
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/orderDetailsFragment2"
+        android:id="@+id/orderDetailsFragment"
         android:name="com.example.plantlets.fragments.OrderDetailsFragment"
         android:label="OrderDetailsFragment" >
         <argument

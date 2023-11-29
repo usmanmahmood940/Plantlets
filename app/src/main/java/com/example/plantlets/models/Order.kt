@@ -14,7 +14,7 @@ data class Order(
     val amounts: Amounts?=null,
     val orderStatus : String=ORDER_PENDING,
     val storeId:String?=null,
-    val date: String?=null,
+    val date: String="",
     var rating:Float?=null
 ): Parcelable {
 

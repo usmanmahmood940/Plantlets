@@ -60,7 +60,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal_125"
-        android:layout_marginEnd="@dimen/margin_normal_100"
         android:background="@drawable/shape_search_border"
         android:paddingVertical="@dimen/padding_small_100"
         app:layout_constraintEnd_toStartOf="@id/btnfilter"
@@ -113,6 +112,7 @@
         app:layout_constraintTop_toTopOf="@id/cvSearchBar"
         app:shapeAppearanceOverlay="@style/roundImage"
         app:strokeColor="@color/light_green"
+        android:visibility="gone"
         app:strokeWidth="1dp" />
 
     <androidx.recyclerview.widget.RecyclerView

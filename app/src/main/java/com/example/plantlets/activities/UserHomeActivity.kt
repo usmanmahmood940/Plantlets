@@ -58,7 +58,9 @@ class UserHomeActivity : BaseActivity() {
     }
     fun changeIconCart(){
         binding.btnCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_cart_outlined))
-
+    }
+    fun changeIconCartFill(){
+        binding.btnCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_cart_filled))
     }
 
     fun changeBottomNavColor(color:Int= R.color.green_grey){

@@ -72,6 +72,9 @@ class CheckoutFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCheckoutBinding.inflate(inflater,container,false)
         checkoutViewModel = ViewModelProvider(this).get(CheckoutViewModel::class.java)
+        (requireActivity() as UserHomeActivity).apply {
+            changeIconCartFill()
+        }
         init()
         handleLocationResult()
         return binding.root
@@ -81,6 +84,13 @@ class CheckoutFragment : Fragment() {
         super.onResume()
         (requireActivity() as UserHomeActivity).showBottomNav()
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (requireActivity() as UserHomeActivity).apply {
+            changeIconCart()
+        }
     }
 
     private fun init() {
