@@ -82,6 +82,7 @@
         android:id="@+id/btnfilter"
         app:contentPadding="2dp"
         android:padding="1dp"
+        android:visibility="gone"
         />
 
     <androidx.recyclerview.widget.RecyclerView

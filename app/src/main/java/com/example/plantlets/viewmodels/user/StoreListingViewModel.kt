@@ -6,6 +6,7 @@ import com.example.plantlets.models.Store
 import com.example.plantlets.models.User
 import com.example.plantlets.repositories.LocalRepository
 import com.example.plantlets.repositories.StoreRepository
+import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.STORE_REFRENCE_USER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,7 @@ class StoreListingViewModel @Inject constructor(
 
     var query: String? = null
     fun startObserving() {
-        storeRepository.getStores()
+        storeRepository.getStores(Constants.ACTIVE)
     }
 
     fun stopObserving() {

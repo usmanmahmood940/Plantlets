@@ -40,7 +40,7 @@ class StoreRepository @Inject constructor(
         }
     }
 
-    fun getStores() {
+    fun getStores(status: String?= null) {
         _storesStateFlow.value = CustomResponse.Loading()
         valueEventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(snapshotlist: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -60,7 +60,8 @@ class StoreRepository @Inject constructor(
                 }
             }
         }
-        storeListener = databaseReference?.whereEqualTo("status",ACTIVE)?.addSnapshotListener(valueEventListener!!)
+        status?.let {  storeListener = databaseReference?.whereEqualTo("status",it)?.addSnapshotListener(valueEventListener!!) }
+            ?: run { storeListener = databaseReference?.addSnapshotListener(valueEventListener!!) }
 
     }
     fun upsertStore(email: String?,status:String?) {
