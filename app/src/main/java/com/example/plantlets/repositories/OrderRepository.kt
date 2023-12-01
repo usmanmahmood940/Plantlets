@@ -105,7 +105,7 @@ class OrderRepository  @Inject constructor(
                         _ordersStateFlow.value = CustomResponse.Success(ordersList)
                     else {
                         ordersList = snapshotlist.toObjects(Order::class.java)
-                         ordersList.sortBy { it.orderId }
+                         ordersList.sortBy { it.orderId.toInt() }
                         _ordersStateFlow.value = CustomResponse.Success(ordersList.reversed())
                     }
                 }
@@ -135,7 +135,7 @@ class OrderRepository  @Inject constructor(
                         _ordersStateFlow.value = CustomResponse.Success(ordersList)
                     else {
                         ordersList = snapshotlist.toObjects(Order::class.java)
-                        ordersList.sortBy { it.orderId }
+                        ordersList.sortBy { it.orderId.toInt() }
                         _ordersStateFlow.value = CustomResponse.Success(ordersList.reversed())
                     }
                 }
