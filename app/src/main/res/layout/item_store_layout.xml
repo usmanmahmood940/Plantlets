@@ -54,7 +54,7 @@
             android:text="9.2 "
             android:maxLength="3"
             android:textColor="@color/black_grey"
-            android:textSize="@dimen/font_small_100"
+            android:textSize="@dimen/font_small_125"
             app:layout_constraintEnd_toStartOf="@id/tvReviews"
             app:layout_constraintTop_toTopOf="@+id/tvReviews" />
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/futur"
             android:text="(200+)"
-            android:textSize="@dimen/font_small_100"
+            android:textSize="@dimen/font_small_125"
             android:layout_marginTop="@dimen/margin_small_50"
             android:textColor="@color/black_grey"
             android:layout_marginEnd="@dimen/margin_normal_100"

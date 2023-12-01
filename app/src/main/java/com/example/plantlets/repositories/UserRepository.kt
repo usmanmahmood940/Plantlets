@@ -47,7 +47,7 @@ class UserRepository @Inject constructor(
                 runOnMain { listener.onSuccess() }
                 withContext(Dispatchers.IO) {
                     saveUser(
-                        user = User(uid, email, type, mobileNumber,image)
+                        user = User(uid, email, type, mobileNumber,image,name)
                     )
                     storeDetails?.let {
                         addStore(storeDetails)

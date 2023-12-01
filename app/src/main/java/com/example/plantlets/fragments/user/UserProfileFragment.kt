@@ -11,6 +11,7 @@ import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.databinding.FragmentUserProfileBinding
 import com.example.plantlets.models.User
 import com.example.plantlets.repositories.LocalRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.RuntimeException
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class UserProfileFragment : Fragment() {
     private lateinit var binding : FragmentUserProfileBinding
     @Inject
     lateinit var localRepository: LocalRepository
+    @Inject
+    lateinit var auth:FirebaseAuth
     private  var user : User? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +42,7 @@ class UserProfileFragment : Fragment() {
 
         user = localRepository.getCurrentUserData()
         binding.apply {
-            etName.text = user?.name
+            etName.text = auth.currentUser?.displayName
             etEmail.text = user?.email
             etMobileNum.text = user?.mobileNumber
             Glide.with(ivProfileImage).load(user?.image).into(ivProfileImage)

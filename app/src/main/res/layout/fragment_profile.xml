@@ -88,11 +88,9 @@ tools:context=".fragments.seller.ProfileFragment">
                     android:layout_toRightOf="@+id/ivName"
                     android:background="@null"
                     android:fontFamily="@font/futura_medium"
-                    android:hint="Jhon snow"
-                    android:inputType="text"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:textColorHint="@color/grey"
+                    android:textColorHint="@color/black"
                     android:textSize="@dimen/font_small_115" />
 
 
@@ -125,11 +123,9 @@ tools:context=".fragments.seller.ProfileFragment">
                     android:layout_toRightOf="@+id/ivEmail"
                     android:background="@null"
                     android:fontFamily="@font/futura_medium"
-                    android:hint="Enter Email"
-                    android:inputType="textEmailAddress"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:textColorHint="@color/grey"
+                    android:textColorHint="@color/black"
                     android:textSize="@dimen/font_small_115"
 
                     />
@@ -164,11 +160,9 @@ tools:context=".fragments.seller.ProfileFragment">
                     android:layout_toRightOf="@+id/ivMobile"
                     android:background="@null"
                     android:fontFamily="@font/futura_medium"
-                    android:hint="Enter Mobile Number"
-                    android:inputType="numberDecimal"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:textColorHint="@color/grey"
+                    android:textColorHint="@color/black"
                     android:textSize="@dimen/font_small_115" />
 
 
@@ -176,124 +170,6 @@ tools:context=".fragments.seller.ProfileFragment">
 
 
 
-            <RelativeLayout
-                android:id="@+id/rlStore"
-                android:layout_width="@dimen/zero"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal_100"
-                android:background="@drawable/shape_email_pass"
-                android:padding="@dimen/padding_normal_100"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivStore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_address" />
-
-                <EditText
-                    android:id="@+id/etStore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/margin_normal_100"
-                    android:layout_toRightOf="@+id/ivStore"
-                    android:background="@null"
-                    android:fontFamily="@font/futura_medium"
-                    android:hint="Enter Store Name"
-                    android:inputType="textEmailAddress"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColorHint="@color/grey"
-                    android:textSize="@dimen/font_small_115"
-
-                    />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlAddress"
-                android:layout_width="@dimen/zero"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal_100"
-                android:background="@drawable/shape_email_pass"
-                android:padding="@dimen/padding_normal_100"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rlStore">
-
-                <ImageView
-                    android:id="@+id/ivAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_store" />
-
-                <EditText
-                    android:id="@+id/etAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/margin_normal_100"
-                    android:layout_toRightOf="@+id/ivAddress"
-                    android:background="@null"
-                    android:fontFamily="@font/futura_medium"
-                    android:hint="Enter Store Address"
-                    android:inputType="textEmailAddress"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColorHint="@color/grey"
-                    android:textSize="@dimen/font_small_115"
-
-                    />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlPinLocation"
-                android:layout_width="@dimen/zero"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal_100"
-                android:background="@drawable/shape_email_pass"
-                android:padding="@dimen/padding_normal_100"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rlAddress">
-
-                <ImageView
-                    android:id="@+id/ivPinLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_location" />
-
-                <EditText
-                    android:id="@+id/etPinLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/margin_normal_100"
-                    android:layout_toRightOf="@+id/ivPinLocation"
-                    android:background="@null"
-                    android:fontFamily="@font/futura_medium"
-                    android:hint="Choose Pin Location"
-                    android:inputType="textEmailAddress"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColorHint="@color/grey"
-                    android:textSize="@dimen/font_small_115"
-
-                    />
-
-
-            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

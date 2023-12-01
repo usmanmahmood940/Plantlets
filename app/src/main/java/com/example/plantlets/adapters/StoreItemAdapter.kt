@@ -41,7 +41,13 @@ class StoreItemAdapter(
             with(binding){
                tvName.text = store.storeName
                tvLocation.text = store.storeAddress
-                tvReviews.text ="${store.totalOrders}+"
+                store.totalOrders?.let {
+                    if(it>0)
+                        tvReviews.text ="(${store.totalOrders}+)"
+                    else
+                        tvReviews.text=""
+                }
+                tvReviews.text ="$({store.totalOrders})+"
                 tvRatingPlace.text = store.totalRating.toString()
 
                 storeLayout.setOnClickListener {

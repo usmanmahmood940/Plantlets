@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
+import com.example.plantlets.activities.LoginActivity
 import com.example.plantlets.adapters.AdminStoreItemAdapter
 import com.example.plantlets.databinding.ActivityAdminHomeBinding
 import com.example.plantlets.interfaces.StoreClickListener
@@ -49,6 +50,10 @@ class AdminHomeActivity : BaseActivity(), StoreClickListener {
     }
 
     private fun init() {
+        binding.ivLogout.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(this@AdminHomeActivity, LoginActivity::class.java))
+        }
         adminStoreItemAdapter = AdminStoreItemAdapter(this)
         with(binding) {
             rvStoresList.apply {
