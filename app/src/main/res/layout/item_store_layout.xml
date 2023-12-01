@@ -52,6 +52,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/futur"
             android:text="9.2 "
+            android:maxLength="3"
             android:textColor="@color/black_grey"
             android:textSize="@dimen/font_small_100"
             app:layout_constraintEnd_toStartOf="@id/tvReviews"

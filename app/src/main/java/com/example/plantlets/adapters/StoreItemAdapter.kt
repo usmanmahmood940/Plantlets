@@ -41,7 +41,7 @@ class StoreItemAdapter(
             with(binding){
                tvName.text = store.storeName
                tvLocation.text = store.storeAddress
-                tvReviews.text =store.totalOrders.toString()
+                tvReviews.text ="${store.totalOrders}+"
                 tvRatingPlace.text = store.totalRating.toString()
 
                 storeLayout.setOnClickListener {
