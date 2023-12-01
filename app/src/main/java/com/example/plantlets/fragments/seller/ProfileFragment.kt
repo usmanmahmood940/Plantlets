@@ -38,7 +38,6 @@ class ProfileFragment : Fragment() {
     ): View? {
 
         binding = FragmentProfileBinding.inflate(layoutInflater)
-        (requireActivity() as UserHomeActivity).changeBottomNavColor()
         setUI()
 
         return binding.root

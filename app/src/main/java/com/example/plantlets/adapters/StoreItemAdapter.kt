@@ -47,7 +47,6 @@ class StoreItemAdapter(
                     else
                         tvReviews.text=""
                 }
-                tvReviews.text ="$({store.totalOrders})+"
                 tvRatingPlace.text = store.totalRating.toString()
 
                 storeLayout.setOnClickListener {
