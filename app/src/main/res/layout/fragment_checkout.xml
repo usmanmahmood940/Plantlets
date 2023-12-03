@@ -386,6 +386,46 @@
                             android:buttonTint="@color/light_green" />
                     </RadioGroup>
 
+
+                    <TextView
+                        android:id="@+id/tv_label_gardener_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gardener Service"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_small_125"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/margin_normal_200"
+                        android:fontFamily="@font/futura_medium"
+                        app:layout_constraintStart_toStartOf="@id/start_guideline"
+                        app:layout_constraintTop_toBottomOf="@+id/rg_payment" />
+                    <RadioGroup
+                        android:id="@+id/rg_gardener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/start_guideline"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_label_gardener_info">
+
+                        <RadioButton
+                            android:id="@+id/rb_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes"
+                            android:checked="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_100"
+                            android:buttonTint="@color/light_green" />
+
+                        <RadioButton
+                            android:id="@+id/rb_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_100"
+                            android:buttonTint="@color/light_green" />
+                    </RadioGroup>
+
                     <Button
                         android:id="@+id/btnCheckout"
                         android:layout_width="@dimen/zero"
@@ -401,7 +441,7 @@
                         android:layout_marginTop="@dimen/margin_normal_200"
                         app:layout_constraintEnd_toEndOf="@id/end_guideline"
                         app:layout_constraintStart_toStartOf="@id/start_guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/rg_payment" />
+                        app:layout_constraintTop_toBottomOf="@+id/rg_gardener" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

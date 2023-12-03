@@ -50,7 +50,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CheckoutFragment : Fragment() {
 
-    private lateinit var binding:FragmentCheckoutBinding
+    private lateinit var binding: FragmentCheckoutBinding
     private lateinit var checkoutViewModel: CheckoutViewModel
     private var amount: Amounts? = null
 
@@ -70,7 +70,7 @@ class CheckoutFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentCheckoutBinding.inflate(inflater,container,false)
+        binding = FragmentCheckoutBinding.inflate(inflater, container, false)
         checkoutViewModel = ViewModelProvider(this).get(CheckoutViewModel::class.java)
         (requireActivity() as UserHomeActivity).apply {
             changeIconCartFill()
@@ -102,16 +102,18 @@ class CheckoutFragment : Fragment() {
             deliveryInfo = DeliveryInfo()
         }
 
-        with(binding){
-            rlPinLocation.setOnClickListener{
+        with(binding) {
+            rlPinLocation.setOnClickListener {
                 if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
-                    val action = CheckoutFragmentDirections.actionCheckoutFragmentToPinLocationFragment()
+                    val action =
+                        CheckoutFragmentDirections.actionCheckoutFragmentToPinLocationFragment()
                     findNavController().navigate(action)
                 }
             }
             tvPinLocation.setOnClickListener {
                 if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
-                    val action = CheckoutFragmentDirections.actionCheckoutFragmentToPinLocationFragment()
+                    val action =
+                        CheckoutFragmentDirections.actionCheckoutFragmentToPinLocationFragment()
                     findNavController().navigate(action)
                 }
             }
@@ -122,23 +124,27 @@ class CheckoutFragment : Fragment() {
 
     }
 
-    fun moveToOrderDetails(){
+    fun moveToOrderDetails() {
         val order = Order(
-            customerInfo = binding.user?: User(),
-            customerDeliveryInfo = binding.deliveryInfo?: DeliveryInfo(),
+            customerInfo = binding.user ?: User(),
+            customerDeliveryInfo = binding.deliveryInfo ?: DeliveryInfo(),
             cartItemList = getCartItemList(),
             paymentMethod = CASH_ON_DELIVERY,
-            amounts = amount?:Amounts(),
+            amounts = amount ?: Amounts(),
             orderStatus = ORDER_PENDING,
             storeId = cartManager.store?.email!!,
-            date = getCurrentDateFormatted()
+            date = getCurrentDateFormatted(),
+            gardenerService = getRadioButtonValue()
         )
-        CoroutineScope(Dispatchers.Main).launch{
-            order.orderId =  checkoutViewModel.getOrderId()
+        CoroutineScope(Dispatchers.Main).launch {
+            order.orderId = checkoutViewModel.getOrderId()
             checkoutViewModel.placeOrder(order)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 if (findNavController().currentDestination?.id == R.id.checkoutFragment) {
-                    val action = CheckoutFragmentDirections.actionCheckoutFragmentToOrderDetailsFragment(order)
+                    val action =
+                        CheckoutFragmentDirections.actionCheckoutFragmentToOrderDetailsFragment(
+                            order
+                        )
                     findNavController().navigate(action)
                 }
             }
@@ -147,15 +153,26 @@ class CheckoutFragment : Fragment() {
 
 
     }
+
+    fun getRadioButtonValue(): Boolean {
+        binding.apply {
+            when (binding.rgGardener.checkedRadioButtonId) {
+                R.id.rb_yes -> return true
+                R.id.rb_no -> return false
+            }
+        }
+        return false
+    }
+
     private fun placeOrder() {
 
         val order = Order(
             orderId = generateRandomStringWithTime(),
-            customerInfo = binding.user?: User(),
-            customerDeliveryInfo = binding.deliveryInfo?: DeliveryInfo(),
+            customerInfo = binding.user ?: User(),
+            customerDeliveryInfo = binding.deliveryInfo ?: DeliveryInfo(),
             cartItemList = getCartItemList(),
             paymentMethod = CASH_ON_DELIVERY,
-            amounts = amount?:Amounts(),
+            amounts = amount ?: Amounts(),
             orderStatus = ORDER_PENDING,
             storeId = cartManager.store?.email!!
         )
@@ -197,7 +214,7 @@ class CheckoutFragment : Fragment() {
         binding.deliveryInfo?.locationLongitude = longitude
         binding.deliveryInfo = binding.deliveryInfo
         binding.invalidateAll()
-        Log.d("USMAN-TAG", binding.deliveryInfo?.pinAddress?:"no address")
+        Log.d("USMAN-TAG", binding.deliveryInfo?.pinAddress ?: "no address")
     }
 
 }
