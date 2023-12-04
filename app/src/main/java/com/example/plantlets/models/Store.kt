@@ -23,5 +23,5 @@ data class Store(
     var contact:String?=null,
     var totalRating:Double=5.0,
     var totalOrders:Int=0,
-    val image:String?=null,
+    var image:String?=null,
 ):Parcelable

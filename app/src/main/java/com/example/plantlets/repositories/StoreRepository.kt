@@ -1,8 +1,10 @@
 package com.example.plantlets.repositories
 
+import android.net.Uri
 import android.util.Log
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
+import com.example.plantlets.models.SellerItem
 import com.example.plantlets.models.Store
 import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.ACTIVE
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
@@ -114,6 +117,44 @@ class StoreRepository @Inject constructor(
         } catch (e: Exception) {
             // Handle exceptions (e.g., FirestoreException, etc.) appropriately
             return CustomResponse.Error("Error fetching store: ${e.message}")
+        }
+    }
+
+
+    suspend fun changeDisplay(imageUri: Uri?) {
+         localRepository.getStoreFromPref()?.email?.let {email->
+             imageUri?.apply {
+                 val imageUrl = uploadImage(imageUri)
+                 val updatedData = mapOf(
+                     "image" to imageUrl
+                 )
+                 databaseReference?.apply {
+                     document(email).update(updatedData).await()
+                 }
+                 localRepository.getStoreFromPref()?.apply {
+                     image = imageUrl
+                     localRepository.saveStoreDataToSharedPreferences(this)
+                 }
+             }
+         }
+
+    }
+    private suspend fun uploadImage(uri: Uri): String {
+        val email = localRepository.getStoreFromPref()?.email
+        val storageRef = FirebaseStorage.getInstance().reference
+        val fileName = "${email ?: "display"}/${System.currentTimeMillis()}.jpg"
+        val fileRef = storageRef.child(fileName)
+
+        return try {
+            val uploadTask = fileRef.putFile(uri)
+            val taskSnapshot = uploadTask.await() // Wait for the upload to complete
+
+            val downloadUri = fileRef.downloadUrl.await() // Wait for the URL to be available
+            downloadUri.toString() // Return the URL as a String
+        } catch (e: Exception) {
+            Log.e("USMAN-TAG", "Image upload failed: ${e.message}")
+            // Handle thsafe error or return a default URL
+            ""
         }
     }
 

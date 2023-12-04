@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:background="@color/green_grey"
+    tools:context=".fragments.seller.ChangeDisplayFragment">
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/futura_medium"
+        android:text="Change Display"
+        android:textAlignment="center"
+        android:textColor="@color/light_green"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/font_normal_125"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:elevation="3dp"
+        android:layout_marginStart="@dimen/padding_small_100"
+        android:background="@drawable/shape_oval_corner_grey"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabel">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_back" />
+    </RelativeLayout>
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivDisplayImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_normal_200"
+        android:adjustViewBounds="true"
+        android:background="@color/light_grey"
+        android:elevation="3dp"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel"
+        android:src="@drawable/display_store"
+        app:shapeAppearanceOverlay="@style/curvedCorner"
+        app:strokeColor="@color/light_green"
+        app:strokeWidth="1dp" />
+
+    <Button
+        android:id="@+id/btnChangeImage"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal_300"
+        android:backgroundTint="@color/light_green"
+        android:fontFamily="@font/futur"
+        android:paddingVertical="@dimen/padding_small_150"
+        android:text="Change"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_small_150"
+        android:textStyle="bold"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/ivDisplayImage"
+        />
+    <Button
+        android:id="@+id/btnAction"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal_300"
+        android:backgroundTint="@color/light_green"
+        android:fontFamily="@font/futur"
+        android:paddingVertical="@dimen/padding_small_150"
+        android:text="Update"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_small_150"
+        android:textStyle="bold"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeImage"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

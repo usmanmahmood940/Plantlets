@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.plantlets.R
 import com.example.plantlets.activities.LoginActivity
 import com.example.plantlets.activities.UserHomeActivity
@@ -43,6 +44,11 @@ class SettingFragment : Fragment() {
             auth.signOut()
             requireActivity().startActivity(Intent(requireContext(),LoginActivity::class.java))
             requireActivity().finish()
+        }
+        binding.tvChangeDisplay.setOnClickListener {
+            if(findNavController().currentDestination?.id == R.id.settingFragment){
+                findNavController().navigate(R.id.action_settingFragment_to_changeDisplayFragment)
+            }
         }
     }
 
