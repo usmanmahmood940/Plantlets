@@ -11,7 +11,7 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:fontFamily="@font/futura_medium"
-        android:text="Dashboard"
+        android:text="Admin Dashboard"
         android:textColor="@color/light_green"
         android:textSize="@dimen/font_normal_125"
         android:textStyle="bold"

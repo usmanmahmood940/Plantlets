@@ -5,6 +5,8 @@ import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.models.Category
 import com.example.plantlets.utils.Constants.CATEGORIES_REFRENCE
 import com.example.plantlets.utils.Constants.STORE_REFRENCE
+import com.example.plantlets.utils.Constants.STORE_REFRENCE_USER
+import com.example.plantlets.utils.Constants.USER_TYPE
 import com.example.plantlets.utils.Helper
 import com.example.plantlets.utils.Helper.generateRandomStringWithTime
 import com.google.firebase.auth.FirebaseAuth
@@ -38,11 +40,22 @@ class CategoryRepository @Inject constructor(
     init {
         _categoriesStateFlow.value = CustomResponse.Loading()
         auth.currentUser?.apply {
-            localRepository.getStoreFromPref()?.apply {
-                databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
-                    .collection(CATEGORIES_REFRENCE)
+            localRepository.getCurrentUserData()?.let {
+                if(it.type == USER_TYPE){
+                    localRepository.getStoreFromPref(STORE_REFRENCE_USER)?.apply {
+                        databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
+                            .collection(CATEGORIES_REFRENCE)
+                    }
+                }
+                else{
+                    localRepository.getStoreFromPref()?.apply {
+                        databaseReference = firestoreRef.collection(STORE_REFRENCE).document(email!!)
+                            .collection(CATEGORIES_REFRENCE)
 
+                    }
+                }
             }
+
         }
     }
 

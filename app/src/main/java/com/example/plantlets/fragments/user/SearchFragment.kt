@@ -216,13 +216,12 @@ class SearchFragment : Fragment(), UserItemClickListener {
 
     fun updateDialogCheck() {
         lifecycleScope.launch {
-            val job = searchViewModel.categoryList.collect { response ->
+           searchViewModel.categoryList.collect { response ->
                 when (response) {
                     is CustomResponse.Success -> {
                         dialogCheck = true
 
                     }
-
                     else -> {
                         dialogCheck = false
                     }

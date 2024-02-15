@@ -37,6 +37,15 @@ object Helper {
         return dateFormat.format(currentDate)
     }
 
+    fun convertStringtoDate(date:String):Date{
+        val dateFormat = SimpleDateFormat("dd, MMMM yyyy", Locale.getDefault())
+        return dateFormat.parse(date)
+    }
+
+    fun compareDate(date1:Date,date2:Date):Boolean{
+        return date1.before(date2)
+    }
+
     fun generateRandomStringWithTime(): String {
         val timestamp = System.currentTimeMillis()
         val randomString = generateRandomString(6)
