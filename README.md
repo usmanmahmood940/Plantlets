@@ -20,8 +20,8 @@
 2. Open the project in Android Studio.
 3. Build and run on your Android device or emulator.
 
-## App Demo
- <a href="https://drive.google.com/drive/folders/148Gx5NXNsNfdcy2DWHx6O5RBmVNepN4z" target="_blank"> App Demo </a>
+## App Demo + UI Screenshots
+ <a href="https://drive.google.com/drive/folders/148Gx5NXNsNfdcy2DWHx6O5RBmVNepN4z" target="_blank"> App Demo + UI Screenshots </a>
 
 ## Contact
 For inquiries and collaboration opportunities, feel free to reach out via email: [usman.hussain940@@gmail.com](mailto:usman.hussain940@gmail.com).
