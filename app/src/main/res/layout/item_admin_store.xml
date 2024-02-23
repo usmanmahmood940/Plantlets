@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    android:id="@+id/storeLayout"
+    android:backgroundTint="@color/green_grey"
+    android:layout_marginVertical="@dimen/margin_normal_100"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sellerItemCont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small_150"
+        >
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal_100"
+            android:fontFamily="@font/futur"
+            android:text="Aroma gardens"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_small_150"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/tvRatingPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/futur"
+            android:text="9.2 "
+            android:textColor="@color/black_grey"
+            android:textSize="@dimen/font_small_100"
+            app:layout_constraintStart_toEndOf="@id/ivStar"
+            app:layout_constraintTop_toTopOf="@+id/ivStar" />
+
+
+        <TextView
+            android:id="@+id/tvReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/futur"
+            android:text="(200+)"
+            android:textSize="@dimen/font_small_100"
+            android:textColor="@color/black_grey"
+            android:layout_marginEnd="@dimen/margin_normal_100"
+            app:layout_constraintStart_toEndOf="@id/tvRatingPlace"
+            app:layout_constraintTop_toTopOf="@id/tvRatingPlace"
+            />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_50"
+            android:fontFamily="@font/futur"
+            android:text="Lahore"
+            android:textColor="@color/light_green"
+            android:textSize="@dimen/font_small_115"
+            app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/ivStar"/>
+
+
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvRatingPlace"
+            app:srcCompat="@drawable/baseline_star_24" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_50"
+            android:layout_marginEnd="@dimen/margin_normal_100"
+            android:fontFamily="@font/futur"
+            android:text="Active"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_normal_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+             />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

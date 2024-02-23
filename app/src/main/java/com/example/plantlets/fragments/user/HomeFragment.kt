@@ -96,8 +96,10 @@ class HomeFragment : Fragment(), UserItemClickListener {
             }
 
             tvViewAll.setOnClickListener {
-
-
+                if (findNavController().currentDestination?.id == R.id.homeFragment) {
+                    val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                    findNavController().navigate(action)
+                }
             }
         }
     }

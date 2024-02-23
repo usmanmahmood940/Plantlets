@@ -91,6 +91,9 @@ class UserItemAdapter(
                 cvMain.setOnClickListener {
                     listener?.onClick(item)
                 }
+                btnAddToCart.setOnClickListener {
+                    listener?.onClick(item)
+                }
 
 
             }

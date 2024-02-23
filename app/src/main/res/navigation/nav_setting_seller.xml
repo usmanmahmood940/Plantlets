@@ -9,5 +9,14 @@
         android:id="@+id/settingFragment"
         android:name="com.example.plantlets.fragments.seller.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_changeDisplayFragment"
+            app:destination="@id/changeDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeDisplayFragment"
+        android:name="com.example.plantlets.fragments.seller.ChangeDisplayFragment"
+        android:label="fragment_change_display"
+        tools:layout="@layout/fragment_change_display" />
 </navigation>

@@ -1,6 +1,8 @@
 package com.example.plantlets.fragments.seller
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +42,7 @@ class OrdersFragment : Fragment() {
         binding =  FragmentOrdersBinding.inflate(inflater, container, false)
         ordersViewModel = ViewModelProvider(this).get(OrdersViewModel::class.java)
         init()
+        setupSearchBar()
         return binding.root
     }
 
@@ -71,8 +74,9 @@ class OrdersFragment : Fragment() {
                 when (response) {
                     is CustomResponse.Success -> {
                         (requireActivity() as BaseActivity).hideProgressBar()
-                        response.data?.let { storeList ->
-                            orderAdapter.submitList(storeList)
+                        response.data?.let { orderList ->
+                            val list = ordersViewModel.getOrdersBySearch(ordersViewModel.query?:"")
+                            orderAdapter.submitList(list)
                         }
 
                     }
@@ -102,6 +106,19 @@ class OrdersFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         ordersViewModel.stopObserving()
+    }
+
+    private fun setupSearchBar() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                val query = editable.toString()
+                ordersViewModel.query = query
+                val list = ordersViewModel.getOrdersBySearch(query)
+                orderAdapter.submitList(list)
+            }
+        })
     }
 
 

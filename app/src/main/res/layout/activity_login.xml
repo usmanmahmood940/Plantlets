@@ -188,7 +188,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_circle_light_grey"
-
+                        android:visibility="gone"
                         android:padding="@dimen/padding_small_50"
                         android:scaleType="center"
                         android:src="@drawable/ic_google" />
@@ -199,6 +199,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_circle_light_grey"
                         android:padding="@dimen/padding_small_50"
+                        android:visibility="gone"
                         android:src="@drawable/ic_facebook"
                         android:scaleType="center"
                         android:layout_toRightOf="@id/btn_google_login"
@@ -216,6 +217,7 @@
                     android:text="Forgot Password"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/font_small_115"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_google_facebook" />

@@ -22,6 +22,8 @@ class OrdersViewModel @Inject constructor(
     val ordersList: StateFlow<CustomResponse<List<Order>>>
         get() = orderRepository.ordersStateFlow
 
+    var query: String? = null
+
     fun startObserving() {
         localRepository.getStoreFromPref()?.let {
             orderRepository.getStoreOrders(it.email)
@@ -30,6 +32,19 @@ class OrdersViewModel @Inject constructor(
 
     fun stopObserving() {
         orderRepository.removeListener()
+    }
+
+    fun getOrdersBySearch(query: String): List<Order> {
+
+        val filteredItems = ordersList.value?.data?.filter { order ->
+            order.orderId.contains(query) ||
+                    order.orderStatus.contains(query) ||
+                    order.date.contains(query) ||
+                    order.customerInfo?.name?.contains(query)==true ||
+                    order.amounts?.totalAmount.toString().contains(query)
+        } ?: emptyList()
+        return filteredItems
+
     }
 
 //    fun setStore(store:Store?){

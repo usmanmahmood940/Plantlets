@@ -230,6 +230,32 @@
                                 app:layout_constraintStart_toEndOf="@+id/tvLabelOrderStatus"
                                 app:layout_constraintTop_toTopOf="@id/tvLabelOrderStatus" />
 
+                            <TextView
+                                android:id="@+id/tvLabelGardenerService"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small_150"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="Gardener Service"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvOrderStatus" />
+
+                            <TextView
+                                android:id="@+id/tvGardenerService"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_large_100"
+                                android:fontFamily="@font/futura_medium"
+                                android:text="@{order.gardenerService?`Yes`:`No`}"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black_grey"
+                                android:textSize="@dimen/font_small_125"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvLabelGardenerService"
+                                app:layout_constraintTop_toTopOf="@id/tvLabelGardenerService" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <View

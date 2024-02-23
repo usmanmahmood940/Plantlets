@@ -142,6 +142,7 @@ class PinLocationMapActivity : BaseActivity(), OnMapReadyCallback {
 
     private val requestLocationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
             val isGranted = permissions.all { it.value }
             if (isGranted) {
                 updateMap()

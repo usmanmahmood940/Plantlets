@@ -7,22 +7,24 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plantlets.Manager.CartManager
 import com.example.plantlets.R
 import com.example.plantlets.Response.CustomResponse
 import com.example.plantlets.activities.BaseActivity
 import com.example.plantlets.activities.UserHomeActivity
 import com.example.plantlets.adapters.OrderItemAdapter
 import com.example.plantlets.databinding.FragmentOrderDetailsBinding
-import com.example.plantlets.fragments.user.UserOrdersFragmentDirections
 import com.example.plantlets.models.Order
 import com.example.plantlets.utils.Constants
 import com.example.plantlets.utils.Constants.ORDER_IN_PROGRESS
 import com.example.plantlets.utils.Constants.ORDER_PENDING
 import com.example.plantlets.viewmodels.OrderDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OrderDetailsFragment : Fragment() {
@@ -30,6 +32,9 @@ class OrderDetailsFragment : Fragment() {
     private lateinit var binding: FragmentOrderDetailsBinding
     private lateinit var orderDetailsViewModel: OrderDetailsViewModel
     private var myOrder: Order? = null
+
+    @Inject
+    lateinit var cartManager: CartManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args: OrderDetailsFragmentArgs by navArgs()
@@ -56,8 +61,22 @@ class OrderDetailsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStop() {
+
+        super.onStop()
+        findNavController().previousBackStackEntry?.destination.apply{
+            when (id) {
+                R.id.checkoutFragment -> {
+                    (requireActivity() as UserHomeActivity).apply {
+                        changeIconCart()
+                    }
+                }
+            }
+        }
+    }
+
     private fun handleRatingResult() {
-        val navBackStackEntry = findNavController().getBackStackEntry(R.id.orderDetailsFragment2)
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.orderDetailsFragment)
         val ratingData = navBackStackEntry.savedStateHandle.getLiveData<Bundle>(Constants.RATING_DATA)
         ratingData.observe(viewLifecycleOwner) { data ->
             val rating = data.getFloat(Constants.RATING)
@@ -90,7 +109,8 @@ class OrderDetailsFragment : Fragment() {
                 }
 
                 R.id.checkoutFragment -> {
-                    findNavController().popBackStack(R.id.cartFragment, false)
+                    cartManager.clearCart()
+                    findNavController().popBackStack(R.id.cartFragment, true)
                 }
 
                 else -> {
@@ -100,7 +120,20 @@ class OrderDetailsFragment : Fragment() {
         }
     }
 
+    fun setCartIcon(){
+        findNavController().previousBackStackEntry?.destination.apply{
+            when (id) {
+                R.id.checkoutFragment -> {
+                    (requireActivity() as UserHomeActivity).apply {
+                        changeIconCartFill()
+                    }
+                }
+            }
+        }
+    }
+
     private fun init() {
+        setCartIcon()
         checkNav()
         orderDetailsViewModel.store.observe(viewLifecycleOwner, { response ->
             when (response) {
@@ -218,7 +251,7 @@ class OrderDetailsFragment : Fragment() {
                                 } ?: kotlin.run {
                                     btnRate.visibility = View.VISIBLE
                                     btnRate.setOnClickListener{
-                                        if (findNavController().currentDestination?.id == R.id.orderDetailsFragment2) {
+                                        if (findNavController().currentDestination?.id == R.id.orderDetailsFragment) {
                                             val action = OrderDetailsFragmentDirections.actionOrderDetailsFragment2ToOrderRatingFragment()
                                             findNavController().navigate(action)
                                         }

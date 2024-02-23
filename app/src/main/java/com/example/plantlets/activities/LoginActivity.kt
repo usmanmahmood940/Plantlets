@@ -45,6 +45,7 @@ class LoginActivity : BaseActivity() {
                 }
                 auth.currentUser?.let {
                     startActivity(Intent(this@LoginActivity, getNavigation()))
+                    finish()
                 }
 
             }
