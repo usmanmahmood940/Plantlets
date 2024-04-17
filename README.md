@@ -22,7 +22,7 @@ Plantlets - Android E-commerce App for Plants 🌿📱 Explore the plant world w
 - **Navigation Component:** Employed for smooth navigation and enhanced user experience.
 - **Single Activity Architecture:** Adopted for a streamlined and robust app structure, ensuring optimal performance.
 
-## Getting Started
+## Installation
 1. Clone the repository: `git clone https://github.com/usmanmahmood940/Plantlets.git`
 2. Open the project in Android Studio.
 3. Build and run on your Android device or emulator.
