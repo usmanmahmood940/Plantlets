@@ -1,5 +1,9 @@
 # Plantlets - Android E-commerce App for Plants 🌿📱
 
+## Introduction 
+
+Plantlets - Android E-commerce App for Plants 🌿📱 Explore the plant world with this Kotlin-based app! Connect nurseries and plant lovers, search with advanced filters, and enjoy real-time updates using Firestore. Built with Hilt for efficient dependency injection and Navigation Component for smooth navigation. Join us in cultivating a dig
+
 ## App Demo + UI Screenshots
  <a href="https://drive.google.com/drive/folders/148Gx5NXNsNfdcy2DWHx6O5RBmVNepN4z" target="_blank"> App Demo + UI Screenshots </a>
 
